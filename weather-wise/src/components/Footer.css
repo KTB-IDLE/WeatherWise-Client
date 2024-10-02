@@ -1,0 +1,32 @@
+.footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 0;
+  background-color: white;
+  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1);
+  position: fixed; /* 스크롤과 상관없이 화면 하단에 고정 */
+  bottom: 0; /* 화면 하단에 고정 */
+  left: 50%; /* 중앙 정렬 */
+  transform: translateX(-50%); /* 중앙 정렬 보정 */
+  width: calc(100% - 40px); /* padding에 맞춰 너비 설정 */
+  max-width: 400px; /* #root와 동일한 너비로 설정 */
+  z-index: 1000; /* 다른 요소 위에 표시 */
+  height: 60px; /* 높이를 높게 설정 */
+}
+
+.footer-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.footer-icon img {
+  width: 24px;
+  height: 24px;
+}
+
+body {
+  padding-bottom: 60px; /* Footer가 콘텐츠와 겹치지 않도록 여유 공간 확보 */
+  margin: 0;
+}

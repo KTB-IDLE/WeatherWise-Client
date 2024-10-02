@@ -1,0 +1,28 @@
+@font-face {
+  font-family: "NanumPenScript";
+  src: url("/NanumPenScript-Regular.ttf");
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%; /* 전체 높이를 설정하여, 페이지가 스크롤되지 않도록 */
+  background-color: rgb(246, 246, 246);
+}
+
+#root {
+  background-color: white;
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+  min-height: 100vh; /* 페이지 전체 높이 채우기 */
+  position: relative;
+  box-shadow: rgba(100, 100, 100, 0.2) 0px 0px 29px 0px;
+  padding-bottom: 60px; /* Footer가 겹치지 않도록 하단 여백 추가 */
+}
+
+body * {
+  font-family: "NanumPenScript";
+}
