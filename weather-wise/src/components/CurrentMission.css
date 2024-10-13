@@ -13,6 +13,7 @@ h1 {
   justify-content: center;
   align-items: center;
   font-size: 22px; /* 날짜 부분 크기 키움 */
+  margin-bottom: 25px;
 }
 
 .nav-button {
