@@ -1,0 +1,6 @@
+.mission-name {
+  text-align: center; /* 텍스트를 가운데 정렬 */
+  margin: 20px 0; /* 위, 아래 여백 추가 */
+  font-size: 30px; /* 폰트 크기 조정 */
+  font-weight: bold; /* 폰트 굵기 조정 */
+}

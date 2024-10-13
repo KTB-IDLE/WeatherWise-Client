@@ -97,7 +97,7 @@ const Missions = () => {
       />
 
       {/* CreateMission과 CurrentMission에 nickName과 날짜 관련 데이터 전달 */}
-      <CreateMission nickName={nickName} />
+      <CreateMission nickName={nickName} text="새로운 미션을 만들어보세요!" />
       <CurrentMission
         nickName={nickName}
         currentDate={currentDate}
