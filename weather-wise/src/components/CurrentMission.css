@@ -1,0 +1,34 @@
+.current-mission-container {
+  text-align: center;
+  margin-top: 50px;
+}
+
+h1 {
+  font-size: 35px; /* 제목 글씨 크기 키움 */
+  margin-bottom: 20px;
+}
+
+.date-navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px; /* 날짜 부분 크기 키움 */
+  margin-bottom: 25px;
+}
+
+.nav-button {
+  background: none;
+  border: none;
+  font-size: 28px; /* 버튼 글씨 크기 키움 */
+  cursor: pointer;
+  margin: 0 20px;
+}
+
+.nav-button:hover {
+  color: gray;
+}
+
+.date-display {
+  font-size: 25px; /* 날짜 텍스트 크기 키움 */
+  font-weight: bold;
+}

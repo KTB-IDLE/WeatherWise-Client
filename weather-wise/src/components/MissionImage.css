@@ -1,0 +1,34 @@
+.mission-image-container {
+  text-align: center;
+  padding: 20px;
+  border: 2px solid #d3e7d7;
+  border-radius: 10px;
+  max-width: 400px;
+  margin: 20px 20px; /* 상하 20px, 좌우 auto로 가운데 정렬 */
+  box-sizing: border-box; /* 패딩을 포함한 너비 계산 */
+  margin-top: 50px;
+}
+
+.image-upload-box {
+  width: 100%;
+  height: 300px;
+  border: 2px dashed #6cb76c;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.image-upload-box p {
+  font-size: 20px;
+  color: #555;
+}
+
+.mission-image {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+}

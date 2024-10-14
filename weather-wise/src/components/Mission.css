@@ -1,0 +1,55 @@
+.mission-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%; /* 너비를 100%에서 90%로 변경하여 양쪽 간격을 만듦 */
+  max-width: 600px; /* 최대 너비 설정 */
+  padding: 10px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  background-color: #f9f9f9;
+  margin: 0 auto 10px; /* 가운데 정렬 및 하단 마진 */
+  cursor: pointer; /* 버튼 스타일을 위한 커서 변경 */
+  text-align: left; /* 텍스트를 왼쪽 정렬 */
+  margin-top: 25px;
+}
+
+.mission-left {
+  display: block;
+}
+
+.mission-text {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 5px; /* 텍스트와 아이콘 사이 간격을 줄임 */
+}
+
+.mission-exp {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #8c8c8c;
+}
+.exp-icon {
+  width: 18px; /* 아이콘 크기를 조금 줄임 */
+  height: 18px;
+  margin-right: 5px;
+}
+
+.exp-value {
+  color: #8c8c8c;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.mission-status {
+  font-size: 30px;
+  font-weight: bold;
+  color: #4f8a8b;
+  text-align: right;
+}
+
+.success {
+  color: #6cb76c;
+  font-size: 30px;
+}
