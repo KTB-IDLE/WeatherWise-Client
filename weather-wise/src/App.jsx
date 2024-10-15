@@ -7,6 +7,7 @@ import Notfound from "./pages/Notfound";
 import MissionDetails from "./pages/MissionDetails";
 import MissionSuccess from "./pages/MissionSuccess";
 import MissionFail from "./pages/MissionFail";
+import Ranks from "./pages/Ranks";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -19,6 +20,7 @@ function App() {
         <Route path="/missions/:id" element={<MissionDetails />} />
         <Route path="/success" element={<MissionSuccess />} />
         <Route path="/fail" element={<MissionFail />} />
+        <Route path="/rank" element={<Ranks />} />
         {/* 상세 페이지 경로 */}
         <Route path="*" element={<Notfound />} />
       </Routes>
