@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // useNavigate 사용
 import "./MissionAuth.css"; // 스타일을 위한 CSS 파일
+import Modal from "./Modal"; // 모달 컴포넌트 임포트
 
 const MissionAuth = ({ completed, id, imageFile, resetImage }) => {
   const [loading, setLoading] = useState(false); // 로딩 상태 관리
   const [error, setError] = useState(null); // 에러 상태 관리
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
+  const [modalMessage, setModalMessage] = useState(""); // 모달 메시지 상태 관리
   const navigate = useNavigate(); // 경로 이동을 위한 useNavigate
 
   const handleAuthClick = async () => {
@@ -35,18 +38,22 @@ const MissionAuth = ({ completed, id, imageFile, resetImage }) => {
           } = data.result;
 
           if (authenticated) {
-            // navigate로 state 데이터를 전달할 때 정확한 변수명으로 전달
+            // 인증 성공 시 /success 경로로 navigate
             navigate("/success", {
               state: {
                 missionExp,
                 userLevel,
                 userExp,
-                userLevelMaxExp: userLevelTotalExp, // 여기서 userLevelTotalExp는 userLevelMaxExp로 전달
+                userLevelMaxExp: userLevelTotalExp,
               },
             });
           } else {
-            // 인증 실패 시 이미지 초기화 및 알림 표시
-            resetImage();
+            // 인증 실패 시 모달을 통해 경고창 표시
+            setModalMessage(
+              "인증에 실패했습니다! 다른 사진으로 다시 인증해주세요."
+            );
+            setIsModalOpen(true); // 모달 열기
+            resetImage(); // 이미지 초기화
           }
         } else {
           setError("인증에 실패했습니다.");
@@ -78,6 +85,13 @@ const MissionAuth = ({ completed, id, imageFile, resetImage }) => {
           </button>
         </>
       )}
+
+      {/* 모달 컴포넌트 사용 */}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)} // 모달 닫기
+        message={modalMessage} // 모달에 표시할 메시지
+      />
     </div>
   );
 };

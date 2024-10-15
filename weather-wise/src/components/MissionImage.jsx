@@ -7,6 +7,7 @@ const MissionImage = ({
   setImageFile,
   selectedImage,
   setSelectedImage,
+  resetImage,
 }) => {
   // 이미지 파일이 변경될 때 실행되는 함수
   const handleImageChange = (e) => {

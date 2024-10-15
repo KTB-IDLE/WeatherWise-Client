@@ -19,6 +19,12 @@ const MissionDetails = () => {
   const [imageFile, setImageFile] = useState(null); // 이미지 파일 상태 추가
   const [selectedImage, setSelectedImage] = useState(null); // 선택된 이미지 URL 상태 추가
 
+  // 이미지 초기화 함수 정의
+  const resetImage = () => {
+    setSelectedImage(null);
+    setImageFile(null);
+  };
+
   useEffect(() => {
     const fetchMissionDetails = async () => {
       const url = `http://localhost:8080/api/mission-histories/${id}`;
@@ -80,9 +86,15 @@ const MissionDetails = () => {
           uploadFileLink={uploadFileLink} // 서버에서 받은 파일 링크 전달
           setImageFile={setImageFile}
           selectedImage={selectedImage}
+          resetImage={resetImage}
           setSelectedImage={setSelectedImage} // 이미지 초기화 및 상태 관리
         />
-        <MissionAuth completed={completed} id={id} imageFile={imageFile} />
+        <MissionAuth
+          completed={completed}
+          id={id}
+          imageFile={imageFile}
+          resetImage={resetImage}
+        />
       </div>
 
       <Footer />
