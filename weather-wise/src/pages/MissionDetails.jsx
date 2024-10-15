@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
-import Button from "../components/Button"; // Button 컴포넌트를 불러옴
+import Button from "../components/Button";
 import Footer from "../components/Footer";
 import left from "../assets/left.png";
 import mainLogo from "../assets/mainLogo.png";
@@ -16,10 +16,11 @@ const MissionDetails = () => {
   const [missionDetails, setMissionDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [imageFile, setImageFile] = useState(null); // 이미지 파일 상태 추가
 
   useEffect(() => {
     const fetchMissionDetails = async () => {
-      const url = `http://localhost:8080/api/mission-histories/${id}`; // API 요청 경로
+      const url = `http://localhost:8080/api/mission-histories/${id}`;
       setLoading(true);
       try {
         const response = await fetch(url);
@@ -42,7 +43,6 @@ const MissionDetails = () => {
   if (loading) return <div>로딩 중...</div>;
   if (error) return <div>{error}</div>;
 
-  // missionDetails에서 데이터를 추출
   const { nickName, missionName, completed, uploadFileLink } = missionDetails;
 
   return (
@@ -67,15 +67,21 @@ const MissionDetails = () => {
         }
       />
 
-      {/* CreateMission 컴포넌트에 nickName 전달 */}
+      {/* MissionDetailsHedaer */}
       <MissionDetailsHedaer nickName={nickName} />
 
       <MissionName missionName={missionName} />
 
-      {/* MissionImage에 completed와 uploadFileLink 값 전달 */}
-      <MissionImage completed={completed} uploadFileLink={uploadFileLink} />
+      {/* MissionImage에 이미지 파일 상태 관리 함수를 전달 */}
+      <MissionImage
+        completed={completed}
+        uploadFileLink={uploadFileLink}
+        setImageFile={setImageFile} // 이미지 파일 상태 관리
+      />
 
-      <MissionAuth completed={completed} />
+      {/* MissionAuth에 이미지 파일 전달 */}
+      <MissionAuth completed={completed} id={id} imageFile={imageFile} />
+
       <Footer />
     </div>
   );
