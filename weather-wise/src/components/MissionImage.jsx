@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import "./MissionImage.css"; // CSS 파일 임포트
 
-const MissionImage = ({ completed, uploadFileLink, setImageFile }) => {
-  const [selectedImage, setSelectedImage] = useState(null); // 선택된 이미지 상태 관리
-
+const MissionImage = ({
+  completed,
+  uploadFileLink,
+  setImageFile,
+  selectedImage,
+  setSelectedImage,
+}) => {
   // 이미지 파일이 변경될 때 실행되는 함수
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -24,7 +28,6 @@ const MissionImage = ({ completed, uploadFileLink, setImageFile }) => {
           !completed && document.getElementById("imageInput").click()
         }
       >
-        {/* 이미지를 보여줄 때 */}
         {completed && uploadFileLink ? (
           <img
             src={uploadFileLink}

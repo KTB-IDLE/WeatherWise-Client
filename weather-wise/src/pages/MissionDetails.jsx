@@ -17,6 +17,7 @@ const MissionDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [imageFile, setImageFile] = useState(null); // 이미지 파일 상태 추가
+  const [selectedImage, setSelectedImage] = useState(null); // 선택된 이미지 URL 상태 추가
 
   useEffect(() => {
     const fetchMissionDetails = async () => {
@@ -43,7 +44,9 @@ const MissionDetails = () => {
   if (loading) return <div>로딩 중...</div>;
   if (error) return <div>{error}</div>;
 
-  const { nickName, missionName, completed, uploadFileLink } = missionDetails;
+  // missionDetails에서 필요한 데이터 추출
+  const { missionName, completed, uploadFileLink, nickName } =
+    missionDetails || {};
 
   return (
     <div>
@@ -67,20 +70,20 @@ const MissionDetails = () => {
         }
       />
 
-      {/* MissionDetailsHedaer */}
-      <MissionDetailsHedaer nickName={nickName} />
-
-      <MissionName missionName={missionName} />
-
-      {/* MissionImage에 이미지 파일 상태 관리 함수를 전달 */}
-      <MissionImage
-        completed={completed}
-        uploadFileLink={uploadFileLink}
-        setImageFile={setImageFile} // 이미지 파일 상태 관리
-      />
-
-      {/* MissionAuth에 이미지 파일 전달 */}
-      <MissionAuth completed={completed} id={id} imageFile={imageFile} />
+      {/* 단일 미션 데이터를 렌더링 */}
+      <div>
+        {/* MissionDetailsHedaer에 nickName 전달 */}
+        <MissionDetailsHedaer nickName={nickName} />
+        <MissionName missionName={missionName} />
+        <MissionImage
+          completed={completed} // 미션의 completed 값 전달
+          uploadFileLink={uploadFileLink} // 서버에서 받은 파일 링크 전달
+          setImageFile={setImageFile}
+          selectedImage={selectedImage}
+          setSelectedImage={setSelectedImage} // 이미지 초기화 및 상태 관리
+        />
+        <MissionAuth completed={completed} id={id} imageFile={imageFile} />
+      </div>
 
       <Footer />
     </div>

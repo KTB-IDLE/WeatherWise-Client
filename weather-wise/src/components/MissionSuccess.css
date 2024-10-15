@@ -1,0 +1,25 @@
+.mission-success-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* 전체 페이지 중앙 정렬 */
+  min-height: 100vh;
+  padding: 20px;
+  padding-bottom: 120px;
+  box-sizing: border-box;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* SuccessComment와 SuccessInfo를 가운데 정렬 */
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.success-info-container {
+  margin-top: 20px;
+  margin-bottom: 60px;
+  width: 100%; /* 너비를 100%로 설정 */
+  max-width: 400px; /* 최대 너비를 설정 */
+}

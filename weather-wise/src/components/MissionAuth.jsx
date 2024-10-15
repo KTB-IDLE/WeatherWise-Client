@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // useNavigate 사용
 import "./MissionAuth.css"; // 스타일을 위한 CSS 파일
 
-const MissionAuth = ({ completed, id, imageFile }) => {
+const MissionAuth = ({ completed, id, imageFile, resetImage }) => {
   const [loading, setLoading] = useState(false); // 로딩 상태 관리
   const [error, setError] = useState(null); // 에러 상태 관리
   const navigate = useNavigate(); // 경로 이동을 위한 useNavigate
@@ -26,25 +26,33 @@ const MissionAuth = ({ completed, id, imageFile }) => {
         const data = await response.json();
 
         if (data.code === "success") {
-          const { authenticated, missionPoint, userLevel, userPoint } =
-            data.result;
+          const {
+            authenticated,
+            missionExp,
+            userLevel,
+            userExp,
+            userLevelTotalExp,
+          } = data.result;
 
           if (authenticated) {
-            // 성공 시 /success 경로로 데이터 전달
+            // navigate로 state 데이터를 전달할 때 정확한 변수명으로 전달
             navigate("/success", {
               state: {
-                missionPoint,
+                missionExp,
                 userLevel,
-                userPoint,
+                userExp,
+                userLevelMaxExp: userLevelTotalExp, // 여기서 userLevelTotalExp는 userLevelMaxExp로 전달
               },
             });
           } else {
-            window.location.href = "/fail";
+            // 인증 실패 시 이미지 초기화 및 알림 표시
+            resetImage();
           }
         } else {
           setError("인증에 실패했습니다.");
         }
       } catch (err) {
+        console.log(err);
         setError("서버와의 통신 중 오류가 발생했습니다.");
       } finally {
         setLoading(false); // 로딩 상태 종료
@@ -62,9 +70,9 @@ const MissionAuth = ({ completed, id, imageFile }) => {
         <>
           {error && <p className="error-message">{error}</p>}
           <button
-            className={`auth-button ${completed ? "disabled" : "active"}`}
+            className={`auth-button ${completed ? "disabled" : "active"}`} // completed가 false면 활성화
             onClick={handleAuthClick}
-            disabled={completed}
+            disabled={completed} // completed가 true일 때 버튼 비활성화
           >
             인증하기
           </button>

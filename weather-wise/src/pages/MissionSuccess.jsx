@@ -1,13 +1,54 @@
+import React from "react";
+import { useLocation } from "react-router-dom";
+import SuccessComment from "../components/SuccessComment";
+import Header from "../components/Header";
+import Button from "../components/Button";
+import Footer from "../components/Footer";
+import left from "../assets/left.png";
+import mainLogo from "../assets/mainLogo.png";
+import info from "../assets/info.png";
+import SuccessInfo from "../components/SuccessInfo";
+
 const MissionSuccess = () => {
-  const location = useLocation(); // 경로로 전달된 state 받기
-  const { missionPoint, userLevel, userPoint } = location.state || {}; // state가 없을 경우 빈 객체 처리
+  const location = useLocation();
+
+  // location.state로부터 동적으로 넘어온 데이터
+  const { missionExp, userLevel, userExp, userLevelMaxExp } =
+    location.state || {};
 
   return (
-    <div>
-      <h1>인증 성공!</h1>
-      <p>미션 포인트: {missionPoint}</p>
-      <p>유저 레벨: {userLevel}</p>
-      <p>유저 포인트: {userPoint}</p>
+    <div className="mission-success-page">
+      <Header
+        leftChild={
+          <Button
+            text={<img src={left} alt="Back" />}
+            type="icon"
+            onClick={() => console.log("Back button clicked")}
+          />
+        }
+        title={<img src={mainLogo} alt="mainLogo" />}
+        rightChild={
+          <div>
+            <Button
+              text={<img src={info} alt="info" />}
+              type="icon"
+              onClick={() => console.log("Notification button clicked")}
+            />
+          </div>
+        }
+      />
+
+      <SuccessComment />
+
+      {/* SuccessInfo에 필요한 데이터를 전달 */}
+      <SuccessInfo
+        missionExp={missionExp}
+        userLevel={userLevel}
+        userExp={userExp}
+        userLevelMaxExp={userLevelMaxExp}
+      />
+
+      <Footer />
     </div>
   );
 };
