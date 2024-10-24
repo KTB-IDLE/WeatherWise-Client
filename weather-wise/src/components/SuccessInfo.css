@@ -1,0 +1,87 @@
+.success-info-container {
+  border: 3px solid #d9e5c7;
+  border-radius: 10px;
+  padding: 20px;
+  background-color: white;
+  width: 300px; /* 고정 너비 설정 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 가로축 중앙 정렬 */
+  justify-content: center; /* 세로축 중앙 정렬 */
+  margin-top: 20px;
+  margin-left: 28px;
+}
+
+.success-info-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.exp-icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.exp-text {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.earned-exp,
+.exp-unit {
+  color: #333;
+}
+
+.remaining-exp {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #555;
+}
+
+.exp-bar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%; /* 가로 폭을 채우도록 설정 */
+  margin-bottom: 20px;
+}
+
+.exp-bar {
+  width: 80%; /* 프로그레스 바 너비 */
+  height: 10px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-right: 10px;
+}
+
+.exp-bar-progress {
+  height: 100%;
+  background-color: #4ac4f7;
+  transition: width 0.3s ease;
+}
+
+.exp-bar-text {
+  font-size: 0.8rem;
+  color: #555;
+}
+
+.confirm-button {
+  background-color: #a3d35c;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  width: 60%;
+}
+
+.confirm-button:hover {
+  background-color: #8ec14a;
+}
