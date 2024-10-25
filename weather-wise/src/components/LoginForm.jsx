@@ -5,35 +5,44 @@ import kakao from "../assets/kakao.png";
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const [serialId, setSerialId] = useState(""); // serialId <-> email 상태
-  const [password, setPassword] = useState(""); // password 상태
+  const [serialId, setSerialId] = useState("");
+  const [password, setPassword] = useState("");
 
-  // .env 파일의 VITE_API_BASE_URL을 환경변수에서 가져옴
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-  // 로그인 버튼을 눌렀을 때 실행되는 함수
+  // 쿠키에서 특정 이름의 쿠키 값을 찾는 함수
+  const parseCookie = (name) => {
+    const cookies = document.cookie.split("; ");
+    const foundCookie = cookies.find((cookie) => cookie.startsWith(`${name}=`));
+    return foundCookie ? foundCookie.split("=")[1] : null;
+  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("serialId", serialId);
+    formData.append("password", password);
+
     try {
       const response = await fetch(`${API_BASE_URL}/v1/sign-in`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          serialId,
-          password,
-        }),
+        credentials: "include", // 쿠키를 포함하도록 설정
+        body: formData,
       });
 
-      const data = await response.json();
-      if (data.code === "success") {
-        // 로그인 성공 처리: 필요에 따라 다른 동작 추가
+      const result = await response.text();
+
+      if (result.trim() === "OK") {
         alert("로그인 성공!");
-        // 예시로 홈 화면으로 리다이렉트
         navigate("/");
+
+        // 쿠키에서 accessToken과 refreshToken 값 가져오기
+        const accessToken = parseCookie("accessToken");
+        // https 환경에서만 사용 가능
+        const refreshToken = parseCookie("refreshToken");
       } else {
-        alert(data.message || "로그인에 실패했습니다.");
+        alert("로그인에 실패했습니다.");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -41,12 +50,10 @@ const LoginForm = () => {
     }
   };
 
-  // 카카오 로그인 버튼을 눌렀을 때 실행되는 함수
   const handleKakaoLogin = () => {
     window.location.href = `${API_BASE_URL}/authorization/kakao`;
   };
 
-  // 가입하기 버튼을 눌렀을 때 실행되는 함수
   const handleRegister = () => {
     navigate("/join");
   };
@@ -60,7 +67,7 @@ const LoginForm = () => {
             className="login-input"
             placeholder="이메일"
             value={serialId}
-            onChange={(e) => setSerialId(e.target.value)} // serialId 상태 업데이트
+            onChange={(e) => setSerialId(e.target.value)}
             required
           />
         </div>
@@ -70,7 +77,7 @@ const LoginForm = () => {
             className="login-input"
             placeholder="비밀번호"
             value={password}
-            onChange={(e) => setPassword(e.target.value)} // password 상태 업데이트
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
         </div>
