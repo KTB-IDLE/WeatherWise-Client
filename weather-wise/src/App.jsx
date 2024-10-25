@@ -13,25 +13,107 @@ import Login from "./pages/Login";
 import Survey from "./pages/Survey";
 
 function App() {
-  const [count, setCount] = useState(0);
+  // 쿠키에서 AccessToken 값을 가져오는 함수
+  const getCookie = (name) => {
+    const cookies = document.cookie.split("; ");
+    const foundCookie = cookies.find((cookie) => cookie.startsWith(`${name}=`));
+    return foundCookie ? foundCookie.split("=")[1] : null;
+  };
+
+  // PrivateRoute: AccessToken이 있는 경우만 접근 가능
+  const PrivateRoute = ({ children }) => {
+    const accessToken = getCookie("accessToken");
+    return accessToken ? children : <Navigate to="/login" />;
+  };
+
+  // PublicRoute: AccessToken이 없는 경우에만 접근 가능
+  const PublicRoute = ({ children }) => {
+    const accessToken = getCookie("accessToken");
+    return accessToken ? <Navigate to="/" /> : children;
+  };
 
   return (
-    <>
-      <Routes>
-        {/* <Route path="/" element={<Home />} /> */}
-        <Route path="/" element={<Navigate to="/login" />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/join" element={<Join />} />
-        <Route path="/missions" element={<Missions />} />
-        <Route path="/missions/:id" element={<MissionDetails />} />
-        <Route path="/success" element={<MissionSuccess />} />
-        <Route path="/fail" element={<MissionFail />} />
-        <Route path="/rank" element={<Ranks />} />
-        <Route path="/survey" element={<Survey />} />
-        {/* 상세 페이지 경로 */}
-        <Route path="*" element={<Notfound />} />
-      </Routes>
-    </>
+    <Routes>
+      {/* /로 접근할 때 AccessToken 유무에 따라 Home 또는 Login으로 리다이렉트 */}
+      <Route
+        path="/"
+        element={
+          <PrivateRoute>
+            <Home />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/login"
+        element={
+          <PublicRoute>
+            <Login />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/join"
+        element={
+          <PublicRoute>
+            <Join />
+          </PublicRoute>
+        }
+      />
+
+      {/* 아래는 PrivateRoute 적용하여 AccessToken 없을 시 로그인 페이지로 리다이렉트 */}
+      <Route
+        path="/missions"
+        element={
+          <PrivateRoute>
+            <Missions />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/missions/:id"
+        element={
+          <PrivateRoute>
+            <MissionDetails />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/success"
+        element={
+          <PrivateRoute>
+            <MissionSuccess />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/fail"
+        element={
+          <PrivateRoute>
+            <MissionFail />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/rank"
+        element={
+          <PrivateRoute>
+            <Ranks />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/survey"
+        element={
+          <PrivateRoute>
+            <Survey />
+          </PrivateRoute>
+        }
+      />
+
+      {/* Not found */}
+      <Route path="*" element={<Notfound />} />
+    </Routes>
   );
 }
 
