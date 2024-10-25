@@ -10,6 +10,7 @@ import MissionFail from "./pages/MissionFail";
 import Ranks from "./pages/Ranks";
 import Join from "./pages/Join";
 import Login from "./pages/Login";
+import Survey from "./pages/Survey";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -26,6 +27,7 @@ function App() {
         <Route path="/success" element={<MissionSuccess />} />
         <Route path="/fail" element={<MissionFail />} />
         <Route path="/rank" element={<Ranks />} />
+        <Route path="/survey" element={<Survey />} />
         {/* 상세 페이지 경로 */}
         <Route path="*" element={<Notfound />} />
       </Routes>

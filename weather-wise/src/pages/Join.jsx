@@ -18,15 +18,6 @@ const Join = () => {
           />
         }
         title={<img src={mainLogo} alt="mainLogo" />}
-        rightChild={
-          <div>
-            <Button
-              text={<img src={info} alt="info" />}
-              type="icon"
-              onClick={() => console.log("Notification button clicked")}
-            />
-          </div>
-        }
       />
 
       <h1> Welcome to WeatherWise !! </h1>

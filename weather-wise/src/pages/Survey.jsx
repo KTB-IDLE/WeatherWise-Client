@@ -5,9 +5,8 @@ import Footer from "../components/Footer";
 import left from "../assets/left.png";
 import mainLogo from "../assets/mainLogo.png";
 import info from "../assets/info.png";
-import LoginForm from "../components/LoginForm"; // 로그인 폼을 불러옴
 
-const Login = () => {
+const Survey = () => {
   return (
     <div>
       <Header
@@ -21,13 +20,11 @@ const Login = () => {
         title={<img src={mainLogo} alt="mainLogo" />}
       />
 
-      <h1> Weather Wise </h1>
-
-      <LoginForm />
+      <h1> 설문조사 페이지 </h1>
 
       <Footer />
     </div>
   );
 };
 
-export default Login;
+export default Survey;
