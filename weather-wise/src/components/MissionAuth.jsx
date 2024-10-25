@@ -18,13 +18,11 @@ const MissionAuth = ({ completed, id, imageFile, resetImage }) => {
       formData.append("imageFile", imageFile); // 이미지 파일을 FormData로 추가
 
       try {
-        const response = await fetch(
-          `http://localhost:8080/api/mission-histories/${id}`,
-          {
-            method: "POST",
-            body: formData, // FormData를 body로 전송
-          }
-        );
+        const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+        const response = await fetch(`${apiBaseUrl}/mission-histories/${id}`, {
+          method: "POST",
+          body: formData, // FormData를 body로 전송
+        });
 
         const data = await response.json();
 

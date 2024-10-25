@@ -26,7 +26,9 @@ const Missions = () => {
 
   // API 호출 함수 (날짜에 따라 호출)
   const fetchMissionHistory = async (date) => {
-    const url = `http://localhost:8080/api/mission-histories?date=${date}`;
+    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+    const url = `${apiBaseUrl}/mission-histories?date=${date}`;
+
     setLoading(true);
 
     try {

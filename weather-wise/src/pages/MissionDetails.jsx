@@ -27,7 +27,8 @@ const MissionDetails = () => {
 
   useEffect(() => {
     const fetchMissionDetails = async () => {
-      const url = `http://localhost:8080/api/mission-histories/${id}`;
+      const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+      const url = `${apiBaseUrl}/mission-histories/${id}`;
       setLoading(true);
       try {
         const response = await fetch(url);
