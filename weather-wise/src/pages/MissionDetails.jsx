@@ -10,6 +10,7 @@ import MissionAuth from "../components/MissionAuth";
 import MissionImage from "../components/MissionImage";
 import MissionDetailsHedaer from "../components/MissionDetailsHedaer";
 import MissionName from "../components/MissionName";
+import AxiosInstance from "../utils/AxiosInstance";
 
 const MissionDetails = () => {
   const { id } = useParams(); // URL에서 id 값을 가져옴
@@ -27,12 +28,12 @@ const MissionDetails = () => {
 
   useEffect(() => {
     const fetchMissionDetails = async () => {
-      const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
-      const url = `${apiBaseUrl}/mission-histories/${id}`;
+      const url = `/mission-histories/${id}`;
       setLoading(true);
       try {
-        const response = await fetch(url);
-        const data = await response.json();
+        const response = await AxiosInstance.get(url);
+
+        const data = response.data;
         if (data.code === "success") {
           setMissionDetails(data.result); // missionDetails 상태에 API 데이터 저장
         } else {

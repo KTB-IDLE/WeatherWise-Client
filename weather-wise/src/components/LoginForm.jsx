@@ -34,12 +34,10 @@ const LoginForm = () => {
       const result = await response.text();
 
       if (result.trim() === "OK") {
-        alert("로그인 성공!");
         navigate("/");
-
         // 쿠키에서 accessToken과 refreshToken 값 가져오기
         const accessToken = parseCookie("accessToken");
-        // https 환경에서만 사용 가능
+        // https 환경에서만 실행 가능
         const refreshToken = parseCookie("refreshToken");
       } else {
         alert("로그인에 실패했습니다.");

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // useNavigate 사용
 import "./MissionAuth.css"; // 스타일을 위한 CSS 파일
 import Modal from "./Modal"; // 모달 컴포넌트 임포트
+import AxiosInstance from "../utils/AxiosInstance";
 
 const MissionAuth = ({ completed, id, imageFile, resetImage }) => {
   const [loading, setLoading] = useState(false); // 로딩 상태 관리

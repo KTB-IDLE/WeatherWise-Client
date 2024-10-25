@@ -53,6 +53,14 @@ function App() {
         }
       />
       <Route
+        path="/survey"
+        element={
+          <PublicRoute>
+            <Survey />
+          </PublicRoute>
+        }
+      />
+      <Route
         path="/join"
         element={
           <PublicRoute>
@@ -102,15 +110,6 @@ function App() {
           </PrivateRoute>
         }
       />
-      <Route
-        path="/survey"
-        element={
-          <PrivateRoute>
-            <Survey />
-          </PrivateRoute>
-        }
-      />
-
       {/* Not found */}
       <Route path="*" element={<Notfound />} />
     </Routes>

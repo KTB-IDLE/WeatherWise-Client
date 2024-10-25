@@ -1,3 +1,4 @@
+// JoinForm.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./JoinForm.css";
@@ -5,15 +6,13 @@ import Modal from "./Modal";
 
 const JoinForm = () => {
   const navigate = useNavigate();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [nickname, setNickname] = useState("");
   const [error, setError] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleSignup = async (e) => {
+  const handleSignup = (e) => {
     e.preventDefault();
     setError(null);
 
@@ -22,13 +21,9 @@ const JoinForm = () => {
       return;
     }
 
-    // 회원가입 정보와 함께 설문조사 페이지로 이동
+    // 입력된 정보와 함께 설문조사 페이지로 이동
     navigate("/survey", {
-      state: {
-        email,
-        password,
-        nickname,
-      },
+      state: { email, password, nickname },
     });
   };
 
@@ -80,12 +75,6 @@ const JoinForm = () => {
           회원가입
         </button>
       </form>
-
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        message="회원가입이 완료됐습니다! 설문조사를 진행해 주세요."
-      />
     </div>
   );
 };
