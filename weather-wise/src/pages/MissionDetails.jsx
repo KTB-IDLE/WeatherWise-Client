@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
-import Button from "../components/Button"; // Button 컴포넌트를 불러옴
+import Button from "../components/Button";
 import Footer from "../components/Footer";
 import left from "../assets/left.png";
 import mainLogo from "../assets/mainLogo.png";
@@ -16,10 +16,18 @@ const MissionDetails = () => {
   const [missionDetails, setMissionDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [imageFile, setImageFile] = useState(null); // 이미지 파일 상태 추가
+  const [selectedImage, setSelectedImage] = useState(null); // 선택된 이미지 URL 상태 추가
+
+  // 이미지 초기화 함수 정의
+  const resetImage = () => {
+    setSelectedImage(null);
+    setImageFile(null);
+  };
 
   useEffect(() => {
     const fetchMissionDetails = async () => {
-      const url = `http://localhost:8080/api/mission-histories/${id}`; // API 요청 경로
+      const url = `http://localhost:8080/api/mission-histories/${id}`;
       setLoading(true);
       try {
         const response = await fetch(url);
@@ -42,8 +50,9 @@ const MissionDetails = () => {
   if (loading) return <div>로딩 중...</div>;
   if (error) return <div>{error}</div>;
 
-  // missionDetails에서 데이터를 추출
-  const { nickName, missionName, completed, uploadFileLink } = missionDetails;
+  // missionDetails에서 필요한 데이터 추출
+  const { missionName, completed, uploadFileLink, nickName } =
+    missionDetails || {};
 
   return (
     <div>
@@ -67,15 +76,27 @@ const MissionDetails = () => {
         }
       />
 
-      {/* CreateMission 컴포넌트에 nickName 전달 */}
-      <MissionDetailsHedaer nickName={nickName} />
+      {/* 단일 미션 데이터를 렌더링 */}
+      <div>
+        {/* MissionDetailsHedaer에 nickName 전달 */}
+        <MissionDetailsHedaer nickName={nickName} />
+        <MissionName missionName={missionName} />
+        <MissionImage
+          completed={completed} // 미션의 completed 값 전달
+          uploadFileLink={uploadFileLink} // 서버에서 받은 파일 링크 전달
+          setImageFile={setImageFile}
+          selectedImage={selectedImage}
+          resetImage={resetImage}
+          setSelectedImage={setSelectedImage} // 이미지 초기화 및 상태 관리
+        />
+        <MissionAuth
+          completed={completed}
+          id={id}
+          imageFile={imageFile}
+          resetImage={resetImage}
+        />
+      </div>
 
-      <MissionName missionName={missionName} />
-
-      {/* MissionImage에 completed와 uploadFileLink 값 전달 */}
-      <MissionImage completed={completed} uploadFileLink={uploadFileLink} />
-
-      <MissionAuth completed={completed} />
       <Footer />
     </div>
   );
