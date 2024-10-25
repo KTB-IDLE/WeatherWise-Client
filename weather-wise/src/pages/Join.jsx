@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import left from "../assets/left.png";
 import mainLogo from "../assets/mainLogo.png";
 import info from "../assets/info.png";
+import JoinForm from "../components/JoinForm";
 const Join = () => {
   return (
     <div>
@@ -28,7 +29,8 @@ const Join = () => {
         }
       />
 
-      <h1> 회원가입 페이지 </h1>
+      <h1> Welcome to WeatherWise !! </h1>
+      <JoinForm />
 
       <Footer />
     </div>
