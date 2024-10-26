@@ -23,3 +23,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+get_helm.sh
+iam_policy.json
+ingress.yaml
