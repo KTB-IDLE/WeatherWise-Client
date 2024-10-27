@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // useNavigate 사용
 import "./MissionAuth.css"; // 스타일을 위한 CSS 파일
 import Modal from "./Modal"; // 모달 컴포넌트 임포트
+import AxiosInstance from "../utils/AxiosInstance";
 
 const MissionAuth = ({ completed, id, imageFile, resetImage }) => {
   const [loading, setLoading] = useState(false); // 로딩 상태 관리
@@ -18,13 +19,11 @@ const MissionAuth = ({ completed, id, imageFile, resetImage }) => {
       formData.append("imageFile", imageFile); // 이미지 파일을 FormData로 추가
 
       try {
-        const response = await fetch(
-          `http://localhost:8080/api/mission-histories/${id}`,
-          {
-            method: "POST",
-            body: formData, // FormData를 body로 전송
-          }
-        );
+        const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+        const response = await fetch(`${apiBaseUrl}/mission-histories/${id}`, {
+          method: "POST",
+          body: formData, // FormData를 body로 전송
+        });
 
         const data = await response.json();
 

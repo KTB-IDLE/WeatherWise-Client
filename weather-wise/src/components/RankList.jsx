@@ -1,16 +1,16 @@
 import React from "react";
-import Mission from "./Mission";
+import Rank from "./Rank";
+import "./RankList.css"; // 스타일을 위한 CSS 파일
 
-const RankList = ({ RankList }) => {
+const RankList = ({ rankData }) => {
   return (
-    <div className="mission-list">
-      {RankList.map((rank) => (
-        <rank
-          key={mission.id}
-          id={mission.id} // ID를 전달
-          name={mission.name} // 이름을 전달
-          point={mission.point} // 경험치를 전달
-          completed={mission.completed} // 완료 여부 전달
+    <div className="rank-list">
+      {rankData.map((rankItem, index) => (
+        <Rank
+          key={index}
+          rank={index + 1} // 순위를 1부터 시작하도록 설정
+          nickname={rankItem.nickName}
+          level={rankItem.level}
         />
       ))}
     </div>

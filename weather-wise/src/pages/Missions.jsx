@@ -8,6 +8,7 @@ import info from "../assets/info.png";
 import CreateMission from "../components/CreateMission";
 import CurrentMission from "../components/CurrentMission";
 import MissionList from "../components/MissionList";
+import AxiosInstance from "../utils/AxiosInstance";
 
 const Missions = () => {
   const [nickName, setNickName] = useState(""); // 닉네임 상태 관리
@@ -26,12 +27,15 @@ const Missions = () => {
 
   // API 호출 함수 (날짜에 따라 호출)
   const fetchMissionHistory = async (date) => {
-    const url = `http://localhost:8080/api/mission-histories?date=${date}`;
+    const url = `/mission-histories?date=${date}`;
+
     setLoading(true);
 
     try {
-      const response = await fetch(url);
-      const data = await response.json();
+      // const response = await fetch(url);
+      const response = await AxiosInstance.get(url);
+
+      const data = response.data;
 
       if (data.code === "success") {
         setNickName(data.result.nickName); // 닉네임 상태 업데이트
@@ -40,6 +44,7 @@ const Missions = () => {
         setError("데이터를 가져오는 데 실패했습니다.");
       }
     } catch (err) {
+      console.log(err);
       setError("서버와의 통신 중 오류가 발생했습니다.");
     } finally {
       setLoading(false); // 로딩 완료

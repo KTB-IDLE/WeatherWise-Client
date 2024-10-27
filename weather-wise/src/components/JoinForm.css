@@ -1,0 +1,81 @@
+.signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box; /* 패딩을 포함한 너비 계산 */
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 320px; /* 폼의 최대 너비를 설정 */
+  background-color: #ffffff;
+  padding: 30px 20px;
+  border-radius: 15px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.signup-input {
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 18px;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.3s ease;
+  width: 100%;
+}
+
+.signup-input:focus {
+  border-color: #a3d35c;
+}
+
+.signup-button {
+  padding: 15px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+.signup-button:hover {
+  background-color: #45a049;
+}
+
+.error-message {
+  color: red;
+  font-size: 16px;
+  margin-top: -10px;
+  text-align: center;
+}
+
+.register-link {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.register-link a {
+  color: #4caf50;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}
