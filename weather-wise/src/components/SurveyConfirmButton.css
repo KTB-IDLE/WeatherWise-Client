@@ -18,6 +18,7 @@
   cursor: pointer; /* 마우스 커서 변경 */
   transition: background-color 0.3s ease; /* 호버 시 부드러운 배경 변화 */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+  margin-top: 50px;
 }
 
 .confirm-button:hover {
