@@ -11,13 +11,12 @@ import MissionList from "../components/MissionList";
 import AxiosInstance from "../utils/AxiosInstance";
 
 const Missions = () => {
-  const [nickName, setNickName] = useState(""); // 닉네임 상태 관리
-  const [missionList, setMissionList] = useState([]); // 미션 리스트 상태 관리
-  const [loading, setLoading] = useState(true); // 로딩 상태 관리
-  const [error, setError] = useState(null); // 에러 상태 관리
-  const [currentDate, setCurrentDate] = useState(new Date()); // 현재 날짜 상태
+  const [nickName, setNickName] = useState("");
+  const [missionList, setMissionList] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [currentDate, setCurrentDate] = useState(new Date());
 
-  // 현재 날짜를 yyyy-mm-dd 형식으로 반환하는 함수
   const formatDate = (date) => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -25,21 +24,18 @@ const Missions = () => {
     return `${year}-${month}-${day}`;
   };
 
-  // API 호출 함수 (날짜에 따라 호출)
   const fetchMissionHistory = async (date) => {
     const url = `/mission-histories?date=${date}`;
 
     setLoading(true);
 
     try {
-      // const response = await fetch(url);
       const response = await AxiosInstance.get(url);
-
       const data = response.data;
 
       if (data.code === "success") {
-        setNickName(data.result.nickName); // 닉네임 상태 업데이트
-        setMissionList(data.result.missionList); // 미션 리스트 상태 업데이트
+        setNickName(data.result.nickName);
+        setMissionList(data.result.missionList);
       } else {
         setError("데이터를 가져오는 데 실패했습니다.");
       }
@@ -47,70 +43,58 @@ const Missions = () => {
       console.log(err);
       setError("서버와의 통신 중 오류가 발생했습니다.");
     } finally {
-      setLoading(false); // 로딩 완료
+      setLoading(false);
     }
   };
 
-  // 최초 렌더링 시와, 날짜 변경 시 API 호출
   useEffect(() => {
-    const date = formatDate(currentDate); // 현재 날짜로 API 호출
+    const date = formatDate(currentDate);
     fetchMissionHistory(date);
-  }, [currentDate]); // currentDate가 변경될 때마다 API 호출
+  }, [currentDate]);
 
-  // 날짜를 하루 감소시키는 함수
   const handlePreviousDay = () => {
     setCurrentDate(
       (prevDate) => new Date(prevDate.setDate(prevDate.getDate() - 1))
     );
   };
 
-  // 날짜를 하루 증가시키는 함수
   const handleNextDay = () => {
     setCurrentDate(
       (prevDate) => new Date(prevDate.setDate(prevDate.getDate() + 1))
     );
   };
 
-  if (loading) {
-    return <div>로딩 중...</div>; // 로딩 상태
-  }
+  const today = new Date();
+  const isToday = formatDate(today) === formatDate(currentDate);
 
-  if (error) {
-    return <div>{error}</div>; // 에러 상태
-  }
+  const addMissionToList = (newMission) => {
+    setMissionList((prevList) => [...prevList, newMission]);
+  };
 
   return (
     <div>
       <Header
-        leftChild={
-          <Button
-            text={<img src={left} alt="Back" />}
-            type="icon"
-            onClick={() => console.log("Back button clicked")}
-          />
-        }
+        leftChild={<Button text={<img src={left} alt="Back" />} type="icon" />}
         title={<img src={mainLogo} alt="mainLogo" />}
-        rightChild={
-          <div>
-            <Button
-              text={<img src={info} alt="info" />}
-              type="icon"
-              onClick={() => console.log("Notification button clicked")}
-            />
-          </div>
-        }
+        rightChild={<Button text={<img src={info} alt="info" />} type="icon" />}
       />
 
-      {/* CreateMission과 CurrentMission에 nickName과 날짜 관련 데이터 전달 */}
-      <CreateMission nickName={nickName} text="새로운 미션을 만들어보세요!" />
+      <CreateMission
+        nickName={nickName}
+        text="새로운 미션을 만들어보세요!"
+        onMissionCreate={addMissionToList}
+        isToday={isToday}
+        missionCount={missionList.length} // 미션 리스트 길이로 생성된 미션 개수 전달
+      />
       <CurrentMission
         nickName={nickName}
         currentDate={currentDate}
         handlePreviousDay={handlePreviousDay}
         handleNextDay={handleNextDay}
+        isToday={isToday}
       />
-      <MissionList missionList={missionList} />
 
+      <MissionList missionList={missionList} />
       <Footer />
     </div>
   );
