@@ -1,0 +1,30 @@
+.create-mission-container {
+  text-align: center;
+  margin-top: 50px;
+}
+
+h1 {
+  font-size: 30px; /* 제목 글씨 크기 약간 키움 */
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 25px; /* 부제목 글씨 크기 약간 키움 */
+  margin-bottom: 30px;
+}
+
+.mission-button {
+  background-color: #a4d07b;
+  color: white;
+  border: none;
+  padding: 15px 40px; /* 버튼 패딩을 늘려서 너비를 넓게 */
+  font-size: 30px; /* 버튼 글씨 크기 키움 */
+  cursor: pointer;
+  border-radius: 5px;
+  width: 300px; /* 버튼의 너비를 고정 */
+  max-width: 100%;
+}
+
+.mission-button:hover {
+  background-color: #8bbf68;
+}
