@@ -16,9 +16,8 @@ const Missions = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [isToday, setIsToday] = useState(true); // 현재 날짜가 오늘인지 확인하는 상태
+  const [isToday, setIsToday] = useState(true);
 
-  // 현재 날짜 형식 반환 함수
   const formatDate = (date) => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -28,7 +27,6 @@ const Missions = () => {
 
   const fetchMissionHistory = async (date) => {
     const url = `/mission-histories?date=${date}`;
-
     setLoading(true);
 
     try {
@@ -38,6 +36,10 @@ const Missions = () => {
       if (data.code === "success") {
         setNickName(data.result.nickName);
         setMissionList(data.result.missionList);
+        localStorage.setItem(
+          "missionList",
+          JSON.stringify(data.result.missionList)
+        );
       } else {
         setError("데이터를 가져오는 데 실패했습니다.");
       }
@@ -49,14 +51,15 @@ const Missions = () => {
     }
   };
 
-  // 날짜 변경 시 호출하여 today 여부 업데이트
   useEffect(() => {
     const date = formatDate(currentDate);
     fetchMissionHistory(date);
 
-    // 오늘 날짜와 비교
     const today = formatDate(new Date());
-    setIsToday(today === date); // 오늘과 현재 날짜가 같으면 true, 다르면 false
+    setIsToday(today === date);
+
+    const savedMissionList = JSON.parse(localStorage.getItem("missionList"));
+    if (savedMissionList) setMissionList(savedMissionList);
   }, [currentDate]);
 
   const handlePreviousDay = () => {
@@ -75,6 +78,8 @@ const Missions = () => {
 
   const addMissionToList = (newMission) => {
     setMissionList((prevList) => [...prevList, newMission]);
+    const updatedMissionList = [...missionList, newMission];
+    localStorage.setItem("missionList", JSON.stringify(updatedMissionList));
   };
 
   if (loading) {
