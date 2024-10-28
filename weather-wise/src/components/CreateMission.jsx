@@ -4,31 +4,34 @@ import AxiosInstance from "../utils/AxiosInstance";
 import Modal from "./Modal";
 
 const CreateMission = ({ text, onMissionCreate, isToday, missionCount }) => {
-  const missionTimes = { 1: "아침", 2: "점심", 3: "저녁" };
+  // missionTimes를 영어 값으로 설정
+  const missionTimes = { 1: "MORNING", 2: "AFTERNOON", 3: "EVENING" };
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
 
   const handleCreateMission = async () => {
     if (!isToday || missionCount >= 3) return;
 
-    const missionTime = missionCount + 1; // missionTime을 숫자로 1, 2, 3 설정
+    const missionTime = missionCount + 1;
 
     try {
       const response = await AxiosInstance.post("/missions", {
+        // 동적으로 위치 받는 걸로 수정 (TODO)
         nx: 25,
         ny: 25,
-        missionTime, // missionTime 추가
+        missionTime: missionTimes[missionTime], // missionTime을 영어로 설정
       });
 
       if (response.data.code === "success") {
         const newMission = {
           ...response.data.result,
-          missionTime: missionTimes[missionTime], // 렌더링용으로 한글 시간 추가
+          missionTime: missionTimes[missionTime], // missionTime을 영어로 설정
         };
         setModalMessage(
           `${missionTimes[missionTime]} 미션 생성에 성공했습니다!`
         );
         setIsModalOpen(true);
+        console.log();
 
         // MissionList에 생성된 미션 전달 및 localStorage에 저장
         onMissionCreate(newMission);

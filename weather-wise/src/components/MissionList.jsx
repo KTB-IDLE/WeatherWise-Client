@@ -11,7 +11,7 @@ const MissionList = ({ missionList }) => {
           name={mission.name}
           point={mission.point}
           completed={mission.completed}
-          missionTime={mission.missionTime} // missionTime 전달
+          missionTime={mission.missionTime} // missionTime 그대로 전달
         />
       ))}
     </div>

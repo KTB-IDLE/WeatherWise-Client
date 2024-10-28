@@ -35,10 +35,11 @@ const Missions = () => {
 
       if (data.code === "success") {
         setNickName(data.result.nickName);
-        setMissionList(data.result.missionList);
-        localStorage.setItem(
-          "missionList",
-          JSON.stringify(data.result.missionList)
+        setMissionList(
+          data.result.missionList.map((mission) => ({
+            ...mission,
+            missionTime: mission.missionTime, // 서버에서 온 missionTime 값 그대로 유지
+          }))
         );
       } else {
         setError("데이터를 가져오는 데 실패했습니다.");
@@ -57,9 +58,6 @@ const Missions = () => {
 
     const today = formatDate(new Date());
     setIsToday(today === date);
-
-    const savedMissionList = JSON.parse(localStorage.getItem("missionList"));
-    if (savedMissionList) setMissionList(savedMissionList);
   }, [currentDate]);
 
   const handlePreviousDay = () => {
@@ -78,8 +76,6 @@ const Missions = () => {
 
   const addMissionToList = (newMission) => {
     setMissionList((prevList) => [...prevList, newMission]);
-    const updatedMissionList = [...missionList, newMission];
-    localStorage.setItem("missionList", JSON.stringify(updatedMissionList));
   };
 
   if (loading) {
