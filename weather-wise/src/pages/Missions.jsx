@@ -16,7 +16,9 @@ const Missions = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [isToday, setIsToday] = useState(true); // 현재 날짜가 오늘인지 확인하는 상태
 
+  // 현재 날짜 형식 반환 함수
   const formatDate = (date) => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -47,9 +49,14 @@ const Missions = () => {
     }
   };
 
+  // 날짜 변경 시 호출하여 today 여부 업데이트
   useEffect(() => {
     const date = formatDate(currentDate);
     fetchMissionHistory(date);
+
+    // 오늘 날짜와 비교
+    const today = formatDate(new Date());
+    setIsToday(today === date); // 오늘과 현재 날짜가 같으면 true, 다르면 false
   }, [currentDate]);
 
   const handlePreviousDay = () => {
@@ -59,24 +66,43 @@ const Missions = () => {
   };
 
   const handleNextDay = () => {
-    setCurrentDate(
-      (prevDate) => new Date(prevDate.setDate(prevDate.getDate() + 1))
-    );
+    if (!isToday) {
+      setCurrentDate(
+        (prevDate) => new Date(prevDate.setDate(prevDate.getDate() + 1))
+      );
+    }
   };
-
-  const today = new Date();
-  const isToday = formatDate(today) === formatDate(currentDate);
 
   const addMissionToList = (newMission) => {
     setMissionList((prevList) => [...prevList, newMission]);
   };
 
+  if (loading) {
+    return <div>로딩 중...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
   return (
     <div>
       <Header
-        leftChild={<Button text={<img src={left} alt="Back" />} type="icon" />}
+        leftChild={
+          <Button
+            text={<img src={left} alt="Back" />}
+            type="icon"
+            onClick={() => console.log("Back button clicked")}
+          />
+        }
         title={<img src={mainLogo} alt="mainLogo" />}
-        rightChild={<Button text={<img src={info} alt="info" />} type="icon" />}
+        rightChild={
+          <Button
+            text={<img src={info} alt="info" />}
+            type="icon"
+            onClick={() => console.log("Notification button clicked")}
+          />
+        }
       />
 
       <CreateMission
@@ -84,7 +110,7 @@ const Missions = () => {
         text="새로운 미션을 만들어보세요!"
         onMissionCreate={addMissionToList}
         isToday={isToday}
-        missionCount={missionList.length} // 미션 리스트 길이로 생성된 미션 개수 전달
+        missionCount={missionList.length}
       />
       <CurrentMission
         nickName={nickName}
@@ -93,8 +119,8 @@ const Missions = () => {
         handleNextDay={handleNextDay}
         isToday={isToday}
       />
-
       <MissionList missionList={missionList} />
+
       <Footer />
     </div>
   );
