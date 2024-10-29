@@ -1,163 +1,163 @@
 /* src/pages/MyProfile.css */
 .profile-page {
-    background-color: #f8f8f8;
-    padding: 20px;
-    padding-top: 110px; /* Header 고정 높이만큼 위쪽에 여백 추가 */
-    padding-bottom: 80px; /* Footer 고정 높이만큼 아래쪽에 여백 추가 */
-  }
-  
-  .profile-header {
-    background-color: #e0f5c5;
-    padding: 20px;
-    border-radius: 15px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .profile-icon {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    margin-right: 15px;
-  }
-  
-  .profile-info {
-    flex-grow: 1;
-  }
-  
-  .nickname-level {
-    display: flex;
-    justify-content: space-between;
-    font-size: 1rem;
-    margin-bottom: 10px;
-  }
-  
-  .nickname {
-    font-weight: bold;
-    font-size: 18px;
-  }
-  
-  .level {
-    font-size: 14px;
-    color: #555;
-  }
-  
-  .rank {
-    color: #888;
-  }
-  
-  .progress-bar {
-    background-color: #d9d9d9;
-    height: 8px;
-    border-radius: 4px;
-    width: 100%;
-    margin-bottom: 10px;
-    position: relative;
-  }
-  
-  .progress {
-    background-color: #6bc30d;
-    height: 100%;
-    border-radius: 4px;
-  }
-  
-  .exp-info {
-    font-size: 14px;
-    color: #666;
-  }
-  
-  .points {
-    float: right;
-  }
+  background-color: #f8f8f8;
+  padding: 20px;
+  padding-top: 110px; /* Header 고정 높이만큼 위쪽에 여백 추가 */
+  padding-bottom: 80px; /* Footer 고정 높이만큼 아래쪽에 여백 추가 */
+}
 
-  .profile-section {
-    margin-top: 30px;
-    margin-bottom: 30px; /* 각 섹션 간의 하단 여백을 추가 */
-  }
-  
-  .profile-section ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .profile-section li {
-    padding: 15px 0;
-    font-size: 16px;
-    display: flex; /* Flexbox 적용 */
-    justify-content: space-between; /* 좌우 정렬 */
-  }
+.profile-header {
+  background-color: #e0f5c5;
+  padding: 20px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  margin-top: 40px;
+}
 
-  h2 {
-    font-size: 20px;
-    margin-bottom: 13px;
-    margin-top: 20px;
-  }
-  
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  li {
-    padding: 10px 0;
-    font-size: 16px;
-  }
-  
-  .email {
-    color: #888;
-    margin-left: auto; /* 이메일을 오른쪽으로 정렬 */
-  }
-  
-  /* 팝업을 화면 중앙에 띄우고, iOS 스타일처럼 만들기 */
+.profile-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.profile-info {
+  flex-grow: 1;
+}
+
+.nickname-level {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.nickname {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.level {
+  font-size: 14px;
+  color: #555;
+}
+
+.rank {
+  color: #888;
+}
+
+.progress-bar {
+  background-color: #d9d9d9;
+  height: 8px;
+  border-radius: 4px;
+  width: 100%;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.progress {
+  background-color: #6bc30d;
+  height: 100%;
+  border-radius: 4px;
+}
+
+.exp-info {
+  font-size: 14px;
+  color: #666;
+}
+
+.points {
+  float: right;
+}
+
+.profile-section {
+  margin-top: 30px;
+  margin-bottom: 30px; /* 각 섹션 간의 하단 여백을 추가 */
+}
+
+.profile-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.profile-section li {
+  padding: 15px 0;
+  font-size: 16px;
+  display: flex; /* Flexbox 적용 */
+  justify-content: space-between; /* 좌우 정렬 */
+}
+
+h2 {
+  font-size: 20px;
+  margin-bottom: 13px;
+  margin-top: 20px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  padding: 10px 0;
+  font-size: 16px;
+}
+
+.email {
+  color: #888;
+  margin-left: auto; /* 이메일을 오른쪽으로 정렬 */
+}
+
+/* 팝업을 화면 중앙에 띄우고, iOS 스타일처럼 만들기 */
 .popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* 팝업을 화면 중앙에 배치 */
-    background-color: white;
-    padding: 20px;
-    width: 80%;
-    max-width: 320px;
-    border-radius: 15px; /* iOS 스타일의 둥근 모서리 */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
-    text-align: center;
-    z-index: 1000;
-  }
-  
-  .popup p {
-    margin-bottom: 20px;
-    font-size: 16px;
-    color: #333;
-  }
-  
-  .popup input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    display: block; /* inline 요소 대신 block 요소로 설정 */
-    box-sizing: border-box; /* 패딩과 경계 포함 */
-  }
-  
-  .popup button {
-    width: 45%;
-    padding: 10px;
-    margin: 0 5px;
-    border: none;
-    border-radius: 5px;
-    background-color: #5d71f6; /* #6bc30d; iOS 스타일의 버튼 색상 */
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .popup button:last-child {
-    background-color: #ccc; /* 취소 버튼의 배경색을 회색으로 */
-  }
-  
-  .popup button:hover {
-    opacity: 0.8;
-  }
-  
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* 팝업을 화면 중앙에 배치 */
+  background-color: white;
+  padding: 20px;
+  width: 80%;
+  max-width: 320px;
+  border-radius: 15px; /* iOS 스타일의 둥근 모서리 */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+  text-align: center;
+  z-index: 1000;
+}
+
+.popup p {
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #333;
+}
+
+.popup input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  display: block; /* inline 요소 대신 block 요소로 설정 */
+  box-sizing: border-box; /* 패딩과 경계 포함 */
+}
+
+.popup button {
+  width: 45%;
+  padding: 10px;
+  margin: 0 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #5d71f6; /* #6bc30d; iOS 스타일의 버튼 색상 */
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.popup button:last-child {
+  background-color: #ccc; /* 취소 버튼의 배경색을 회색으로 */
+}
+
+.popup button:hover {
+  opacity: 0.8;
+}
