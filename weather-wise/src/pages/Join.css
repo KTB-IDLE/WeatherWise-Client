@@ -1,0 +1,5 @@
+/* 전체 레이아웃 설정 */
+.join-page {
+  padding-top: 140px; /* Header + LocationSelect 아래 공간 */
+  padding-bottom: 80px; /* Footer 위 공간 확보 */
+}
