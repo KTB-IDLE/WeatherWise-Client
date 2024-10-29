@@ -1,0 +1,23 @@
+.rank-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 2px solid #d1e5c0;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #80c565;
+}
+
+.rank-header-item {
+  width: 100px;
+  text-align: center;
+}
+
+h1 {
+  text-align: center; /* 가운데 정렬 */
+  color: #80c565; /* 명예의 전당과 비슷한 녹색 계열 색상 */
+  font-size: 3rem; /* 적절한 크기로 확대 */
+  margin-bottom: 20px; /* 아래 여백 추가 */
+  font-weight: bold; /* 텍스트 굵게 */
+}

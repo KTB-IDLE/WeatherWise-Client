@@ -1,35 +1,98 @@
 import React, { useState } from "react";
-import "./MissionAuth.css"; // 스타일을 위한 CSS 파일
+import { useNavigate } from "react-router-dom";
+import "./MissionAuth.css";
+import Modal from "./Modal";
+import AxiosInstance from "../utils/AxiosInstance"; // AxiosInstance import
 
-const MissionAuth = ({ completed }) => {
-  const [loading, setLoading] = useState(false); // 로딩 상태 관리
+const MissionAuth = ({ completed, id, imageFile, resetImage }) => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const navigate = useNavigate();
 
-  // 인증하기 버튼 클릭 시 호출되는 함수
-  const handleAuthClick = () => {
-    if (!completed) {
-      setLoading(true); // 로딩 상태로 전환
+  const handleAuthClick = async () => {
+    if (!completed && imageFile) {
+      setLoading(true);
 
-      // 10초 후에 서버로 인증 요청 (임시 처리)
-      setTimeout(() => {
-        setLoading(false); // 로딩 끝
-        window.location.href = "http://python"; // python 서버로 리다이렉트
-      }, 10000); // 10초 동안 로딩 표시
+      // FormData 객체 생성 및 이미지 파일 추가
+      const formData = new FormData();
+      formData.append("imageFile", imageFile);
+
+      try {
+        const response = await AxiosInstance.post(
+          `/mission-histories/${id}`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data", // Content-Type 설정
+            },
+          }
+        );
+
+        const data = response.data;
+
+        if (data.code === "success") {
+          const {
+            authenticated,
+            missionExp,
+            userLevel,
+            userExp,
+            userLevelTotalExp,
+          } = data.result;
+
+          if (authenticated) {
+            navigate("/success", {
+              state: {
+                missionExp,
+                userLevel,
+                userExp,
+                userLevelMaxExp: userLevelTotalExp,
+              },
+            });
+          } else {
+            setModalMessage(
+              "인증에 실패했습니다! 다른 사진으로 다시 인증해주세요."
+            );
+            setIsModalOpen(true);
+            resetImage();
+          }
+        } else {
+          setError("인증에 실패했습니다.");
+        }
+      } catch (err) {
+        console.log(err);
+        setError("서버와의 통신 중 오류가 발생했습니다.");
+      } finally {
+        setLoading(false);
+      }
+    } else if (!imageFile) {
+      setError("이미지를 선택해주세요.");
     }
   };
 
   return (
     <div>
       {loading ? (
-        <div className="loading-spinner"></div> // 로딩 중일 때 스피너 표시
+        <div className="loading-spinner"></div>
       ) : (
-        <button
-          className={`auth-button ${completed ? "disabled" : "active"}`} // 클래스명에 따라 스타일 적용
-          onClick={handleAuthClick}
-          disabled={completed} // completed가 true일 때 버튼 비활성화
-        >
-          인증하기
-        </button>
+        <>
+          {error && <p className="error-message">{error}</p>}
+          <button
+            className={`auth-button ${completed ? "disabled" : "active"}`}
+            onClick={handleAuthClick}
+            disabled={completed}
+          >
+            인증하기
+          </button>
+        </>
       )}
+
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        message={modalMessage}
+      />
     </div>
   );
 };

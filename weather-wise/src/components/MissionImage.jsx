@@ -1,15 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import "./MissionImage.css"; // CSS 파일 임포트
 
-const MissionImage = ({ completed, uploadFileLink }) => {
-  const [selectedImage, setSelectedImage] = useState(null); // 선택된 이미지 상태 관리
-
+const MissionImage = ({
+  completed,
+  uploadFileLink,
+  setImageFile,
+  selectedImage,
+  setSelectedImage,
+  resetImage,
+}) => {
   // 이미지 파일이 변경될 때 실행되는 함수
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file); // 이미지 URL 생성
       setSelectedImage(imageUrl); // 선택된 이미지 상태 업데이트
+      setImageFile(file); // 상위 컴포넌트로 이미지 파일 전달
     }
   };
 
@@ -23,7 +29,6 @@ const MissionImage = ({ completed, uploadFileLink }) => {
           !completed && document.getElementById("imageInput").click()
         }
       >
-        {/* 이미지를 보여줄 때 */}
         {completed && uploadFileLink ? (
           <img
             src={uploadFileLink}
@@ -41,7 +46,6 @@ const MissionImage = ({ completed, uploadFileLink }) => {
         )}
       </div>
 
-      {/* completed가 false일 경우에만 파일 업로드 가능 */}
       {!completed && (
         <input
           type="file"
