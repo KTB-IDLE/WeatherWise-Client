@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import AxiosInstance from '../utils/AxiosInstance';
 import profileIcon from '../assets/myinfo.png';
 import Button from "../components/Button";
 import Header from "../components/Header";
@@ -10,8 +10,6 @@ import info from "../assets/info.png";
 import './MyProfilePage.css';
 
 const MyProfilePage = () => {
-    const userId = 7;
-
     const [userInfo, setUserInfo] = useState({ nickname: '', serialId: '' });
     const [showPopup, setShowPopup] = useState(false);
     const [popupContent, setPopupContent] = useState('');
@@ -24,9 +22,8 @@ const MyProfilePage = () => {
     useEffect(() => {
         const fetchUserInfo = async () => {
           try {
-            const response = await axios.get(`${apiBaseUrl}/api/v1/users/${userId}`, {
-              headers: { Authorization: `Bearer ${accessToken}` }
-            });
+            const url = `/v1/users/me`;
+            const response = await AxiosInstance.get(url);
             setUserInfo(response.data);  // 받아온 사용자 정보를 상태에 저장
           } catch (error) {
             console.error("사용자 정보를 가져오는 중 오류 발생:", error);
@@ -38,15 +35,10 @@ const MyProfilePage = () => {
     // 닉네임 변경 팝업
     const handleNicknameChange = async () => {
         try {
-        const response = await axios.put(
-            `${apiBaseUrl}/api/v1/users/nickname/${userId}`, 
-            nickname,
-            { headers: { 
-                Authorization: `Bearer ${accessToken}`,
-                'Content-Type': 'text/plain', 
-                } 
-            }
-        );
+            const url = `/v1/users/nickname`;
+            const response = await AxiosInstance.put(url, nickname, {
+                headers: { 'Content-Type': 'text/plain' }
+            });
         setPopupContent('닉네임 변경이 완료되었습니다.');
 
         setUserInfo((prevInfo) => ({
@@ -61,24 +53,22 @@ const MyProfilePage = () => {
     // 로그아웃 처리
     const handleLogout = async () => {
         try {
-        await axios.post(`${apiBaseUrl}/api/v1/logout`, null, {
-            headers: { Authorization: `Bearer ${accessToken}` }
-        });
-        window.location.href = '/'; // 로그아웃 후 메인페이지 이동
+            const url = '/v1/logout';
+            await AxiosInstance.post(url);
+            window.location.href = '/'; // 로그아웃 후 메인페이지 이동
         } catch (error) {
-        setPopupContent('로그아웃 실패: ' + error.message);
+            setPopupContent('로그아웃 실패: ' + error.message);
         }
     };
 
     // 회원 탈퇴 처리
     const handleDeleteUser = async () => {
         try {
-        await axios.delete(`${apiBaseUrl}/api/v1/users/delete/${userId}`, {
-            headers: { Authorization: `Bearer ${accessToken}` }
-        });
-        window.location.href = '/'; // 탈퇴 후 메인페이지 이동
+            const url = `/v1/users/delete`;
+            await AxiosInstance.delete(url);
+            window.location.href = '/'; // 탈퇴 후 메인페이지 이동
         } catch (error) {
-        setPopupContent('회원 탈퇴 실패: ' + error.message);
+            setPopupContent('회원 탈퇴 실패: ' + error.message);
         }
     };
 
