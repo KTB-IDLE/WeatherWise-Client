@@ -1,21 +1,29 @@
 .Header {
   display: flex;
   align-items: center;
-  padding: 20px 0px;
+  padding: 20px 0px; /* 내부 여백 추가 */
   border-bottom: 1px solid rgb(226, 226, 226);
+  position: fixed; /* 상단에 고정 */
+  top: 0; /* 화면 상단에 위치 */
+  left: 50%;  /* 화면의 50%로 이동 */
+  transform: translateX(-50%);  /* 중앙 정렬 보정 */
+  max-width: 400px; /* 레이아웃에 맞게 너비 고정 */
+  width: 100%; /* 부모 요소에 맞게 너비 설정 */
+  background-color: white; /* 배경색 */
+  z-index: 1000; /* 다른 요소 위에 배치 */
 }
 
 .Header > div {
   display: flex;
 }
 
-.Header .header_center {
+.Header .header_center { /* 로고 가운데 배치 */
   width: 50%;
   font-size: 25px;
   justify-content: center;
 }
 
-.Header .header_left {
+.Header .header_left { /* 뒤로 가기 버튼 왼쪽 배치 */
   width: 25%;
   justify-content: flex-start;
 }

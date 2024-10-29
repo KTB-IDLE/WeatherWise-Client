@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom"; // useNavigate 훅을 임포트
 import home from "../assets/home.png";
 import community from "../assets/community.png";

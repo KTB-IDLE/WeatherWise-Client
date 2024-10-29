@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from 'react-router-dom';
 import Header from "../components/Header";
 import Button from "../components/Button"; // Button 컴포넌트를 불러옴
 import Footer from "../components/Footer";
@@ -9,6 +10,8 @@ import Weather from "../components/Weather";
 import Summary from "../components/Summary";
 
 const Home = () => {
+  const navigate = useNavigate(); 
+  
   return (
     <div>
       <Header
@@ -25,7 +28,7 @@ const Home = () => {
             <Button
               text={<img src={info} alt="info" />}
               type="icon"
-              onClick={() => console.log("Notification button clicked")}
+              onClick={() => navigate('/myprofile')}
             />
           </div>
         }
