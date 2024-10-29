@@ -27,3 +27,4 @@ dist-ssr
 get_helm.sh
 iam_policy.json
 ingress.yaml
+.env.production
