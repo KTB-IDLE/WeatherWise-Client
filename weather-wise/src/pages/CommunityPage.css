@@ -1,0 +1,26 @@
+/* 전체 레이아웃 설정 */
+.community-page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-width: 400px;
+  margin: 0 auto;
+  overflow: hidden;
+  padding-top: 140px; /* Header + LocationSelect 아래 공간 */
+  padding-bottom: 80px; /* Footer 위 공간 확보 */
+}
+
+
+.post-list {
+  flex-grow: 1;
+  padding: 0 14px;
+  padding-top: 30px; /* LocationSelect 높이만큼 위에 공간 확보 */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto; /* 스크롤 가능하게 설정 */
+  position: relative;
+  z-index: 1; /* 다른 고정된 요소보다 낮게 */
+}
+
