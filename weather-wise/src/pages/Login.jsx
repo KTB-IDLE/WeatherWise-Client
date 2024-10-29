@@ -24,8 +24,6 @@ const Login = () => {
       <h1> Weather Wise </h1>
 
       <LoginForm />
-
-      <Footer />
     </div>
   );
 };

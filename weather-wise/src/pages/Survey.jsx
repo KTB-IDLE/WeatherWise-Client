@@ -96,8 +96,6 @@ const Survey = () => {
       />
 
       <SurveyConfirmButton text={"확인"} onClick={handleSubmitSurvey} />
-
-      <Footer />
     </div>
   );
 };

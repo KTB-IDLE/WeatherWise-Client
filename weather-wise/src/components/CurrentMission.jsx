@@ -6,8 +6,8 @@ const CurrentMission = ({
   currentDate,
   handlePreviousDay,
   handleNextDay,
+  isToday,
 }) => {
-  // 날짜를 한국어 형식으로 표시하는 함수
   const formatDate = (date) => {
     return date.toLocaleDateString("ko-KR", {
       year: "numeric",
@@ -24,7 +24,11 @@ const CurrentMission = ({
           {"<"}
         </button>
         <span className="date-display">{formatDate(currentDate)}</span>
-        <button onClick={handleNextDay} className="nav-button">
+        <button
+          onClick={handleNextDay}
+          className="nav-button"
+          disabled={isToday}
+        >
           {">"}
         </button>
       </div>

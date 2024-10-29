@@ -22,8 +22,6 @@ const Join = () => {
 
       <h1> Welcome to WeatherWise !! </h1>
       <JoinForm />
-
-      <Footer />
     </div>
   );
 };
