@@ -108,7 +108,7 @@ function App() {
         }
       />
           
-        <Route
+      <Route
         path="/community"
         element={
           <PrivateRoute>
@@ -117,7 +117,7 @@ function App() {
         }
       />
           
-                  <Route
+      <Route
         path="/create-post"
         element={
           <PrivateRoute>
@@ -126,7 +126,7 @@ function App() {
         }
       />
           
-                            <Route
+      <Route
         path="/myprofile"
         element={
           <PrivateRoute>
@@ -135,7 +135,7 @@ function App() {
         }
       />
           
-            <Route
+      <Route
         path="/myposts"
         element={
           <PrivateRoute>
@@ -143,8 +143,6 @@ function App() {
           </PrivateRoute>
         }
       />
-          
-          
     
       <Route
         path="/rank"

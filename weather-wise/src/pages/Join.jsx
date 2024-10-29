@@ -6,9 +6,10 @@ import left from "../assets/left.png";
 import mainLogo from "../assets/mainLogo.png";
 import info from "../assets/info.png";
 import JoinForm from "../components/JoinForm";
+import "./Join.css"; // CSS 파일 import
 const Join = () => {
   return (
-    <div>
+    <div className="join-page">
       <Header
         leftChild={
           <Button

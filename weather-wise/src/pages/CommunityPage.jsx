@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import AxiosInstance from '../utils/AxiosInstance';
 import PostItem from '../components/community/PostItem';
 import Button from "../components/Button";
 import LocationSelect from '../components/community/LocationSelect';
@@ -20,22 +20,19 @@ function CommunityPage() {
   const [loading, setLoading] = useState(false); // 로딩 상태 관리
   const [error, setError] = useState(null); // 에러 상태 관리
 
-  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
-  const accessToken = import.meta.env.VITE_API_ACCESS_TOKEN;
-
   useEffect(() => {
     const fetchPosts = async () => {
       setLoading(true); // 로딩 시작
       setError(null); // 에러 초기화
 
       try {
-        const response = await axios.get(`${apiBaseUrl}/api/boards/radius`, { 
-          params: { latitude: location.latitude, longitude: location.longitude },
-          headers: {
-            Authorization: `Bearer ${accessToken}`
-          }
+        const url = `/boards/radius`;
+        const response = await AxiosInstance.get(url, { 
+          params: { 
+            latitude: location.latitude, 
+            longitude: location.longitude 
+          } 
         });
-
         // 게시글을 createdAt 필드 기준으로 최신순(내림차순) 정렬
         const sortedPosts = response.data.boards.sort((a, b) => {
           const dateA = Array.isArray(a.createdAt) ? convertArrayToDate(a.createdAt) : new Date(a.createdAt);

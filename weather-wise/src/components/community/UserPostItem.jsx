@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import AxiosInstance from '../../utils/AxiosInstance';
 import './UserPostItem.css';
 import upVoteActiveIcon from '../../assets/upVote_active.png';
 import upVoteNotActiveIcon from '../../assets/upVote_notActive.png';
@@ -9,89 +9,93 @@ import deleteIcon from '../../assets/postdelete.png';
 import { convertArrayToDate, formatTime } from '../../utils/timeUtils';
 
 const UserPostItem = ({ post }) => {
-    const userId = 1; // 실제 사용자 ID 사용
-
     const [upvotes, setUpvotes] = useState(0);
     const [downvotes, setDownvotes] = useState(0);
     const [userVote, setUserVote] = useState(null);
     const [showPopup, setShowPopup] = useState(false); // 팝업 상태
     const [popupContent, setPopupContent] = useState(''); // 팝업 내용
 
-    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
-    const accessToken = import.meta.env.VITE_API_ACCESS_TOKEN;
+ // 투표 수 가져오기
+ const fetchVotes = async () => {
+    try {
+      const urlUpvote = `/boards/${post.boardId}/upvoteCount`;
+      const urlDownvote = `/boards/${post.boardId}/downvoteCount`;
+      const urlUserVote = `/boards/${post.boardId}/user`;
+      
+      const upvoteResponse = await AxiosInstance.get(urlUpvote);
+      const downvoteResponse = await AxiosInstance.get(urlDownvote);
+      const userVoteResponse = await AxiosInstance.get(urlUserVote);
 
-    const fetchVotes = async () => {
-        try {
-        const upvoteResponse = await axios.get(`${apiBaseUrl}/api/boards/${post.boardId}/upvoteCount`, {
-            headers: { Authorization: `Bearer ${accessToken}` },
-        });
-        const downvoteResponse = await axios.get(`${apiBaseUrl}/api/boards/${post.boardId}/downvoteCount`, {
-            headers: { Authorization: `Bearer ${accessToken}` },
-        });
+      setUpvotes(upvoteResponse.data);
+      setDownvotes(downvoteResponse.data);
 
-        setUpvotes(upvoteResponse.data);
-        setDownvotes(downvoteResponse.data);
+      // 서버에서 받아온 사용자의 투표 상태를 설정 (UPVOTE, DOWNVOTE, null)
+      setUserVote(userVoteResponse.data.voteType);  // userVote는 'UPVOTE', 'DOWNVOTE', 또는 null
+      
+    } catch (error) {
+      console.error('투표 수를 가져오는 중 오류 발생:', error);
+    }
+  };
 
-        
-        const userVoteResponse = await axios.get(`${apiBaseUrl}/api/boards/${post.boardId}/vote/${userId}`, {
-            headers: { Authorization: `Bearer ${accessToken}` },
-        });
+  // 컴포넌트가 렌더링될 때 투표 수를 가져옵니다.
+  useEffect(() => {
+    fetchVotes();
+  }, [post.boardId]);
 
-        setUserVote(userVoteResponse.data.voteType);
-        } catch (error) {
-        console.error('투표 수를 가져오는 중 오류 발생:', error);
+  // Upvote 처리
+  const handleUpvote = async () => {
+    try {
+      const url = `/boards/${post.boardId}/vote`;
+      let newVote = 'UPVOTE';  // // 기본 voteType을 'UPVOTE'로 설정
+
+      // 이미 'UPVOTE' 상태일 때는 투표 취소 -> userVote를 null로
+      if (userVote === 'UPVOTE') {
+        newVote = null;
+      }
+
+      // 투표 요청 보내기
+      await AxiosInstance.post(url, null, {
+        params: {
+          voteType: newVote || 'UPVOTE' // 투표 취소 시에도 기본값으로 'UPVOTE' 전송
         }
-    };
+      });
 
-    useEffect(() => {
-        fetchVotes();
-    }, [post.boardId]);
+      fetchVotes(); // 투표 수를 다시 불러와 업데이트 및 상태 변경
+      setUserVote(newVote);  // 투표 취소 시 userVote를 null로 설정
+    } catch (error) {
+      console.error('투표 오류:', error);
+    }
+  };
 
-    const handleUpvote = async () => {
-        let newVote = 'UPVOTE';
-        if (userVote === 'UPVOTE') newVote = null;
+  // Downvote 처리
+  const handleDownvote = async () => {
+    try {
+      const url = `/boards/${post.boardId}/vote`;
+      let newVote = 'DOWNVOTE';  // downvote 요청 전송
 
-        try {
-        await axios.post(
-            `${apiBaseUrl}/api/boards/${post.boardId}/vote`,
-            null,
-            {
-            params: { userId: 1, voteType: newVote || 'UPVOTE' },
-            headers: { Authorization: `Bearer ${accessToken}` },
-            }
-        );
-        fetchVotes();
-        setUserVote(newVote);
-        } catch (error) {
-        console.error('투표 오류:', error);
+      // 이미 'DOWNVOTE' 상태일 때는 투표 취소 -> userVote를 null로
+      if (userVote === 'DOWNVOTE') {
+        newVote = null;
+      }
+
+      // 투표 요청 보내기
+      await AxiosInstance.post(url, null, {
+        params: {
+          voteType: newVote || 'DOWNVOTE' // 투표 취소 시에도 기본값으로 'UPVOTE' 전송
         }
-    };
+      });
 
-    const handleDownvote = async () => {
-        let newVote = 'DOWNVOTE';
-        if (userVote === 'DOWNVOTE') newVote = null;
-
-        try {
-        await axios.post(
-            `${apiBaseUrl}/api/boards/${post.boardId}/vote`,
-            null,
-            {
-            params: { userId: 1, voteType: newVote || 'DOWNVOTE' },
-            headers: { Authorization: `Bearer ${accessToken}` },
-            }
-        );
-        fetchVotes();
-        setUserVote(newVote);
-        } catch (error) {
-        console.error('투표 오류:', error);
-        }
-    };
+      fetchVotes();
+      setUserVote(newVote);  // 투표 취소 시 userVote를 null로 설정
+    } catch (error) {
+      console.error('투표 오류:', error);
+    }
+  };
 
     const handleDelete = async () => {
         try {
-            await axios.delete(`${apiBaseUrl}/api/boards/${post.boardId}`, {
-            headers: { Authorization: `Bearer ${accessToken}` },
-            });
+            const url = `/boards/${post.boardId}`;
+            await AxiosInstance.delete(url);
             window.location.reload(); // 삭제 후 페이지 새로고침
         } catch (error) {
             console.error('게시글 삭제 중 오류 발생:', error);
