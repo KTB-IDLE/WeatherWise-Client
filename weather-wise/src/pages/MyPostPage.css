@@ -1,0 +1,11 @@
+.my-post-page {
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+  
+  .post-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
