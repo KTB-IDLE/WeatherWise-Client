@@ -1,0 +1,25 @@
+/* 글 작성 버튼 */
+.create-post-button {
+  position: fixed; /* 화면에서 고정 */
+  bottom: calc(60px + 45px); /* Footer 높이(60px) + Footer 위 45px */
+  right: calc((100vw - 400px) / 2 + 17px); /* 화면 너비에서 핸드폰 레이아웃(390px) 좌우 중앙에 맞춰서 배치 */
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #c7e9a1;
+  border: 4px solid #d3d3d3; /* 둘레 색상 설정 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* 다른 요소 위에 표시 */
+}
+
+.create-post-button img {
+  width: 24px;
+  height: 24px;
+}
+
+.create-post-button:hover {
+  background-color: #b8d78b;
+}
