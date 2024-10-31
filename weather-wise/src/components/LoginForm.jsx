@@ -9,6 +9,7 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
 
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  const API_BASE_URL_FOR_OAUTH = import.meta.env.VITE_API_BASE_URL_FOR_OAUTH;
 
   // 쿠키에서 특정 이름의 쿠키 값을 찾는 함수
   const parseCookie = (name) => {
@@ -48,8 +49,12 @@ const LoginForm = () => {
     }
   };
 
+  // const handleKakaoLogin = () => {
+  //   window.location.href = `${API_BASE_URL_FOR_OAUTH}/oauth2/authorization/kakao`;
+  // };
+
   const handleKakaoLogin = () => {
-    window.location.href = `${API_BASE_URL}/authorization/kakao`;
+    window.location.href = `http://localhost:8080/oauth2/authorization/kakao`;
   };
 
   const handleRegister = () => {

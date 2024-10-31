@@ -8,6 +8,10 @@ import info from "../assets/info.png";
 import LoginForm from "../components/LoginForm"; // 로그인 폼을 불러옴
 
 const Login = () => {
+  const API_BASE_URL_FOR_OAUTH = import.meta.env.VITE_API_BASE_URL_FOR_OAUTH;
+  const API_BASE_URL = import.meta.env.VITE_API_BASE;
+  console.log("API_BASE_URL_FOR_OAUTH:", API_BASE_URL_FOR_OAUTH);
+  console.log("API_BASE_URL:", API_BASE_URL);
   return (
     <div>
       <Header
