@@ -1,13 +1,18 @@
 import React from "react";
-import "./SuccessInfo.css"; // 스타일 파일 임포트
-import expIcon from "../assets/exp.png"; // 이미지 임시 대체
+import { useNavigate } from "react-router-dom";
+import "./SuccessInfo.css";
+import expIcon from "../assets/exp.png";
 
-// SuccessInfo에서 props를 통해 전달된 데이터를 사용
 const SuccessInfo = ({ missionExp, userLevel, userExp, userLevelMaxExp }) => {
-  const currentExp = userExp; // 현재 경험치
-  const totalExp = userLevelMaxExp; // 레벨업에 필요한 총 경험치
-  const earnedExp = missionExp; // 미션에서 획득한 경험치
-  const remainingExp = totalExp - currentExp; // 남은 경험치
+  const navigate = useNavigate();
+  const currentExp = userExp;
+  const totalExp = userLevelMaxExp;
+  const earnedExp = missionExp;
+  const remainingExp = totalExp - currentExp;
+
+  const handleConfirmClick = () => {
+    navigate("/missions");
+  };
 
   return (
     <div className="success-info-container">
@@ -18,6 +23,10 @@ const SuccessInfo = ({ missionExp, userLevel, userExp, userLevelMaxExp }) => {
           <span className="exp-unit"> 획득!</span>
         </div>
       </div>
+
+      {/* 현재 레벨 표시 추가 */}
+      <p className="current-level">현재 레벨: {userLevel}</p>
+
       <p className="remaining-exp">
         다음 레벨업까지 {remainingExp} EXP 남았어요!
       </p>
@@ -34,7 +43,9 @@ const SuccessInfo = ({ missionExp, userLevel, userExp, userLevelMaxExp }) => {
         </span>
       </div>
 
-      <button className="confirm-button">확인</button>
+      <button className="confirm-button" onClick={handleConfirmClick}>
+        확인
+      </button>
     </div>
   );
 };

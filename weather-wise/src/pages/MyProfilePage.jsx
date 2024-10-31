@@ -8,8 +8,10 @@ import left from "../assets/left.png";
 import mainLogo from "../assets/mainLogo.png";
 import info from "../assets/info.png";
 import "./MyProfilePage.css";
+import { useNavigate } from "react-router-dom";
 
 const MyProfilePage = () => {
+  const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({ nickname: "", serialId: "" });
   const [showPopup, setShowPopup] = useState(false);
   const [popupContent, setPopupContent] = useState("");
@@ -74,15 +76,18 @@ const MyProfilePage = () => {
 
   return (
     <div className="profile-page">
+      {/* 헤더 */}
       <Header
         leftChild={<Button text={<img src={left} alt="Back" />} type="icon" />}
         title={<img src={mainLogo} alt="mainLogo" />}
         rightChild={
-          <Button
-            text={<img src={info} alt="info" />}
-            type="icon"
-            onClick={() => console.log("Notification button clicked")}
-          />
+          <div>
+            <Button
+              text={<img src={info} alt="info" />}
+              type="icon"
+              onClick={() => navigate("/myprofile")}
+            />
+          </div>
         }
       />
 

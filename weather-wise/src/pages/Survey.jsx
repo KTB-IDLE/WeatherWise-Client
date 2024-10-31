@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Button from "../components/Button";
-import Footer from "../components/Footer";
 import left from "../assets/left.png";
 import mainLogo from "../assets/mainLogo.png";
 import Question from "../components/Question";
@@ -10,50 +9,31 @@ import SurveyConfirmButton from "../components/SurveyConfirmButton";
 import sun from "../assets/sun-survey.png";
 import cold from "../assets/cold-survey.png";
 import sweating from "../assets/sweating-survey.png";
+import AxiosInstance from "../utils/AxiosInstance";
 
 const Survey = () => {
   const navigate = useNavigate();
-  const { state } = useLocation(); // JoinForm에서 전달된 회원가입 정보 받기
-  const { email, password, nickname } = state || {}; // 이메일, 비밀번호, 닉네임 받기
-
   const [surveyAnswers, setSurveyAnswers] = useState({
     sunAnswer: null,
     coldAnswer: null,
     sweatingAnswer: null,
   });
 
-  // 설문조사 응답 저장 함수 (boolean 값으로 저장)
   const handleSurveyAnswer = (question, answer) => {
     setSurveyAnswers((prevAnswers) => ({
       ...prevAnswers,
-      [question]: answer === "yes" ? true : false, // "yes"는 true, "no"는 false로 변환
+      [question]: answer === "yes",
     }));
   };
 
-  // 설문조사 완료 후, 모든 데이터를 서버로 전송하는 함수
   const handleSubmitSurvey = async () => {
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/v1/users/signup`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            serialId: email,
-            password,
-            nickname,
-            survey: surveyAnswers, // 설문조사 결과 (boolean)
-          }),
-        }
-      );
+      const response = await AxiosInstance.patch("/survey", surveyAnswers);
 
-      const data = await response.json();
-      if (response.ok) {
-        navigate("/login");
+      if (response.status === 200) {
+        navigate("/"); // 200 응답을 받으면 루트 경로로 리디렉션
       } else {
-        alert("회원가입에 실패했습니다.");
+        alert("설문조사 제출에 실패했습니다.");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -63,38 +43,26 @@ const Survey = () => {
 
   return (
     <div>
-      <Header
-        leftChild={
-          <Button
-            text={<img src={left} alt="Back" />}
-            type="icon"
-            onClick={() => console.log("Back button clicked")}
-          />
-        }
-        title={<img src={mainLogo} alt="mainLogo" />}
-      />
-
       <Question
         imageSrc={sun}
         questionText="더위를 잘 타는 편이신가요?"
         onYes={() => handleSurveyAnswer("sunAnswer", "yes")}
         onNo={() => handleSurveyAnswer("sunAnswer", "no")}
       />
-
       <Question
         imageSrc={cold}
         questionText="추위를 잘 타는 편이신가요?"
         onYes={() => handleSurveyAnswer("coldAnswer", "yes")}
         onNo={() => handleSurveyAnswer("coldAnswer", "no")}
+        additionalClass="extra-margin-top" // 두 번째 Question에 추가 클래스 전달
       />
-
       <Question
         imageSrc={sweating}
         questionText="땀이 잘 나는 편이신가요?"
         onYes={() => handleSurveyAnswer("sweatingAnswer", "yes")}
         onNo={() => handleSurveyAnswer("sweatingAnswer", "no")}
+        additionalClass="extra-margin-top" // 세 번째 Question에도 추가 클래스 전달
       />
-
       <SurveyConfirmButton text={"확인"} onClick={handleSubmitSurvey} />
     </div>
   );

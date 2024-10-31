@@ -5,12 +5,12 @@
   justify-content: center; /* 세로축 가운데 정렬 */
   text-align: center; /* 텍스트 중앙 정렬 */
   width: 100%;
-  margin-top: 100px;
+  margin-top: 110px;
 }
 
 .mission-success-container img {
   width: 100px; /* 이미지 크기 조정 */
-  margin-bottom: 20px; /* 이미지와 텍스트 사이 여백 추가 */
+  margin-top: 30px;
 }
 
 .mission-success-text {

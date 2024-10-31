@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./MissionAuth.css";
 import Modal from "./Modal";
-import AxiosInstance from "../utils/AxiosInstance"; // AxiosInstance import
+import AxiosInstance from "../utils/AxiosInstance";
 
 const MissionAuth = ({ completed, id, imageFile, resetImage }) => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const navigate = useNavigate();
@@ -15,7 +14,6 @@ const MissionAuth = ({ completed, id, imageFile, resetImage }) => {
     if (!completed && imageFile) {
       setLoading(true);
 
-      // FormData 객체 생성 및 이미지 파일 추가
       const formData = new FormData();
       formData.append("imageFile", imageFile);
 
@@ -25,7 +23,7 @@ const MissionAuth = ({ completed, id, imageFile, resetImage }) => {
           formData,
           {
             headers: {
-              "Content-Type": "multipart/form-data", // Content-Type 설정
+              "Content-Type": "multipart/form-data",
             },
           }
         );
@@ -58,16 +56,19 @@ const MissionAuth = ({ completed, id, imageFile, resetImage }) => {
             resetImage();
           }
         } else {
-          setError("인증에 실패했습니다.");
+          setModalMessage("인증에 실패했습니다. 다시 시도해 주세요.");
+          setIsModalOpen(true);
         }
       } catch (err) {
-        console.log(err);
-        setError("서버와의 통신 중 오류가 발생했습니다.");
+        console.error("API 호출 오류:", err);
+        setModalMessage("서버와의 통신 중 오류가 발생했습니다.");
+        setIsModalOpen(true);
       } finally {
         setLoading(false);
       }
     } else if (!imageFile) {
-      setError("이미지를 선택해주세요.");
+      setModalMessage("이미지를 선택해주세요.");
+      setIsModalOpen(true);
     }
   };
 
@@ -77,7 +78,6 @@ const MissionAuth = ({ completed, id, imageFile, resetImage }) => {
         <div className="loading-spinner"></div>
       ) : (
         <>
-          {error && <p className="error-message">{error}</p>}
           <button
             className={`auth-button ${completed ? "disabled" : "active"}`}
             onClick={handleAuthClick}
@@ -90,7 +90,10 @@ const MissionAuth = ({ completed, id, imageFile, resetImage }) => {
 
       <Modal
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={() => {
+          setIsModalOpen(false);
+          resetImage();
+        }}
         message={modalMessage}
       />
     </div>

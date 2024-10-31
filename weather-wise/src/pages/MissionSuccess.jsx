@@ -8,8 +8,10 @@ import left from "../assets/left.png";
 import mainLogo from "../assets/mainLogo.png";
 import info from "../assets/info.png";
 import SuccessInfo from "../components/SuccessInfo";
+import { useNavigate } from "react-router-dom";
 
 const MissionSuccess = () => {
+  const navigate = useNavigate();
   const location = useLocation();
 
   // location.state로부터 동적으로 넘어온 데이터
@@ -18,21 +20,16 @@ const MissionSuccess = () => {
 
   return (
     <div className="mission-success-page">
+      {/* 헤더 */}
       <Header
-        leftChild={
-          <Button
-            text={<img src={left} alt="Back" />}
-            type="icon"
-            onClick={() => console.log("Back button clicked")}
-          />
-        }
+        leftChild={<Button text={<img src={left} alt="Back" />} type="icon" />}
         title={<img src={mainLogo} alt="mainLogo" />}
         rightChild={
           <div>
             <Button
               text={<img src={info} alt="info" />}
               type="icon"
-              onClick={() => console.log("Notification button clicked")}
+              onClick={() => navigate("/myprofile")}
             />
           </div>
         }

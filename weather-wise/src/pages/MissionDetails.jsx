@@ -11,8 +11,9 @@ import MissionImage from "../components/MissionImage";
 import MissionDetailsHedaer from "../components/MissionDetailsHedaer";
 import MissionName from "../components/MissionName";
 import AxiosInstance from "../utils/AxiosInstance";
-
+import { useNavigate } from "react-router-dom";
 const MissionDetails = () => {
+  const navigate = useNavigate();
   const { id } = useParams(); // URL에서 id 값을 가져옴
   const [missionDetails, setMissionDetails] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -53,26 +54,21 @@ const MissionDetails = () => {
   if (error) return <div>{error}</div>;
 
   // missionDetails에서 필요한 데이터 추출
-  const { missionName, completed, uploadFileLink, nickName } =
+  const { missionName, completed, storeFileName, nickName } =
     missionDetails || {};
 
   return (
     <div>
+      {/* 헤더 */}
       <Header
-        leftChild={
-          <Button
-            text={<img src={left} alt="Back" />}
-            type="icon"
-            onClick={() => console.log("Back button clicked")}
-          />
-        }
+        leftChild={<Button text={<img src={left} alt="Back" />} type="icon" />}
         title={<img src={mainLogo} alt="mainLogo" />}
         rightChild={
           <div>
             <Button
               text={<img src={info} alt="info" />}
               type="icon"
-              onClick={() => console.log("Notification button clicked")}
+              onClick={() => navigate("/myprofile")}
             />
           </div>
         }
@@ -85,7 +81,7 @@ const MissionDetails = () => {
         <MissionName missionName={missionName} />
         <MissionImage
           completed={completed} // 미션의 completed 값 전달
-          uploadFileLink={uploadFileLink} // 서버에서 받은 파일 링크 전달
+          storeFileName={storeFileName} // 서버에서 받은 파일 링크 전달
           setImageFile={setImageFile}
           selectedImage={selectedImage}
           resetImage={resetImage}

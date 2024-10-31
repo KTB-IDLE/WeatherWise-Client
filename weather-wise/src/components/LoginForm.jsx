@@ -4,12 +4,12 @@ import "./LoginForm.css"; // 스타일을 위한 CSS 파일
 import kakao from "../assets/kakao.png";
 
 const LoginForm = () => {
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  const VITE_API_BASE_URL_FOR_OAUTH = import.meta.env
+    .VITE_API_BASE_URL_FOR_OAUTH;
   const navigate = useNavigate();
   const [serialId, setSerialId] = useState("");
   const [password, setPassword] = useState("");
-
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-  const API_KAKAO_BASE_URL = import.meta.env.VITE_API_KAKAO_BASE_URL;
 
   // 쿠키에서 특정 이름의 쿠키 값을 찾는 함수
   const parseCookie = (name) => {
@@ -26,11 +26,14 @@ const LoginForm = () => {
     formData.append("password", password);
 
     try {
-      const response = await fetch(`${API_BASE_URL}/v1/sign-in`, {
-        method: "POST",
-        credentials: "include", // 쿠키를 포함하도록 설정
-        body: formData,
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/v1/sign-in`,
+        {
+          method: "POST",
+          credentials: "include", // 쿠키를 포함하도록 설정
+          body: formData,
+        }
+      );
 
       const result = await response.text();
 
@@ -50,7 +53,7 @@ const LoginForm = () => {
   };
 
   const handleKakaoLogin = () => {
-    window.location.href = `${API_KAKAO_BASE_URL}/oauth2/authorization/kakao`;
+    window.location.href = `${VITE_API_BASE_URL_FOR_OAUTH}/oauth2/authorization/kakao`;
   };
 
   const handleRegister = () => {

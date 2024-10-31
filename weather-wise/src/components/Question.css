@@ -10,7 +10,7 @@
   background-color: #fff;
   margin: 0 auto;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1); /* 그림자 조금 줄임 */
-  margin-top: 25px;
+  margin-top: 0px;
 }
 
 .question-image {
@@ -58,4 +58,8 @@
 /* 버튼 클릭 시 색상 변경 */
 .question-button.clicked {
   background-color: #5f9232; /* 더 짙은 초록색 */
+}
+
+.extra-margin-top {
+  margin-top: 40px; /* 원하는 margin-top 값으로 설정 */
 }

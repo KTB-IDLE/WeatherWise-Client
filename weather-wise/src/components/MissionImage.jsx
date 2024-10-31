@@ -1,37 +1,38 @@
 import React from "react";
-import "./MissionImage.css"; // CSS 파일 임포트
+import "./MissionImage.css";
 
 const MissionImage = ({
   completed,
-  uploadFileLink,
+  storeFileName,
   setImageFile,
   selectedImage,
   setSelectedImage,
   resetImage,
 }) => {
-  // 이미지 파일이 변경될 때 실행되는 함수
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const imageUrl = URL.createObjectURL(file); // 이미지 URL 생성
-      setSelectedImage(imageUrl); // 선택된 이미지 상태 업데이트
-      setImageFile(file); // 상위 컴포넌트로 이미지 파일 전달
+      const imageUrl = URL.createObjectURL(file);
+      setSelectedImage(imageUrl);
+      setImageFile(file);
+
+      // 같은 파일을 다시 선택해도 반응하도록 input을 초기화합니다.
+      e.target.value = null;
     }
   };
 
   return (
     <div className="mission-image-container">
       <h2>미션을 수행한 사진을 아래에 첨부해주세요</h2>
-
       <div
         className="image-upload-box"
         onClick={() =>
           !completed && document.getElementById("imageInput").click()
         }
       >
-        {completed && uploadFileLink ? (
+        {completed && storeFileName ? (
           <img
-            src={uploadFileLink}
+            src={storeFileName}
             alt="Uploaded Mission"
             className="mission-image"
           />
