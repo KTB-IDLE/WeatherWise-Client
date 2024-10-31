@@ -74,15 +74,18 @@ const MyProfilePage = () => {
 
   return (
     <div className="profile-page">
+      {/* 헤더 */}
       <Header
         leftChild={<Button text={<img src={left} alt="Back" />} type="icon" />}
         title={<img src={mainLogo} alt="mainLogo" />}
         rightChild={
-          <Button
-            text={<img src={info} alt="info" />}
-            type="icon"
-            onClick={() => console.log("Notification button clicked")}
-          />
+          <div>
+            <Button
+              text={<img src={info} alt="info" />}
+              type="icon"
+              onClick={() => navigate("/myprofile")}
+            />
+          </div>
         }
       />
 

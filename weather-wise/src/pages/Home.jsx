@@ -52,13 +52,7 @@ const Home = () => {
   return (
     <div>
       <Header
-        leftChild={
-          <Button
-            text={<img src={left} alt="Back" />}
-            type="icon"
-            onClick={() => console.log("Back button clicked")}
-          />
-        }
+        leftChild={<Button text={<img src={left} alt="Back" />} type="icon" />}
         title={<img src={mainLogo} alt="mainLogo" />}
         rightChild={
           <div>

@@ -18,21 +18,16 @@ const MissionSuccess = () => {
 
   return (
     <div className="mission-success-page">
+      {/* 헤더 */}
       <Header
-        leftChild={
-          <Button
-            text={<img src={left} alt="Back" />}
-            type="icon"
-            onClick={() => console.log("Back button clicked")}
-          />
-        }
+        leftChild={<Button text={<img src={left} alt="Back" />} type="icon" />}
         title={<img src={mainLogo} alt="mainLogo" />}
         rightChild={
           <div>
             <Button
               text={<img src={info} alt="info" />}
               type="icon"
-              onClick={() => console.log("Notification button clicked")}
+              onClick={() => navigate("/myprofile")}
             />
           </div>
         }

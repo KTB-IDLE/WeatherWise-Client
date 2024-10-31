@@ -88,21 +88,18 @@ const Missions = () => {
 
   return (
     <div>
+      {/* 헤더 */}
       <Header
-        leftChild={
-          <Button
-            text={<img src={left} alt="Back" />}
-            type="icon"
-            onClick={() => console.log("Back button clicked")}
-          />
-        }
+        leftChild={<Button text={<img src={left} alt="Back" />} type="icon" />}
         title={<img src={mainLogo} alt="mainLogo" />}
         rightChild={
-          <Button
-            text={<img src={info} alt="info" />}
-            type="icon"
-            onClick={() => console.log("Notification button clicked")}
-          />
+          <div>
+            <Button
+              text={<img src={info} alt="info" />}
+              type="icon"
+              onClick={() => navigate("/myprofile")}
+            />
+          </div>
         }
       />
 
