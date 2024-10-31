@@ -11,13 +11,7 @@ const Login = () => {
   return (
     <div>
       <Header
-        leftChild={
-          <Button
-            text={<img src={left} alt="Back" />}
-            type="icon"
-            onClick={() => console.log("Back button clicked")}
-          />
-        }
+        leftChild={<Button type="icon" />}
         title={<img src={mainLogo} alt="mainLogo" />}
       />
 
