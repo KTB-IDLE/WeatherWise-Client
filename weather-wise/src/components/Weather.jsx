@@ -7,7 +7,6 @@ const mainWeather = () => {
       style={{ backgroundImage: `url(${test})` }}
     >
       <div className="weather-info">
-        <h2 className="location">나의 위치</h2>
         <h3 className="city">성남시</h3>
         <h1 className="temperature">24°</h1>
         <h3 className="description">대체로 맑음</h3>

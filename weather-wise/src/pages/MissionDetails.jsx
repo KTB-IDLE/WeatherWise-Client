@@ -57,8 +57,6 @@ const MissionDetails = () => {
   const { missionName, completed, storeFileName, nickName } =
     missionDetails || {};
 
-  console.log(storeFileName);
-
   return (
     <div>
       {/* 헤더 */}
