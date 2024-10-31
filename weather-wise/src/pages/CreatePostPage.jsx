@@ -1,21 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import AxiosInstance from "../utils/AxiosInstance"
-import LocationSelectPost from '../components/community/LocationSelectPost'; // 위치 선택 컴포넌트
-import './CreatePostPage.css';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import AxiosInstance from "../utils/AxiosInstance";
+import LocationSelectPost from "../components/community/LocationSelectPost"; // 위치 선택 컴포넌트
+import "./CreatePostPage.css";
 
 function CreatePostPage() {
   const navigate = useNavigate();
-  const [location, setLocation] = useState({ name: '', latitude: null, longitude: null });
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [location, setLocation] = useState({
+    name: "",
+    latitude: null,
+    longitude: null,
+  });
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   const [showPopup, setShowPopup] = useState(false);
-  const [popupContent, setPopupContent] = useState(''); // 팝업 내용 설정
+  const [popupContent, setPopupContent] = useState(""); // 팝업 내용 설정
 
   const createPost = async () => {
     // 제목, 내용, 위치 필드가 모두 채워져 있는지 확인
     if (!title || !content || !location.name) {
-      setPopupContent('제목, 내용, 위치를 모두 입력해주세요.');
+      setPopupContent("제목, 내용, 위치를 모두 입력해주세요.");
       setShowPopup(true);
       return;
     }
@@ -31,11 +35,11 @@ function CreatePostPage() {
           longitude: location.longitude,
         },
       });
-      console.log('글 작성 성공:', response.data);
-      navigate('/community');
+      console.log("글 작성 성공:", response.data);
+      navigate("/community");
     } catch (error) {
-      console.error('글 작성 오류:', error);
-      setPopupContent('글 작성 중 오류가 발생했습니다. 다시 시도해주세요.');
+      console.error("글 작성 오류:", error);
+      setPopupContent("글 작성 중 오류가 발생했습니다. 다시 시도해주세요.");
       setShowPopup(true);
     }
   };
@@ -44,7 +48,10 @@ function CreatePostPage() {
     <div className="create-post-page">
       {/* 헤더 */}
       <div className="header">
-        <button className="header-button" onClick={() => navigate('/community')}>
+        <button
+          className="header-button"
+          onClick={() => navigate("/community")}
+        >
           X
         </button>
         <h2 className="header-title">글 작성</h2>

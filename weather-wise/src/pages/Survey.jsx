@@ -12,8 +12,6 @@ import sweating from "../assets/sweating-survey.png";
 import AxiosInstance from "../utils/AxiosInstance";
 
 const Survey = () => {
-  const navigate = useNavigate();
-
   const [surveyAnswers, setSurveyAnswers] = useState({
     sunAnswer: null,
     coldAnswer: null,

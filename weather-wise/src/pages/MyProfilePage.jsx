@@ -8,8 +8,10 @@ import left from "../assets/left.png";
 import mainLogo from "../assets/mainLogo.png";
 import info from "../assets/info.png";
 import "./MyProfilePage.css";
+import { useNavigate } from "react-router-dom";
 
 const MyProfilePage = () => {
+  const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({ nickname: "", serialId: "" });
   const [showPopup, setShowPopup] = useState(false);
   const [popupContent, setPopupContent] = useState("");

@@ -8,6 +8,7 @@ import Header from "../components/Header";
 import left from "../assets/left.png";
 import mainLogo from "../assets/mainLogo.png";
 import info from "../assets/info.png";
+import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import "./CommunityPage.css"; // CSS 파일 import
 
@@ -16,6 +17,7 @@ import { convertArrayToDate } from "../utils/timeUtils";
 
 function CommunityPage() {
   const [posts, setPosts] = useState([]); // 게시글 리스트
+  const navigate = useNavigate();
   const [location, setLocation] = useState({
     name: "서울특별시 강남구 대치동",
     latitude: 37.49992,

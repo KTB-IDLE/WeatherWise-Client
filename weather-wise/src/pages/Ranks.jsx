@@ -8,8 +8,10 @@ import RankComment from "../components/RankComment";
 import RankList from "../components/RankList";
 import React, { useState, useEffect } from "react"; // useState와 useEffect를 불러옴
 import AxiosInstance from "../utils/AxiosInstance";
+import { useNavigate } from "react-router-dom";
 
 const Ranks = () => {
+  const navigate = useNavigate();
   const [rankData, setRankData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

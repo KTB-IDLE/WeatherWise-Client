@@ -11,8 +11,9 @@ import MissionImage from "../components/MissionImage";
 import MissionDetailsHedaer from "../components/MissionDetailsHedaer";
 import MissionName from "../components/MissionName";
 import AxiosInstance from "../utils/AxiosInstance";
-
+import { useNavigate } from "react-router-dom";
 const MissionDetails = () => {
+  const navigate = useNavigate();
   const { id } = useParams(); // URL에서 id 값을 가져옴
   const [missionDetails, setMissionDetails] = useState(null);
   const [loading, setLoading] = useState(true);

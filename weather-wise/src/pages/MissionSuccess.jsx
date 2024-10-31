@@ -8,8 +8,10 @@ import left from "../assets/left.png";
 import mainLogo from "../assets/mainLogo.png";
 import info from "../assets/info.png";
 import SuccessInfo from "../components/SuccessInfo";
+import { useNavigate } from "react-router-dom";
 
 const MissionSuccess = () => {
+  const navigate = useNavigate();
   const location = useLocation();
 
   // location.state로부터 동적으로 넘어온 데이터
