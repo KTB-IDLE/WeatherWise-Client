@@ -59,3 +59,7 @@
 .question-button.clicked {
   background-color: #5f9232; /* 더 짙은 초록색 */
 }
+
+.extra-margin-top {
+  margin-top: 40px; /* 원하는 margin-top 값으로 설정 */
+}

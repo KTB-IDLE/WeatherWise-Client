@@ -9,10 +9,12 @@ import info from "../assets/info.png";
 import Weather from "../components/Weather";
 import Summary from "../components/Summary";
 import AxiosInstance from "../utils/AxiosInstance"; // AxiosInstance 가져오기
+import Modal from "../components/Modal"; // Modal 컴포넌트 가져오기
 
 const Home = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
 
   useEffect(() => {
     const checkSurveyStatus = async () => {
@@ -20,11 +22,10 @@ const Home = () => {
         const response = await AxiosInstance.get("/home");
 
         if (response.status === 200) {
-          const { didSurvey } = response.data.result; // result에서 didSurvey 추출
-          console.log("didSurvey 값:", didSurvey);
+          const { didSurvey } = response.data.result;
 
           if (!didSurvey) {
-            navigate("/survey");
+            setIsModalOpen(true); // 모달 열기
           }
         } else {
           console.error("데이터 가져오기 실패:", response.statusText);
@@ -37,7 +38,12 @@ const Home = () => {
     };
 
     checkSurveyStatus();
-  }, [navigate]);
+  }, []);
+
+  const handleSurveyStart = () => {
+    setIsModalOpen(false); // 모달 닫기
+    navigate("/survey"); // /survey로 이동
+  };
 
   if (loading) {
     return <div>로딩 중...</div>;
@@ -67,8 +73,14 @@ const Home = () => {
 
       <Weather />
       <Summary />
-
       <Footer />
+
+      {/* Modal 컴포넌트 추가 */}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={handleSurveyStart} // 확인 버튼 클릭 시 handleSurveyStart 호출
+        message="설문조사를 시작할게요!"
+      />
     </div>
   );
 };

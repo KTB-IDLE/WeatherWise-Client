@@ -29,7 +29,6 @@ const Survey = () => {
 
   const handleSubmitSurvey = async () => {
     try {
-      console.log("123");
       const response = await AxiosInstance.patch("/survey", surveyAnswers);
 
       if (response.status === 200) {
@@ -56,12 +55,14 @@ const Survey = () => {
         questionText="추위를 잘 타는 편이신가요?"
         onYes={() => handleSurveyAnswer("coldAnswer", "yes")}
         onNo={() => handleSurveyAnswer("coldAnswer", "no")}
+        additionalClass="extra-margin-top" // 두 번째 Question에 추가 클래스 전달
       />
       <Question
         imageSrc={sweating}
         questionText="땀이 잘 나는 편이신가요?"
         onYes={() => handleSurveyAnswer("sweatingAnswer", "yes")}
         onNo={() => handleSurveyAnswer("sweatingAnswer", "no")}
+        additionalClass="extra-margin-top" // 세 번째 Question에도 추가 클래스 전달
       />
       <SurveyConfirmButton text={"확인"} onClick={handleSubmitSurvey} />
     </div>

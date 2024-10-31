@@ -1,22 +1,21 @@
 import React, { useState } from "react";
-import "./Question.css"; // 스타일을 위한 CSS 파일
+import "./Question.css";
 
-const Question = ({ imageSrc, questionText, onYes, onNo }) => {
-  // 버튼 클릭 상태 관리 (null: 클릭 안 됨, 'yes': '네' 클릭, 'no': '아니요' 클릭)
+const Question = ({ imageSrc, questionText, onYes, onNo, additionalClass }) => {
   const [clickedButton, setClickedButton] = useState(null);
 
   const handleYesClick = () => {
-    setClickedButton("yes"); // '네' 버튼 클릭 상태 설정
-    onYes(); // 외부에서 전달된 onYes 함수 실행
+    setClickedButton("yes");
+    onYes();
   };
 
   const handleNoClick = () => {
-    setClickedButton("no"); // '아니요' 버튼 클릭 상태 설정
-    onNo(); // 외부에서 전달된 onNo 함수 실행
+    setClickedButton("no");
+    onNo();
   };
 
   return (
-    <div className="question-container">
+    <div className={`question-container ${additionalClass || ""}`}>
       <img src={imageSrc} alt="Question Image" className="question-image" />
       <p className="question-text">{questionText}</p>
       <div className="question-buttons">
