@@ -5,17 +5,16 @@ import Home from "./pages/Home";
 import Missions from "./pages/Missions";
 import Notfound from "./pages/Notfound";
 import MissionDetails from "./pages/MissionDetails";
-import CommunityPage from './pages/CommunityPage';
-import CreatePostPage from './pages/CreatePostPage';
-import MyProfilePage from './pages/MyProfilePage';
-import MyPostPage from './pages/MyPostPage';
+import CommunityPage from "./pages/CommunityPage";
+import CreatePostPage from "./pages/CreatePostPage";
+import MyProfilePage from "./pages/MyProfilePage";
+import MyPostPage from "./pages/MyPostPage";
 import MissionSuccess from "./pages/MissionSuccess";
 import MissionFail from "./pages/MissionFail";
 import Ranks from "./pages/Ranks";
 import Join from "./pages/Join";
 import Login from "./pages/Login";
 import Survey from "./pages/Survey";
-
 
 function App() {
   // 쿠키에서 AccessToken 값을 가져오는 함수
@@ -57,14 +56,7 @@ function App() {
           </PublicRoute>
         }
       />
-      <Route
-        path="/survey"
-        element={
-          <PublicRoute>
-            <Survey />
-          </PublicRoute>
-        }
-      />
+
       <Route
         path="/join"
         element={
@@ -99,6 +91,16 @@ function App() {
           </PrivateRoute>
         }
       />
+
+      <Route
+        path="/survey"
+        element={
+          <PrivateRoute>
+            <Survey />
+          </PrivateRoute>
+        }
+      />
+
       <Route
         path="/fail"
         element={
@@ -107,7 +109,7 @@ function App() {
           </PrivateRoute>
         }
       />
-          
+
       <Route
         path="/community"
         element={
@@ -116,7 +118,7 @@ function App() {
           </PrivateRoute>
         }
       />
-          
+
       <Route
         path="/create-post"
         element={
@@ -125,7 +127,7 @@ function App() {
           </PrivateRoute>
         }
       />
-          
+
       <Route
         path="/myprofile"
         element={
@@ -134,7 +136,7 @@ function App() {
           </PrivateRoute>
         }
       />
-          
+
       <Route
         path="/myposts"
         element={
@@ -143,7 +145,7 @@ function App() {
           </PrivateRoute>
         }
       />
-    
+
       <Route
         path="/rank"
         element={
@@ -155,7 +157,6 @@ function App() {
       {/* Not found */}
       <Route path="*" element={<Notfound />} />
     </Routes>
-
   );
 }
 

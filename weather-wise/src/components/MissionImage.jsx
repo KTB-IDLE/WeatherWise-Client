@@ -3,12 +3,13 @@ import "./MissionImage.css"; // CSS 파일 임포트
 
 const MissionImage = ({
   completed,
-  uploadFileLink,
+  storeFileName,
   setImageFile,
   selectedImage,
   setSelectedImage,
   resetImage,
 }) => {
+  console.log(storeFileName);
   // 이미지 파일이 변경될 때 실행되는 함수
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -29,9 +30,9 @@ const MissionImage = ({
           !completed && document.getElementById("imageInput").click()
         }
       >
-        {completed && uploadFileLink ? (
+        {completed && storeFileName ? (
           <img
-            src={uploadFileLink}
+            src={storeFileName}
             alt="Uploaded Mission"
             className="mission-image"
           />

@@ -53,8 +53,10 @@ const MissionDetails = () => {
   if (error) return <div>{error}</div>;
 
   // missionDetails에서 필요한 데이터 추출
-  const { missionName, completed, uploadFileLink, nickName } =
+  const { missionName, completed, storeFileName, nickName } =
     missionDetails || {};
+
+  console.log(storeFileName);
 
   return (
     <div>
@@ -85,7 +87,7 @@ const MissionDetails = () => {
         <MissionName missionName={missionName} />
         <MissionImage
           completed={completed} // 미션의 completed 값 전달
-          uploadFileLink={uploadFileLink} // 서버에서 받은 파일 링크 전달
+          storeFileName={storeFileName} // 서버에서 받은 파일 링크 전달
           setImageFile={setImageFile}
           selectedImage={selectedImage}
           resetImage={resetImage}
