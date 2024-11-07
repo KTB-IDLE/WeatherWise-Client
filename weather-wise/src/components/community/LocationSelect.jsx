@@ -8,7 +8,7 @@ function LocationSelect({ location, setLocation }) {
   const [loading, setLoading] = useState(true);
 
   const defaultLocation = {
-    name: '서울특별시 강남구 대치동(기본위치)',
+    name: '서울특별시 강남구 대치동 (기본위치)',
     latitude: 37.499920,
     longitude: 127.037840,
   };
