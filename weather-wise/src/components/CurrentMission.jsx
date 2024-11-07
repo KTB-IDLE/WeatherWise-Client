@@ -18,7 +18,9 @@ const CurrentMission = ({
 
   return (
     <div className="current-mission-container">
-      <h1>{nickName ? `${nickName}님의 미션현황` : "미션현황"}</h1>
+      <h1 className="state-of-mission-with-nickname">
+      {nickName ? <span className="nickname-highlight">{nickName}</span> : ""}님의 미션현황
+      </h1>
       <div className="date-navigation">
         <button onClick={handlePreviousDay} className="nav-button">
           {"<"}

@@ -8,7 +8,7 @@ function LocationSelect({ location, setLocation }) {
   const [loading, setLoading] = useState(true);
 
   const defaultLocation = {
-    name: '서울특별시 강남구 대치동 (기본위치)',
+    name: '대치동 (기본위치)',
     latitude: 37.499920,
     longitude: 127.037840,
   };
@@ -40,7 +40,8 @@ function LocationSelect({ location, setLocation }) {
               const geocoder = new window.kakao.maps.services.Geocoder();
               geocoder.coord2RegionCode(longitude, latitude, (result, status) => {
                 if (status === window.kakao.maps.services.Status.OK) {
-                  setLocation({ name: result[0].address_name, latitude, longitude });
+                  const shortAddress = result[0].region_3depth_name || result[0].address_name;
+                  setLocation({ name: shortAddress, latitude, longitude });
                 } else {
                   setLocation(defaultLocation);
                 }
@@ -76,10 +77,18 @@ function LocationSelect({ location, setLocation }) {
       {showMap && (
         <KakaoMap
           onSelectLocation={(newLoc) => {
-            setLocation(newLoc);
-            setShowMap(false); // 위치 선택 후 지도 닫기
+            const { latitude, longitude } = newLoc;
+            const geocoder = new window.kakao.maps.services.Geocoder();
+            geocoder.coord2RegionCode(longitude, latitude, (result, status) => {
+              if (status === window.kakao.maps.services.Status.OK) {
+                const shortAddress = result[0].region_3depth_name || result[0].address_name;
+                setLocation({ name: shortAddress, latitude, longitude });
+              }
+            });
+            setShowMap(false);
           }}
           defaultLocation={location || defaultLocation}
+          className="location-select-community"
         />
       )}
     </div>

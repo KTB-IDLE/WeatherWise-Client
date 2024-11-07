@@ -1,6 +1,6 @@
 .create-mission-container {
   text-align: center;
-  margin-top: 111px;
+  margin-top: 96px;
 }
 
 h1 {
@@ -8,8 +8,10 @@ h1 {
   margin-bottom: 10px;
 }
 
-p {
+.mission-create-comment {
   font-size: 25px; /* 부제목 글씨 크기 약간 키움 */
+  margin-top: 30px;
+  padding-top: 30px;
   margin-bottom: 30px;
 }
 

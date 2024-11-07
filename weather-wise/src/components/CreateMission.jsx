@@ -55,7 +55,7 @@ const CreateMission = ({ text, onMissionCreate, isToday, missionCount }) => {
 
   return (
     <div className="create-mission-container">
-      <p>{text}</p>
+      <p className="mission-create-comment">{text}</p>
       <button
         className="mission-button"
         onClick={handleCreateMission}

@@ -3,9 +3,14 @@
   margin-top: 50px;
 }
 
-h1 {
-  font-size: 35px; /* 제목 글씨 크기 */
+.state-of-mission-with-nickname {
+  font-size: 30px; /* 제목 글씨 크기 */
   margin-bottom: 20px;
+}
+
+.nickname-highlight {
+  color: #1b49ff; /* 닉네임에 적용할 색상 */
+  font-weight: bold; /* 닉네임 강조 */
 }
 
 .date-navigation {
