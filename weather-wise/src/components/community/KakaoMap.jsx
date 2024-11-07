@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './KakaoMap.css';
 
-function KakaoMap({ onSelectLocation, defaultLocation }) {
+function KakaoMap({ onSelectLocation, defaultLocation, className }) {
   const [map, setMap] = useState(null);
   const [searchKeyword, setSearchKeyword] = useState(''); // 검색어 상태 추가
   const [searchResults, setSearchResults] = useState([]); // 검색 결과 상태 추가
@@ -26,40 +26,42 @@ function KakaoMap({ onSelectLocation, defaultLocation }) {
       if (window.kakao && window.kakao.maps) {
         window.kakao.maps.load(() => {
           const container = document.getElementById('kakao-map');
-          const options = {
-            center: new window.kakao.maps.LatLng(defaultCoords.latitude, defaultCoords.longitude), // 초기값은 전달받은 defaultLocation
-            level: 3,
-          };
+          if (container) {
+            const options = {
+              center: new window.kakao.maps.LatLng(defaultCoords.latitude, defaultCoords.longitude), // 초기값은 전달받은 defaultLocation
+              level: 3,
+            };
 
-          const mapInstance = new window.kakao.maps.Map(container, options);
-          setMap(mapInstance);
+            const mapInstance = new window.kakao.maps.Map(container, options);
+            setMap(mapInstance);
 
-          // 장소 검색 서비스 인스턴스 생성
-          const ps = new window.kakao.maps.services.Places(mapInstance);
-          setPlacesService(ps);
+            // 장소 검색 서비스 인스턴스 생성
+            const ps = new window.kakao.maps.services.Places(mapInstance);
+            setPlacesService(ps);
 
-          const marker = new window.kakao.maps.Marker({
-            position: new window.kakao.maps.LatLng(defaultCoords.latitude, defaultCoords.longitude),
-          });
-          marker.setMap(mapInstance);
-
-          // 지도 클릭 시 마커 이동 및 좌표 정보 받아오기
-          window.kakao.maps.event.addListener(mapInstance, 'click', (mouseEvent) => {
-            const latlng = mouseEvent.latLng;
-            marker.setPosition(latlng);
-
-            const geocoder = new window.kakao.maps.services.Geocoder();
-            geocoder.coord2RegionCode(latlng.getLng(), latlng.getLat(), (result, status) => {
-              if (status === window.kakao.maps.services.Status.OK) {
-                const locationName = result[0].address_name;
-                onSelectLocation({
-                  name: locationName,
-                  latitude: latlng.getLat(),
-                  longitude: latlng.getLng(),
-                });
-              }
+            const marker = new window.kakao.maps.Marker({
+              position: new window.kakao.maps.LatLng(defaultCoords.latitude, defaultCoords.longitude),
             });
-          });
+            marker.setMap(mapInstance);
+
+            // 지도 클릭 시 마커 이동 및 좌표 정보 받아오기
+            window.kakao.maps.event.addListener(mapInstance, 'click', (mouseEvent) => {
+              const latlng = mouseEvent.latLng;
+              marker.setPosition(latlng);
+
+              const geocoder = new window.kakao.maps.services.Geocoder();
+              geocoder.coord2RegionCode(latlng.getLng(), latlng.getLat(), (result, status) => {
+                if (status === window.kakao.maps.services.Status.OK) {
+                  const locationName = result[0].address_name;
+                  onSelectLocation({
+                    name: locationName,
+                    latitude: latlng.getLat(),
+                    longitude: latlng.getLng(),
+                  });
+                }
+              });
+            });
+          }
         });
       } else {
         console.error("Kakao Map script did not load properly.");
@@ -134,7 +136,7 @@ function KakaoMap({ onSelectLocation, defaultLocation }) {
 
 
   return (
-    <div>
+    <div className={className}>
       {/* 검색 입력창과 버튼 */}
       <div className="search-bar">
         <input
