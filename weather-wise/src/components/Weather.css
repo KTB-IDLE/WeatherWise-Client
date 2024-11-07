@@ -8,7 +8,7 @@
   justify-content: center;
   align-items: center;
   text-align: center; /* 컨테이너 내 모든 텍스트를 중앙 정렬 */
-  margin-top: 111px; /* 92.67px 만큼 아래로 이동 */
+  margin-top: 96px; /* 92.67px 만큼 아래로 이동 */
 }
 
 .weather-info {
@@ -26,6 +26,11 @@
 .city {
   font-size: 30px; /* 도시 글씨 크기 */
   margin-bottom: 10px;
+}
+
+.main-location-button {
+  padding-left: 5px;
+  background-color: transparent;
 }
 
 .temperature {
