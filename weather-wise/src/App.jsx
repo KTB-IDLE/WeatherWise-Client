@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
@@ -19,21 +19,35 @@ import Survey from "./pages/Survey";
 function App() {
   // 쿠키에서 AccessToken 값을 가져오는 함수
   const getCookie = (name) => {
-    const cookies = document.cookie.split("; ");
+    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? match[2] : null;
+    /* const cookies = document.cookie.split("; ");
     const foundCookie = cookies.find((cookie) => cookie.startsWith(`${name}=`));
-    return foundCookie ? foundCookie.split("=")[1] : null;
+    return foundCookie ? foundCookie.split("=")[1] : null; */
   };
+
+    // AccessToken 상태를 useState로 관리
+    const [accessToken, setAccessToken] = useState(getCookie("accessToken"));
+
+    useEffect(() => {
+      const checkAccessToken = () => {
+        setAccessToken(getCookie("accessToken")); // accessToken을 주기적으로 업데이트
+      };
+  
+      // 주기적으로 쿠키를 확인해 accessToken이 유효한지 검사 (Polling 방식)
+      const interval = setInterval(checkAccessToken, 1000);
+  
+      return () => clearInterval(interval); // 컴포넌트가 언마운트될 때 인터벌 정리
+    }, []);
 
   // PrivateRoute: AccessToken이 있는 경우만 접근 가능
   const PrivateRoute = ({ children }) => {
-    const accessToken = getCookie("accessToken");
-    return accessToken ? children : <Navigate to="/login" />;
+    return accessToken ? children : <Navigate to="/login" replace />;
   };
 
   // PublicRoute: AccessToken이 없는 경우에만 접근 가능
   const PublicRoute = ({ children }) => {
-    const accessToken = getCookie("accessToken");
-    return accessToken ? <Navigate to="/" /> : children;
+    return accessToken ? <Navigate to="/" replace /> : children;
   };
 
   return (

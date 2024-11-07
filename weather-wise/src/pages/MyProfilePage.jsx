@@ -12,21 +12,37 @@ import { useNavigate } from "react-router-dom";
 
 const MyProfilePage = () => {
   const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useState({ nickname: "", serialId: "" });
+  const [userInfo, setUserInfo] = useState({ nickname: "", serialId: "", level: null, point: null });
+  const [rankingInfo, setRankingInfo] = useState({ currentUserRanking: null, currentUserLevel: null});
+  const [missionCount, setMissionCount] = useState(0);
+  const [expRange, setExpRange] = useState({ minExp: 0, maxExp: 100 }); // 초기 경험치 범위
   const [showPopup, setShowPopup] = useState(false);
   const [popupContent, setPopupContent] = useState("");
   const [nickname, setNickname] = useState("");
-
-  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
-  const accessToken = import.meta.env.VITE_API_ACCESS_TOKEN;
 
   // 1. 사용자 정보 가져오기 (닉네임, 이메일)
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const url = `/v1/users/me`;
-        const response = await AxiosInstance.get(url);
-        setUserInfo(response.data); // 받아온 사용자 정보를 상태에 저장
+        // 사용자 정보 API 호출
+        const userInfoResponse = await AxiosInstance.get(`/v1/users/me`);
+        setUserInfo(userInfoResponse.data);
+
+        // 랭킹 정보 API 호출
+        const rankingResponse = await AxiosInstance.get(`/ranking`);
+        setRankingInfo(rankingResponse.data.result);
+
+        // 완료한 미션 개수 API 호출
+        const missionResponse = await AxiosInstance.get(`/mission-histories/success`);
+        setMissionCount(missionResponse.data.result.missionList.length);
+
+        // 경험치 범위 가져오기
+        if (userInfoResponse.data.level) {
+          const expResponse = await AxiosInstance.get(`/exp`, { params: { level: userInfoResponse.data.level } });
+          setExpRange(expResponse.data.result);
+        }
+
+        console.log("사용자 정보!!! :", userInfoResponse.data); // 전체 UserInfo 데이터 콘솔에 출력
       } catch (error) {
         console.error("사용자 정보를 가져오는 중 오류 발생:", error);
       }
@@ -38,7 +54,7 @@ const MyProfilePage = () => {
   const handleNicknameChange = async () => {
     try {
       const url = `/v1/users/nickname`;
-      const response = await AxiosInstance.put(url, nickname, {
+      await AxiosInstance.put(url, nickname, {
         headers: { "Content-Type": "text/plain" },
       });
       setPopupContent("닉네임 변경이 완료되었습니다.");
@@ -74,6 +90,13 @@ const MyProfilePage = () => {
     }
   };
 
+  // 프로그레스 바 퍼센티지 계산
+  const calculateProgress = () => {
+    const { point } = userInfo;
+    const { minExp, maxExp } = expRange;
+    return point ? ((point - minExp) / (maxExp - minExp)) * 100 : 0;
+  };
+
   return (
     <div className="profile-page">
       {/* 헤더 */}
@@ -100,14 +123,14 @@ const MyProfilePage = () => {
             </span>{" "}
             {/* 1. 닉네임 표시 */}
             <span className="level">
-              LEVEL 12 <span className="rank">(랭킹 41%)</span>
+              LEVEL {userInfo.level || "없음"} <span className="rank">({rankingInfo.currentUserRanking || "알 수 없음"}위)</span>
             </span>
           </div>
           <div className="progress-bar">
-            <div className="progress" style={{ width: "41%" }}></div>
+            <div className="progress" style={{ width: `${calculateProgress()}%` }}></div>
           </div>
           <div className="exp-info">
-            완료한 미션 수: 13개 <span className="points">470 / 1000</span>
+            완료한 미션 수: {missionCount}개 <span className="points">{userInfo.point !== undefined ? userInfo.point : "없음"} / {expRange.maxExp}</span>
           </div>
         </div>
       </div>

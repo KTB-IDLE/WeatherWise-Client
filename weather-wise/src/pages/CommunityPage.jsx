@@ -18,18 +18,17 @@ import { convertArrayToDate } from "../utils/timeUtils";
 function CommunityPage() {
   const [posts, setPosts] = useState([]); // 게시글 리스트
   const navigate = useNavigate();
-  const [location, setLocation] = useState({
-    name: "서울특별시 강남구 대치동",
-    latitude: 37.49992,
-    longitude: 127.03784,
-  });
+  const [location, setLocation] = useState(null);
   const [loading, setLoading] = useState(false); // 로딩 상태 관리
   const [error, setError] = useState(null); // 에러 상태 관리
 
   useEffect(() => {
+    if (!location) return;
+
     const fetchPosts = async () => {
       setLoading(true); // 로딩 시작
       setError(null); // 에러 초기화
+      console.log("요청 좌표:", location); 
 
       try {
         const url = `/boards/radius`;
@@ -60,6 +59,7 @@ function CommunityPage() {
     };
 
     fetchPosts(); // 게시글 가져오기 함수 호출
+    console.log("현재 위치 정보:", location);
   }, [location]); // location의 좌표가 변경될 때마다 호출
 
   return (
@@ -83,7 +83,7 @@ function CommunityPage() {
       <LocationSelect location={location} setLocation={setLocation} />
 
       {/* 로딩 중일 때 표시할 로딩 메시지 */}
-      {loading && <p>게시글을 불러오는 중...</p>}
+      {loading && <p> 게시글을 불러오는 중...</p>}
 
       {/* 에러 메시지 */}
       {error && <p>{error}</p>}
@@ -92,7 +92,7 @@ function CommunityPage() {
       <div className="post-list">
         {!loading && !error && posts && posts.length > 0
           ? posts.map((post) => <PostItem key={post.boardId} post={post} />)
-          : !loading && !error && <p>게시글이 없습니다.</p>}
+          : !loading && !error && <p> 게시글이 없습니다.</p>}
       </div>
 
       {/* 글 작성 버튼 */}
