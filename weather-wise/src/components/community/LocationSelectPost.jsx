@@ -4,12 +4,11 @@ import locationIcon from '../../assets/location.png';
 import './LocationSelectPost.css';
 
 function LocationSelectPost({ location, setLocation }) {
-  const [showDropdown, setShowDropdown] = useState(false);
   const [showMap, setShowMap] = useState(false);
 
   // Default location 
   const defaultLocation = {
-    name: '서울특별시 강남구 대치동',
+    name: '서울특별시 강남구 대치동 (기본위치)',
     latitude: 37.499920,
     longitude: 127.037840,
   };
@@ -21,7 +20,7 @@ function LocationSelectPost({ location, setLocation }) {
         (position) => {
           const { latitude, longitude } = position.coords;
           setLocation({
-            name: '사용자 위치 반영중...',  // 초기 값은 업데이트되기 전
+            name: '사용자 위치 반영중...',
             latitude,
             longitude,
           });
@@ -32,19 +31,16 @@ function LocationSelectPost({ location, setLocation }) {
           geocoder.coord2RegionCode(longitude, latitude, (result, status) => {
             if (status === window.kakao.maps.services.Status.OK) {
               setLocation({
-                name: result[0].address_name, // 실제 위치 이름으로 업데이트
+                name: result[0].address_name,
                 latitude,
                 longitude,
               });
-
-              setShowDropdown(false); 
             }
           });
         },
         () => {
           // 위치 가져오기 실패 시 기본 위치로 설정
           setLocation(defaultLocation);
-          setShowDropdown(false); 
         }
       );
     } else {
@@ -56,28 +52,28 @@ function LocationSelectPost({ location, setLocation }) {
   const handleLocationChange = (newLocation) => {
     setLocation(newLocation);
     setShowMap(false); // 지도를 닫음
-    setShowDropdown(false); 
   };
 
   return (
     <div className="location-select-post">
-      <span className="location-name">{location.name || '위치를 선택하세요'}</span>
+      <span className="location-name">{location.name || '위치 가져오는 중...'}</span>
       <button
         className="location-button"
-        onClick={() => setShowDropdown(!showDropdown)}
+        onClick={() => setShowMap(!showMap)} // 버튼 클릭 시 즉시 지도 표시
       >
         <img src={locationIcon} alt="location icon" />
       </button>
 
-      {showDropdown && (
-        <div className="location-dropdown">
-          <div className="location-dropdown-item" onClick={() => setShowMap(true)}>
-            위치 변경하기
-          </div>
-        </div>
+      {/* KakaoMap 컴포넌트가 showMap이 true일 때만 표시됩니다. */}
+      {showMap && (
+        <KakaoMap
+          onSelectLocation={(newLoc) => {
+            setLocation(newLoc);
+            setShowMap(false); // 위치 선택 후 지도 닫기
+          }}
+          defaultLocation={location || defaultLocation}
+        />
       )}
-
-      {showMap && <KakaoMap onSelectLocation={handleLocationChange} defaultLocation={location} />}
     </div>
   );
 }
