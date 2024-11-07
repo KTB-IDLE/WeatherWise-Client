@@ -11,7 +11,7 @@ const mainWeather = () => {
     latitude: 37.499920,
     longitude: 127.037840,
   });
-  const [temperature, setTemperature] = useState("23");
+  const [temperature, setTemperature] = useState("23°");
   const [description, setDescription] = useState("대체로 맑음");
   const [showMap, setShowMap] = useState(false);
   const [loading, setLoading] = useState(true);
