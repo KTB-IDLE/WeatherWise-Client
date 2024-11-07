@@ -3,6 +3,7 @@
   flex-direction: column;
   gap: 20px; /* 각 카드 사이에 여백 추가 */
   padding: 60px, 60px;
+  margin: 15px;
 }
 
 .summary-card {
@@ -29,15 +30,14 @@
 }
 
 .summary-content h3 {
-  font-size: 16px;
+  font-size: 18px;
   margin: 0;
-  font-weight: bold;
   color: black;
 }
 
 .summary-content p {
-  font-size: 18px;
-  margin: 5px 0 0;
+  font-size: 14px;
+  margin: 8px;
   color: #555;
 }
 
@@ -55,4 +55,17 @@
 
 .mission-summary {
   margin-top: 10px;
+}
+
+
+.main-card-title {
+  font-weight: 800;
+}
+
+.summary-text {
+ margin: 10px;
+}
+
+.mission-text {
+  margin: 10px;
 }
