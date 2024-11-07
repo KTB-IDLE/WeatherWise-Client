@@ -1,85 +1,87 @@
 import React, { useState, useEffect } from 'react';
 import KakaoMap from './KakaoMap';
-import locationIcon from '../../assets/location.png'; // 이미지 경로 추가
+import locationIcon from '../../assets/location.png';
 import './LocationSelect.css';
 
 function LocationSelect({ location, setLocation }) {
-  const [showDropdown, setShowDropdown] = useState(false); // 드롭다운 상태 관리
-  const [showMap, setShowMap] = useState(false); // 지도 상태 관리
+  const [showMap, setShowMap] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  // Default location 
   const defaultLocation = {
-    name: '서울특별시 강남구 대치동',
+    name: '서울특별시 강남구 대치동(기본위치)',
     latitude: 37.499920,
     longitude: 127.037840,
   };
 
-  // 현재 위치를 기본 설정으로 가져오기
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          setLocation({
-            name: '사용자 위치 반영중...',  // 초기 값은 업데이트되기 전
-            latitude,
-            longitude,
-          });
+  const KAKAO_API_KEY = import.meta.env.VITE_KAKAO_MAP_API_KEY;
 
-          // Kakao API를 통해 사용자의 위치로 주소 변환
-          const geocoder = new window.kakao.maps.services.Geocoder();
-          geocoder.coord2RegionCode(longitude, latitude, (result, status) => {
-            if (status === window.kakao.maps.services.Status.OK) {
-              setLocation({
-                name: result[0].address_name, // 실제 위치 이름으로 업데이트
-                latitude,
-                longitude,
-              });
-
-              setShowDropdown(false); 
-            }
-          });
-        },
-        () => {
-          // 위치 가져오기 실패 시 기본 위치로 설정
-          setLocation(defaultLocation);
-          setShowDropdown(false); 
-        }
-      );
-    } else {
-      // Geolocation을 지원하지 않을 때 기본 위치로 설정
-      setLocation(defaultLocation);
-    }
-  }, [setLocation]);
-
-
-  const handleLocationChange = (newLocation) => {
-    setLocation(newLocation);
-    setShowMap(false);
-    setShowDropdown(false); 
+  const loadKakaoMapScript = () => {
+    return new Promise((resolve, reject) => {
+      if (window.kakao && window.kakao.maps) {
+        resolve(); // 이미 스크립트 로드됨
+      } else {
+        const script = document.createElement('script');
+        script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_API_KEY}&libraries=services`;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+      }
+    });
   };
+
+  useEffect(() => {
+    const fetchLocation = async () => {
+      try {
+        await loadKakaoMapScript();
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              const { latitude, longitude } = position.coords;
+              const geocoder = new window.kakao.maps.services.Geocoder();
+              geocoder.coord2RegionCode(longitude, latitude, (result, status) => {
+                if (status === window.kakao.maps.services.Status.OK) {
+                  setLocation({ name: result[0].address_name, latitude, longitude });
+                } else {
+                  setLocation(defaultLocation);
+                }
+                setLoading(false);
+              });
+            },
+            () => {
+              setLocation(defaultLocation);
+              setLoading(false);
+            }
+          );
+        } else {
+          setLocation(defaultLocation);
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error("카카오 지도 로드 오류:", error);
+        setLocation(defaultLocation);
+        setLoading(false);
+      }
+    };
+
+    fetchLocation();
+  }, [setLocation]);
 
   return (
     <div className="location-select">
-      <span className="location-name">{location.name}</span>
-      <button 
-        className="location-button" 
-        onClick={() => setShowDropdown(!showDropdown)} // 드롭다운 토글
-      >
-        <img src={locationIcon} alt="location icon" /> {/* location.png 이미지 사용 */}
+      <span className="location-name">{loading ? "위치 가져오는 중..." : location.name}</span>
+      <button className="location-button" onClick={() => setShowMap(!showMap)}>
+        <img src={locationIcon} alt="location icon" />
       </button>
 
-      {/* 드롭다운 표시 */}
-      {showDropdown && (
-        <div className="location-dropdown">
-          <div className="location-dropdown-item" onClick={() => setShowMap(true)}>
-            위치 변경하기
-          </div>
-        </div>
+      {showMap && (
+        <KakaoMap
+          onSelectLocation={(newLoc) => {
+            setLocation(newLoc);
+            setShowMap(false); // 위치 선택 후 지도 닫기
+          }}
+          defaultLocation={location || defaultLocation}
+        />
       )}
-
-      {/* KakaoMap 지도 표시 */}
-      {showMap && <KakaoMap onSelectLocation={handleLocationChange} defaultLocation={location} />}
     </div>
   );
 }
