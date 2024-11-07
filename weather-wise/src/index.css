@@ -1,6 +1,6 @@
 @font-face {
-  font-family: "NanumPenScript";
-  src: url("/NanumPenScript-Regular.ttf");
+  font-family: "BMJUA_ttf";
+  src: url("/BMJUA_ttf.ttf") format("truetype");
 }
 
 html,
@@ -10,6 +10,7 @@ body {
   width: 100%;
   height: 100%; /* 전체 높이를 설정하여, 페이지가 스크롤되지 않도록 */
   background-color: rgb(246, 246, 246);
+  font-family: "BMJUA_ttf", Arial, sans-serif;
 }
 
 #root {
@@ -24,5 +25,5 @@ body {
 }
 
 body * {
-  font-family: "NanumPenScript";
+  font-family: "BMJUA_ttf", Arial, sans-serif;
 }
