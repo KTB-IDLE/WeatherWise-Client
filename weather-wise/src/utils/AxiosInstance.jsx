@@ -26,4 +26,17 @@ AxiosInstance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
+// 응답 인터셉터 추가: 401 Unauthorized 처리
+AxiosInstance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      // 401 에러 시 accessToken을 제거하고 로그인 페이지로 리다이렉트
+      document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      window.location.href = "/login"; // 로그인 페이지로 리다이렉트
+    }
+    return Promise.reject(error);
+  }
+);
+
 export default AxiosInstance;
