@@ -180,7 +180,11 @@ const MyProfilePage = () => {
           </li>
         </ul>
       </div>
-
+      <div className="copy-right">
+        <a href="https://www.flaticon.com/kr/free-icons/" title="동전 아이콘">동전 아이콘 제작자: Freepik - Flaticon</a> <br></br>
+        <a href="https://www.flaticon.com/kr/free-icons/" title="로봇 아이콘">로봇 아이콘 제작자: Freepik - Flaticon</a><br></br>
+        <a href="https://www.flaticon.com/kr/free-icons/-" title="일기 예보 아이콘">일기 예보 아이콘 제작자: Freepik - Flaticon</a>
+      </div>
       <Footer />
 
       {/* 팝업창 */}
