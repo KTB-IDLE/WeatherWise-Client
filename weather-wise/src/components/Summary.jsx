@@ -1,7 +1,7 @@
 import React from "react";
 import "./Summary.css";
-import sun from "../assets/sun.png";
-import robot from "../assets/robot.png";
+import sun from "../assets/main-weather.png";
+import robot from "../assets/robott.png";
 import exp from "../assets/exp.png";
 
 const Summary = () => {
@@ -10,7 +10,7 @@ const Summary = () => {
       {/* AI 요약 날씨 카드 */}
       <div className="summary-card">
         <div className="ai-summary">
-          <img src={robot} alt="AI Icon" className="summary-icon" />
+          <img src={robot} alt="AI Icon" className="summary-icon-robot" />
           <div className="summary-content">
             <h3 className="main-card-title">AI 요약 날씨</h3>
             <p className="summary-text">

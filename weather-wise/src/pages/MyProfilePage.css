@@ -161,3 +161,9 @@ li {
 .popup button:hover {
   opacity: 0.8;
 }
+
+.copy-right {
+  border-top: 1px solid #ddd; /* 위쪽 구분선 */
+  border-bottom: 1px solid #ddd; /* 아래쪽 구분선 */
+  padding: 20px; /* 내용물과 구분선 간의 여백 추가 */
+}
