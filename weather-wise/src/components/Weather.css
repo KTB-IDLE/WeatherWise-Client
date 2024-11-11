@@ -38,7 +38,7 @@
 }
 
 .temperature {
-  font-size: 130px; /* 기온 글씨 크기 */
+  font-size: 100px; /* 기온 글씨 크기 */
   font-weight: bold;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -51,6 +51,6 @@
 }
 
 .high-low {
-  font-size: 40px; /* 최고/최저 온도 */
+  font-size: 30px; /* 최고/최저 온도 */
   margin-top: 10px;
 }
