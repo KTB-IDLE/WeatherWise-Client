@@ -27,14 +27,26 @@ const MyProfilePage = () => {
         // 사용자 정보 API 호출
         const userInfoResponse = await AxiosInstance.get(`/v1/users/me`);
         setUserInfo(userInfoResponse.data);
+        console.log("사용자 정보:", userInfoResponse.data); // 사용자 정보 로그 확인
 
         // 랭킹 정보 API 호출
         const rankingResponse = await AxiosInstance.get(`/ranking`);
         setRankingInfo(rankingResponse.data.result);
+        console.log("랭킹 정보:", rankingResponse.data.result); // 랭킹 정보 로그 확인
 
         // 완료한 미션 개수 API 호출
         const missionResponse = await AxiosInstance.get(`/mission-histories/success`);
         setMissionCount(missionResponse.data.result.missionList.length);
+        console.log("미션 완료 응답:", missionResponse.data.result); // 미션 완료 응답 데이터 확인
+
+        // 미션 개수 설정
+        if (missionResponse.data && missionResponse.data.result && missionResponse.data.result.missionList) {
+          setMissionCount(missionResponse.data.result.missionList.length);
+          console.log("완료한 미션 수:", missionResponse.data.result.missionList.length); // 완료한 미션 수 확인
+        } else {
+          console.warn("미션 데이터가 예상과 다릅니다:", missionResponse.data.result);
+        }
+
 
         // 경험치 범위 가져오기
         if (userInfoResponse.data.level) {
