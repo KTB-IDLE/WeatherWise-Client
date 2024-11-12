@@ -28,7 +28,7 @@ function CommunityPage() {
     const fetchPosts = async () => {
       setLoading(true); // 로딩 시작
       setError(null); // 에러 초기화
-      console.log("요청 좌표:", location); 
+      console.log("요청 좌표:", location);
 
       try {
         const url = `/boards/radius`;
