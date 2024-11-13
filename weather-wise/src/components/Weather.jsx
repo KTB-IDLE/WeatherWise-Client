@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import KakaoMap from "./community/KakaoMap"; // KakaoMap 컴포넌트 불러오기
 import test from "../assets/test.jpeg";
+import sunny from "../assets/sunny.jpeg";
+import rain from "../assets/rain.jpeg";
+import snow from "../assets/snow.jpeg";
 import locationIcon from "../assets/location.png"; // 삼각형 아이콘
 import "../components/Weather.css";
 import AxiosInstance from "../utils/AxiosInstance"; // AI 서버 전송용 Axios
@@ -68,6 +71,13 @@ const MainWeather = ({ initialWeatherData }) => {
     }
   }, [weatherData]);
 
+  const getBackgroundImage = () => {
+    if (weatherData.Is_Rained) return rain;
+    if (weatherData.Is_Snowed) return snow;
+    if (weatherData.Sky_Condition === "맑음") return sunny;
+    return test;
+  };
+
   useEffect(() => {
     const fetchLocation = async () => {
       if (navigator.geolocation) {
@@ -112,7 +122,7 @@ const MainWeather = ({ initialWeatherData }) => {
   return (
     <div
       className="weather-container"
-      style={{ backgroundImage: `url(${test})` }}
+      style={{ backgroundImage: `url(${getBackgroundImage()})` }}
     >
       <div className="weather-info">
         <h3 className="city">
