@@ -12,16 +12,16 @@ import MissionDetailsHedaer from "../components/MissionDetailsHedaer";
 import MissionName from "../components/MissionName";
 import AxiosInstance from "../utils/AxiosInstance";
 import { useNavigate } from "react-router-dom";
+
 const MissionDetails = () => {
   const navigate = useNavigate();
-  const { id } = useParams(); // URL에서 id 값을 가져옴
+  const { id } = useParams();
   const [missionDetails, setMissionDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [imageFile, setImageFile] = useState(null); // 이미지 파일 상태 추가
-  const [selectedImage, setSelectedImage] = useState(null); // 선택된 이미지 URL 상태 추가
+  const [imageFile, setImageFile] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
 
-  // 이미지 초기화 함수 정의
   const resetImage = () => {
     setSelectedImage(null);
     setImageFile(null);
@@ -33,10 +33,9 @@ const MissionDetails = () => {
       setLoading(true);
       try {
         const response = await AxiosInstance.get(url);
-
         const data = response.data;
         if (data.code === "success") {
-          setMissionDetails(data.result); // missionDetails 상태에 API 데이터 저장
+          setMissionDetails(data.result);
         } else {
           setError("데이터를 가져오는 데 실패했습니다.");
         }
@@ -53,13 +52,16 @@ const MissionDetails = () => {
   if (loading) return <div>로딩 중...</div>;
   if (error) return <div>{error}</div>;
 
-  // missionDetails에서 필요한 데이터 추출
-  const { missionName, completed, storeFileName, nickName } =
+  // Extract necessary data and check if it's today
+  const { missionName, completed, storeFileName, nickName, missionDate } =
     missionDetails || {};
+  const today = new Date();
+  const missionDateObj = new Date(missionDate);
+  const isToday = missionDateObj.toDateString() === today.toDateString();
 
   return (
     <div>
-      {/* 헤더 */}
+      {/* Header */}
       <Header
         leftChild={<Button text={<img src={left} alt="Back" />} type="icon" />}
         title={<img src={mainLogo} alt="mainLogo" />}
@@ -74,24 +76,24 @@ const MissionDetails = () => {
         }
       />
 
-      {/* 단일 미션 데이터를 렌더링 */}
       <div>
-        {/* MissionDetailsHedaer에 nickName 전달 */}
         <MissionDetailsHedaer nickName={nickName} />
         <MissionName missionName={missionName} />
         <MissionImage
-          completed={completed} // 미션의 completed 값 전달
-          storeFileName={storeFileName} // 서버에서 받은 파일 링크 전달
+          completed={completed}
+          storeFileName={storeFileName}
           setImageFile={setImageFile}
           selectedImage={selectedImage}
           resetImage={resetImage}
-          setSelectedImage={setSelectedImage} // 이미지 초기화 및 상태 관리
+          setSelectedImage={setSelectedImage}
         />
+        {/* Pass isToday to MissionAuth */}
         <MissionAuth
           completed={completed}
           id={id}
           imageFile={imageFile}
           resetImage={resetImage}
+          isToday={isToday} // Add this line
         />
       </div>
 
