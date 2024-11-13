@@ -4,7 +4,7 @@ import "./MissionAuth.css";
 import Modal from "./Modal";
 import AxiosInstance from "../utils/AxiosInstance";
 
-const MissionAuth = ({ completed, id, imageFile, resetImage }) => {
+const MissionAuth = ({ completed, id, imageFile, resetImage, isToday }) => {
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
@@ -79,9 +79,11 @@ const MissionAuth = ({ completed, id, imageFile, resetImage }) => {
       ) : (
         <>
           <button
-            className={`auth-button ${completed ? "disabled" : "active"}`}
+            className={`auth-button ${
+              completed || !isToday ? "disabled" : "active"
+            }`}
             onClick={handleAuthClick}
-            disabled={completed}
+            disabled={completed || !isToday} // Disable if not completed or not today
           >
             인증하기
           </button>

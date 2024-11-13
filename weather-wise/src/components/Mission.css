@@ -68,13 +68,25 @@
 }
 
 .mission-status.success {
-  background: linear-gradient(145deg, #4cd964, #3ecf57); /* 아이폰 스타일의 그린 그라디언트 */
+  background: linear-gradient(
+    145deg,
+    #4cd964,
+    #3ecf57
+  ); /* 아이폰 스타일의 그린 그라디언트 */
 }
 
 .mission-status.progress {
-  background: linear-gradient(145deg, #007aff, #005ecb); /* 아이폰 스타일의 블루 그라디언트 */
+  background: linear-gradient(
+    145deg,
+    #007aff,
+    #005ecb
+  ); /* 아이폰 스타일의 블루 그라디언트 */
 }
 
 .mission-status:hover {
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* 호버 시 그림자 확대 */
+}
+
+.mission-status.ended {
+  background: linear-gradient(145deg, hsl(0, 100%, 50%), hsl(0, 100%, 50%));
 }

@@ -53,9 +53,11 @@ const MissionDetails = () => {
   if (loading) return <div>로딩 중...</div>;
   if (error) return <div>{error}</div>;
 
-  // missionDetails에서 필요한 데이터 추출
-  const { missionName, completed, storeFileName, nickName } =
+  const { missionName, completed, storeFileName, nickName, missionDate } =
     missionDetails || {};
+  const today = new Date();
+  const missionDateObj = new Date(missionDate);
+  const isToday = missionDateObj.toDateString() === today.toDateString();
 
   return (
     <div>
@@ -92,6 +94,7 @@ const MissionDetails = () => {
           id={id}
           imageFile={imageFile}
           resetImage={resetImage}
+          isToday={isToday}
         />
       </div>
 

@@ -1,7 +1,7 @@
 import React from "react";
 import Mission from "./Mission";
 
-const MissionList = ({ missionList }) => {
+const MissionList = ({ missionList, isToday }) => {
   return (
     <div className="mission-list">
       {missionList.map((mission) => (
@@ -11,7 +11,8 @@ const MissionList = ({ missionList }) => {
           name={mission.name}
           point={mission.point}
           completed={mission.completed}
-          missionTime={mission.missionTime} // missionTime 그대로 전달
+          missionTime={mission.missionTime}
+          isToday={isToday}
         />
       ))}
     </div>

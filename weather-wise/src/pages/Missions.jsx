@@ -119,7 +119,7 @@ const Missions = () => {
         handleNextDay={handleNextDay}
         isToday={isToday}
       />
-      <MissionList missionList={missionList} />
+      <MissionList missionList={missionList} isToday={isToday} />
 
       <Footer />
     </div>
