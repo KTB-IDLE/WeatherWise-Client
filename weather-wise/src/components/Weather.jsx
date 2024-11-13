@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import KakaoMap from "./community/KakaoMap"; // KakaoMap 컴포넌트 불러오기
 import test from "../assets/test.jpeg";
+import sunny from "../assets/sunny.jpeg";
+import rain from "../assets/rain.jpeg";
+import snow from "../assets/snow.jpeg";
 import locationIcon from "../assets/location.png"; // 삼각형 아이콘
 import "../components/Weather.css";
 import AxiosInstance from "../utils/AxiosInstance"; // AI 서버 전송용 Axios
@@ -16,6 +19,9 @@ const MainWeather = ({ initialWeatherData }) => {
   const [description, setDescription] = useState("");
   const [maxTemp, setMaxTemp] = useState("");
   const [minTemp, setMinTemp] = useState("");
+  const [precipitation, setPrecipitation] = useState(null); // 강수량 표시
+  const [snowfall, setSnowfall] = useState(null); // 적설량 표시
+
   const [showMap, setShowMap] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -56,8 +62,21 @@ const MainWeather = ({ initialWeatherData }) => {
           ? `${weatherData.Minimum_Temperature}°`
           : ""
       );
+
+      // 강수와 적설 상태를 업데이트
+      setPrecipitation(
+        weatherData.Is_Rained ? weatherData.Precipitation_Amount : null
+      );
+      setSnowfall(weatherData.Is_Snowed ? weatherData.Snowfall_Amount : null);
     }
   }, [weatherData]);
+
+  const getBackgroundImage = () => {
+    if (weatherData.Is_Rained) return rain;
+    if (weatherData.Is_Snowed) return snow;
+    if (weatherData.Sky_Condition === "맑음") return sunny;
+    return test;
+  };
 
   useEffect(() => {
     const fetchLocation = async () => {
@@ -103,7 +122,7 @@ const MainWeather = ({ initialWeatherData }) => {
   return (
     <div
       className="weather-container"
-      style={{ backgroundImage: `url(${test})` }}
+      style={{ backgroundImage: `url(${getBackgroundImage()})` }}
     >
       <div className="weather-info">
         <h3 className="city">
@@ -119,6 +138,12 @@ const MainWeather = ({ initialWeatherData }) => {
 
         {/* description이 있을 때만 표시 */}
         {description && <h3 className="description">{description}</h3>}
+
+        {/* 강수량 표시 */}
+        {precipitation && <p className="precipitation">🌧️ {precipitation}</p>}
+
+        {/* 적설량 표시 */}
+        {snowfall && <p className="snowfall">❄️ {snowfall}</p>}
 
         {/* 최고 기온과 최저 기온이 있을 때만 표시 */}
         {(maxTemp || minTemp) && (

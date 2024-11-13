@@ -15,6 +15,8 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [weatherData, setWeatherData] = useState(null);
+  const [size, setSize] = useState(0);
+  const [aiMessage, setAiMessage] = useState("");
 
   useEffect(() => {
     const fetchHomeData = async () => {
@@ -24,12 +26,14 @@ const Home = () => {
         });
 
         if (response.status === 200) {
-          const { didSurvey, weatherResponse } = response.data.result;
+          const { didSurvey, weatherResponse, size } = response.data.result; // 'size' 값을 가져옴
 
           if (!didSurvey) {
             setIsModalOpen(true);
           } else {
             setWeatherData(weatherResponse);
+            setSize(size); // 'size' 상태 업데이트
+            setAiMessage(weatherResponse.AI_message); // 'AI_message' 설정
           }
         } else {
           console.error("데이터 가져오기 실패:", response.statusText);
@@ -72,9 +76,8 @@ const Home = () => {
         onClose={handleSurveyStart}
         message="설문조사를 시작할게요!"
       />
-
       <Weather weatherData={weatherData} />
-      <Summary />
+      <Summary size={size} aiMessage={aiMessage} />
       <Footer />
     </div>
   );

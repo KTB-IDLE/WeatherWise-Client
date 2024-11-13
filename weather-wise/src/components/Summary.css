@@ -1,50 +1,50 @@
 .summary-container {
   display: flex;
   flex-direction: column;
-  gap: 20px; /* 각 카드 사이에 여백 추가 */
-  padding: 60px, 60px;
+  gap: 20px;
+  padding: 20px; /* 패딩 수정 */
   margin: 15px;
 }
 
 .summary-card {
-  background-color: white; /* 카드 배경을 흰색으로 */
-  border-radius: 15px; /* 더 둥글게 모서리를 설정 */
-  padding: 25px; /* 카드 안의 여백을 더 넉넉하게 설정 */
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 카드에 그림자 적용 */
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 15px;
+  padding: 20px; /* 패딩 수정 */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .ai-summary,
 .mission-summary {
   display: flex;
   align-items: center;
+  width: 100%; /* 카드 전체를 차지하도록 설정 */
 }
 
-.summary-icon {
-  width: 40px;
-  height: 40px;
-  margin-right: 15px; /* 아이콘과 텍스트 사이의 여백 설정 */
-}
-
+.summary-icon,
 .summary-icon-robot {
   width: 50px;
   height: 50px;
-  margin-right: 15px; /* 아이콘과 텍스트 사이의 여백 설정 */
+  margin-right: 15px;
 }
-
 
 .summary-content {
   flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .summary-content h3 {
   font-size: 18px;
   margin: 0;
   color: black;
+  font-weight: 800;
 }
 
 .summary-content p {
   font-size: 14px;
-  margin: 8px;
+  margin: 8px 0 0 0; /* 위쪽 여백만 설정 */
   color: #555;
 }
 
@@ -60,19 +60,11 @@
   height: 20px;
 }
 
-.mission-summary {
-  margin-top: 10px;
-}
-
-
 .main-card-title {
   font-weight: 800;
 }
 
-.summary-text {
- margin: 10px;
-}
-
+.summary-text,
 .mission-text {
-  margin: 10px;
+  margin: 10px 0 0 0; /* 위쪽 여백만 설정 */
 }
