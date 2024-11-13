@@ -1,10 +1,17 @@
 import React from "react";
 import "./Summary.css";
+import { useNavigate } from "react-router-dom";
 import sun from "../assets/main-weather.png";
 import robot from "../assets/robott.png";
 import exp from "../assets/exp.png";
 
-const Summary = () => {
+const Summary = ({ size, aiMessage }) => {
+  const navigate = useNavigate();
+
+  // 클릭 시 /missions 경로로 이동
+  const handleMissionClick = () => {
+    navigate("/missions");
+  };
   return (
     <div className="summary-container">
       {/* AI 요약 날씨 카드 */}
@@ -13,27 +20,27 @@ const Summary = () => {
           <img src={robot} alt="AI Icon" className="summary-icon-robot" />
           <div className="summary-content">
             <h3 className="main-card-title">AI 요약 날씨</h3>
-            <p className="summary-text">
-              현재 날씨는 다소 쌀쌀합니다. 10°C로 기온이 낮고, 바람도 약간 불어
-              체감 온도가 더 낮게 느껴질 수 있습니다. 대체로 맑지만 실제
-              사용자들의 70%는 쌀쌀하다고 느꼈어요! 추위를 잘 타는 편이시니 외출
-              시 가벼운 외투를 꼭 챙기세요!
-            </p>
+            <p className="summary-text">{aiMessage}</p>
           </div>
         </div>
       </div>
 
       {/* 오늘의 미션 카드 */}
-      <div className="summary-card">
+      {/* 오늘의 미션 카드 (클릭 시 /missions 이동) */}
+      <div
+        className="summary-card"
+        onClick={handleMissionClick}
+        style={{ cursor: "pointer" }}
+      >
         <div className="mission-summary">
           <img src={sun} alt="Mission Icon" className="summary-icon" />
           <div className="summary-content">
             <h3 className="main-card-title">오늘의 미션</h3>
-            <p className="mission-text">날씨가 더우니 외출 시 텀블러를 챙기세요!</p>
-            <div className="mission-reward">
-              <img src={exp} alt="Coin Icon" className="coin-icon" />
-              <span>170</span>
-            </div>
+            <p className="mission-text">
+              {size === 0
+                ? "오늘의 첫 번째 미션을 생성해보세요!"
+                : "생성한 미션을 확인해보세요!"}
+            </p>
           </div>
         </div>
       </div>

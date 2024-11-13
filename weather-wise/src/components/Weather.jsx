@@ -16,6 +16,9 @@ const MainWeather = ({ initialWeatherData }) => {
   const [description, setDescription] = useState("");
   const [maxTemp, setMaxTemp] = useState("");
   const [minTemp, setMinTemp] = useState("");
+  const [precipitation, setPrecipitation] = useState(null); // 강수량 표시
+  const [snowfall, setSnowfall] = useState(null); // 적설량 표시
+
   const [showMap, setShowMap] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -56,6 +59,12 @@ const MainWeather = ({ initialWeatherData }) => {
           ? `${weatherData.Minimum_Temperature}°`
           : ""
       );
+
+      // 강수와 적설 상태를 업데이트
+      setPrecipitation(
+        weatherData.Is_Rained ? weatherData.Precipitation_Amount : null
+      );
+      setSnowfall(weatherData.Is_Snowed ? weatherData.Snowfall_Amount : null);
     }
   }, [weatherData]);
 
@@ -119,6 +128,12 @@ const MainWeather = ({ initialWeatherData }) => {
 
         {/* description이 있을 때만 표시 */}
         {description && <h3 className="description">{description}</h3>}
+
+        {/* 강수량 표시 */}
+        {precipitation && <p className="precipitation">🌧️ {precipitation}</p>}
+
+        {/* 적설량 표시 */}
+        {snowfall && <p className="snowfall">❄️ {snowfall}</p>}
 
         {/* 최고 기온과 최저 기온이 있을 때만 표시 */}
         {(maxTemp || minTemp) && (
