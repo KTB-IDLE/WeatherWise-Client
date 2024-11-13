@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./Mission.css";
 import expImage from "../assets/exp.png";
 
-const Mission = ({ id, name, point, completed, missionTime }) => {
+const Mission = ({ id, name, point, completed, missionTime, isToday }) => {
   const navigate = useNavigate();
 
   // missionTime에 따른 한글 표시 텍스트
@@ -19,6 +19,13 @@ const Mission = ({ id, name, point, completed, missionTime }) => {
     navigate(`/missions/${id}`);
   };
 
+  // Determine the mission status text
+  const missionStatusText = completed
+    ? "성공"
+    : !isToday
+    ? "종료"
+    : `진행중(${missionTimeText[missionTime] || "시간 미정"})`;
+
   return (
     <button onClick={handleClick} className="mission-container">
       <div className="mission-left">
@@ -28,10 +35,12 @@ const Mission = ({ id, name, point, completed, missionTime }) => {
           <span className="exp-value">{point}</span>
         </div>
       </div>
-      <div className={`mission-status ${completed ? "success" : "progress"}`}>
-        {completed
-          ? "성공"
-          : `진행중(${missionTimeText[missionTime] || "시간 미정"})`}
+      <div
+        className={`mission-status ${
+          completed ? "success" : !isToday ? "ended" : "progress"
+        }`}
+      >
+        {missionStatusText}
       </div>
     </button>
   );
