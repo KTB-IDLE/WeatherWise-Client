@@ -1,0 +1,99 @@
+/* 공통 스타일 */
+.container {
+  width: 60%;
+  margin: 20px auto;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+/* 검색창 스타일 */
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.search-input {
+  flex: 1;
+  max-width: 60%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.search-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-left: 10px;
+  background-color: #80c565;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.search-button:hover {
+  background-color: #68a352;
+}
+
+.search-error {
+  background-color: #ffe5e5;
+  border: 1px solid #ffcccc;
+  color: #cc0000;
+}
+
+.search-result {
+  background-color: white;
+  border: 1px solid white;
+}
+
+/* "전체 순위 보기" 버튼 */
+.clear-search {
+  display: block;
+  margin: 10px auto 0;
+  padding: 10px;
+  font-size: 14px;
+  background-color: #80c565;
+  color: #333;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.clear-search:hover {
+  background-color: #68a352;
+}
+
+/* 페이지네이션 스타일 */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.pagination-button {
+  padding: 10px 15px;
+  font-size: 16px;
+  margin: 0 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #80c565;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination-button:hover {
+  background-color: #68a352;
+  color: white;
+}
+
+.pagination-button:disabled {
+  background-color: #e0e0e0;
+  color: #aaa;
+  cursor: not-allowed;
+}
