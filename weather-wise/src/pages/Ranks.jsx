@@ -9,7 +9,7 @@ import RankComment from "../components/RankComment";
 import RankList from "../components/RankList";
 import Rank from "../components/Rank"; // Rank 컴포넌트를 불러옴
 import AxiosInstance from "../utils/AxiosInstance";
-import Modal from "../components/Modal"; // 모달 컴포넌트 불러오기
+import Modal from "../components/Modal"; // Modal 컴포넌트 추가
 import { useNavigate } from "react-router-dom";
 import "./Ranks.css";
 
@@ -26,8 +26,12 @@ const Ranks = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
   const [modalMessage, setModalMessage] = useState(""); // 모달 메시지 설정
 
+  // 순위 리스트 가져오기
   const fetchRankings = async (page) => {
     setLoading(true);
+    setSearchResult(null); // 검색 상태 초기화
+    setError(null); // 에러 초기화
+
     try {
       const url = `/rankings`;
       const response = await AxiosInstance.get(url, {
@@ -48,8 +52,10 @@ const Ranks = () => {
     }
   };
 
+  // 닉네임 검색
   const handleSearch = async () => {
     setSearchResult(null); // 이전 결과 초기화
+    setError(null); // 에러 초기화
 
     if (!searchNickname.trim()) return;
 
@@ -59,7 +65,7 @@ const Ranks = () => {
         params: { nickname: searchNickname.trim() },
       });
       if (response.data.code === "success" && response.data.result) {
-        setSearchResult(response.data.result);
+        setSearchResult(response.data.result); // 검색 결과 저장
       } else {
         setModalMessage("닉네임을 확인해주세요!"); // 모달 메시지 설정
         setIsModalOpen(true); // 모달 열기
@@ -103,25 +109,47 @@ const Ranks = () => {
         <RankComment />
       </div>
 
-      {/* RankList에 rankData와 page 전달 */}
-      <RankList rankData={rankData} page={page} />
+      {/* 검색 결과 */}
+      {searchResult ? (
+        <div className="search-result">
+          <Rank
+            rank={searchResult.rank}
+            nickname={searchResult.nickName}
+            level={searchResult.level}
+          />
+          <button
+            className="clear-search"
+            onClick={() => {
+              setSearchResult(null); // 검색 결과 초기화
+              setSearchNickname(""); // 검색창 초기화
+            }}
+          >
+            전체 순위 보기
+          </button>
+        </div>
+      ) : (
+        <>
+          {/* 기본 순위 리스트 */}
+          <RankList rankData={rankData} page={page} />
 
-      <div className="pagination-container">
-        <button
-          className="pagination-button"
-          disabled={!hasPrev}
-          onClick={() => setPage((prevPage) => Math.max(prevPage - 1, 0))}
-        >
-          &lt;
-        </button>
-        <button
-          className="pagination-button"
-          disabled={!hasNext}
-          onClick={() => setPage((prevPage) => prevPage + 1)}
-        >
-          &gt;
-        </button>
-      </div>
+          <div className="pagination-container">
+            <button
+              className="pagination-button"
+              disabled={!hasPrev}
+              onClick={() => setPage((prevPage) => Math.max(prevPage - 1, 0))}
+            >
+              &lt;
+            </button>
+            <button
+              className="pagination-button"
+              disabled={!hasNext}
+              onClick={() => setPage((prevPage) => prevPage + 1)}
+            >
+              &gt;
+            </button>
+          </div>
+        </>
+      )}
 
       {/* 검색창 */}
       <div className="search-container">
@@ -136,17 +164,6 @@ const Ranks = () => {
           검색
         </button>
       </div>
-
-      {/* 검색 결과를 Rank 컴포넌트로 렌더링 */}
-      {searchResult && (
-        <div className="search-result">
-          <Rank
-            rank={searchResult.rank}
-            nickname={searchResult.nickName}
-            level={searchResult.level}
-          />
-        </div>
-      )}
 
       {/* 모달 */}
       <Modal
