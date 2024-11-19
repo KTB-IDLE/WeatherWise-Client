@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import AxiosInstance from "../utils/AxiosInstance";
 import PostItem from "../components/community/PostItem";
 import Button from "../components/Button";
@@ -10,57 +10,94 @@ import mainLogo from "../assets/mainLogo.png";
 import info from "../assets/info.png";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
-import "./CommunityPage.css"; // CSS 파일 import
-
-// 시간 변환 유틸리티 함수 import
+import "./CommunityPage.css";
 import { convertArrayToDate } from "../utils/timeUtils";
 
 function CommunityPage() {
   const [posts, setPosts] = useState([]); // 게시글 리스트
-  const navigate = useNavigate();
   const [location, setLocation] = useState(null);
   const [loading, setLoading] = useState(false); // 로딩 상태 관리
   const [error, setError] = useState(null); // 에러 상태 관리
+  const [page, setPage] = useState(0); // 페이지 상태 관리
+  const [hasMore, setHasMore] = useState(true); // 추가 데이터 여부 확인
+
+  const observer = useRef(); // Intersection Observer를 위한 ref
+  const navigate = useNavigate();
+
+  // 게시글 가져오기 함수
+  const fetchPosts = async (page) => {
+    if (!location) return;
+    setLoading(true);
+    setError(null);
+
+    try {
+      const url = `/boards/radius`;
+      const response = await AxiosInstance.get(url, {
+        params: {
+          latitude: location.latitude,
+          longitude: location.longitude,
+          page, // 페이지 정보 전달
+        },
+      });
+
+      const sortedPosts = response.data.boards.sort((a, b) => {
+        const dateA = Array.isArray(a.createdAt)
+          ? convertArrayToDate(a.createdAt)
+          : new Date(a.createdAt);
+        const dateB = Array.isArray(b.createdAt)
+          ? convertArrayToDate(b.createdAt)
+          : new Date(b.createdAt);
+        return dateB - dateA; // 내림차순 정렬
+      });
+
+      setPosts((prevPosts) => [...prevPosts, ...sortedPosts]); // 이전 데이터에 추가
+      setHasMore(response.data.hasMore); // 다음 데이터 여부 설정
+    } catch (error) {
+      console.error("게시글을 불러오는 중 오류 발생:", error);
+      setError("게시글을 불러오는 중 오류가 발생했습니다.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 무한스크롤을 감지하는 함수
+  const lastPostElementRef = useRef();
 
   useEffect(() => {
-    if (!location) return;
+    if (loading) return;
 
-    const fetchPosts = async () => {
-      setLoading(true); // 로딩 시작
-      setError(null); // 에러 초기화
-      console.log("요청 좌표:", location);
+    if (observer.current) observer.current.disconnect();
 
-      try {
-        const url = `/boards/radius`;
-        const response = await AxiosInstance.get(url, {
-          params: {
-            latitude: location.latitude,
-            longitude: location.longitude,
-          },
-        });
-        // 게시글을 createdAt 필드 기준으로 최신순(내림차순) 정렬
-        const sortedPosts = response.data.boards.sort((a, b) => {
-          const dateA = Array.isArray(a.createdAt)
-            ? convertArrayToDate(a.createdAt)
-            : new Date(a.createdAt);
-          const dateB = Array.isArray(b.createdAt)
-            ? convertArrayToDate(b.createdAt)
-            : new Date(b.createdAt);
-          return dateB - dateA; // 내림차순 정렬
-        });
+    observer.current = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          setPage((prevPage) => prevPage + 1); // 페이지 증가
+        }
+      },
+      { threshold: 1.0 }
+    );
 
-        setPosts(sortedPosts); // 정렬된 게시글을 상태에 저장
-      } catch (error) {
-        console.error("게시글을 불러오는 중 오류 발생:", error);
-        setError("게시글을 불러오는 중 오류가 발생했습니다.");
-      } finally {
-        setLoading(false); // 로딩 종료
-      }
-    };
+    if (lastPostElementRef.current) {
+      observer.current.observe(lastPostElementRef.current);
+    }
+  }, [loading, hasMore]);
 
-    fetchPosts(); // 게시글 가져오기 함수 호출
-    console.log("현재 위치 정보:", location);
-  }, [location]); // location의 좌표가 변경될 때마다 호출
+  // 위치 변경 시 초기화 후 게시글 로드
+  useEffect(() => {
+    setPage(0); // 페이지 초기화
+    setPosts([]); // 게시글 초기화
+    setHasMore(true); // 추가 데이터 가능 상태로 설정
+    if (location) {
+      fetchPosts(0); // 첫 페이지 로드
+    }
+  }, [location]);
+
+  // 페이지 변경 시 데이터 추가 로드
+  useEffect(() => {
+    if (page > 0) {
+      fetchPosts(page);
+    }
+  }, [page]);
 
   return (
     <div className="community-page">
@@ -90,9 +127,17 @@ function CommunityPage() {
 
       {/* 게시글 목록 */}
       <div className="post-list">
-        {!loading && !error && posts && posts.length > 0
-          ? posts.map((post) => <PostItem key={post.boardId} post={post} />)
-          : !loading && !error && <p> 게시글이 없습니다.</p>}
+        {posts.map((post, index) => {
+          if (posts.length === index + 1) {
+            return (
+              <div ref={lastPostElementRef} key={post.boardId}>
+                <PostItem post={post} />
+              </div>
+            );
+          } else {
+            return <PostItem key={post.boardId} post={post} />;
+          }
+        })}
       </div>
 
       {/* 글 작성 버튼 */}
