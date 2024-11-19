@@ -7,7 +7,9 @@ import mainLogo from "../assets/mainLogo.png";
 import info from "../assets/info.png";
 import RankComment from "../components/RankComment";
 import RankList from "../components/RankList";
+import Rank from "../components/Rank"; // Rank 컴포넌트를 불러옴
 import AxiosInstance from "../utils/AxiosInstance";
+import Modal from "../components/Modal"; // 모달 컴포넌트 불러오기
 import { useNavigate } from "react-router-dom";
 import "./Ranks.css";
 
@@ -21,6 +23,8 @@ const Ranks = () => {
   const [hasPrev, setHasPrev] = useState(false); // 이전 페이지 여부
   const [searchNickname, setSearchNickname] = useState(""); // 검색창 입력 상태
   const [searchResult, setSearchResult] = useState(null); // 검색 결과 상태
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
+  const [modalMessage, setModalMessage] = useState(""); // 모달 메시지 설정
 
   const fetchRankings = async (page) => {
     setLoading(true);
@@ -45,21 +49,25 @@ const Ranks = () => {
   };
 
   const handleSearch = async () => {
+    setSearchResult(null); // 이전 결과 초기화
+
     if (!searchNickname.trim()) return;
 
     try {
-      const url = `/ranking/search`; // 검색 API 호출
+      const url = `/ranking`; // 검색 API 호출
       const response = await AxiosInstance.get(url, {
         params: { nickname: searchNickname.trim() },
       });
       if (response.data.code === "success" && response.data.result) {
         setSearchResult(response.data.result);
       } else {
-        setSearchResult(null); // 검색 결과 없을 경우
+        setModalMessage("닉네임을 확인해주세요!"); // 모달 메시지 설정
+        setIsModalOpen(true); // 모달 열기
       }
     } catch (err) {
       console.error("검색 실패:", err);
-      setSearchResult(null);
+      setModalMessage("닉네임을 확인해주세요!"); // 모달 메시지 설정
+      setIsModalOpen(true); // 모달 열기
     }
   };
 
@@ -129,20 +137,23 @@ const Ranks = () => {
         </button>
       </div>
 
-      {/* 검색 결과 */}
+      {/* 검색 결과를 Rank 컴포넌트로 렌더링 */}
       {searchResult && (
         <div className="search-result">
-          <p>
-            <strong>닉네임:</strong> {searchResult.nickName}
-          </p>
-          <p>
-            <strong>레벨:</strong> {searchResult.level}
-          </p>
-          <p>
-            <strong>순위:</strong> {searchResult.ranking}
-          </p>
+          <Rank
+            rank={searchResult.rank}
+            nickname={searchResult.nickName}
+            level={searchResult.level}
+          />
         </div>
       )}
+
+      {/* 모달 */}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)} // 모달 닫기
+        message={modalMessage}
+      />
 
       <Footer />
     </>
