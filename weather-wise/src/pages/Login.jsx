@@ -6,6 +6,7 @@ import left from "../assets/left.png";
 import mainLogo from "../assets/mainLogo.png";
 import info from "../assets/info.png";
 import LoginForm from "../components/LoginForm"; // 로그인 폼을 불러옴
+import "./Login.css";
 
 const Login = () => {
   return (
@@ -15,7 +16,7 @@ const Login = () => {
         title={<img src={mainLogo} alt="mainLogo" />}
       />
 
-      <h1> Weather Wise </h1>
+      <h1 className="login-title"> Weather Wise </h1>
 
       <LoginForm />
     </div>
