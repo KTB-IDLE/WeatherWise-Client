@@ -6,7 +6,7 @@ import kakao from "../assets/kakao.png";
 const LoginForm = () => {
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const VITE_API_BASE_URL_FOR_OAUTH = import.meta.env
-    .VITE_API_BASE_URL_FOR_OAUTH;
+  .VITE_API_BASE_URL_FOR_OAUTH;
   const navigate = useNavigate();
   const [serialId, setSerialId] = useState("");
   const [password, setPassword] = useState("");

@@ -42,7 +42,7 @@ const JoinForm = () => {
         setIsModalOpen(true); // 회원가입 성공 시 모달 열기
       } else {
         const errorData = await response.json();
-        setError(errorData.message || "회원가입에 실패했습니다.");
+        setError(errorData.error.message || "회원가입에 실패했습니다.");
       }
     } catch (error) {
       console.error("회원가입 요청 실패:", error);
