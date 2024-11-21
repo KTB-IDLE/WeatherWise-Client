@@ -43,7 +43,7 @@ const JoinForm = () => {
       } else {
         const errorData = await response.json();
         console.log("회원가입 실패:", errorData);
-        setError(errorData.error.message /*|| "회원가입에 실패했습니다."*/);
+        setError(errorData.error.message || "회원가입에 실패했습니다.");
       }
     } catch (error) {
       console.error("회원가입 요청 실패:", error);
