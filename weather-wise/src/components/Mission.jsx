@@ -16,9 +16,8 @@ const Mission = ({ id, name, point, completed, missionTime, isToday }) => {
   // 클릭 시 특정 id로 페이지 이동 및 API 호출을 위한 함수
   const handleClick = (e) => {
     e.stopPropagation();
-    navigate(`/missions/${id}`);
+    navigate(`/missions/${id}`, { state: { isToday } });
   };
-
   // Determine the mission status text
   const missionStatusText = completed
     ? "성공"

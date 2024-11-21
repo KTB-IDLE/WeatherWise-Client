@@ -11,8 +11,11 @@ import MissionImage from "../components/MissionImage";
 import MissionDetailsHedaer from "../components/MissionDetailsHedaer";
 import MissionName from "../components/MissionName";
 import AxiosInstance from "../utils/AxiosInstance";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+
 const MissionDetails = () => {
+  const location = useLocation();
+  const { isToday } = location.state || {};
   const navigate = useNavigate();
   const { id } = useParams(); // URL에서 id 값을 가져옴
   const [missionDetails, setMissionDetails] = useState(null);
@@ -55,9 +58,15 @@ const MissionDetails = () => {
 
   const { missionName, completed, storeFileName, nickName, missionDate } =
     missionDetails || {};
-  const today = new Date();
+
   const missionDateObj = new Date(missionDate);
-  const isToday = missionDateObj.toDateString() === today.toDateString();
+
+  console.log("missionDetails = ", missionDetails);
+  console.log("missionDate = ", missionDate);
+  console.log("missionName = ", missionName);
+  console.log("completed = ", completed);
+  console.log("missionDateObj = ", missionDateObj);
+  console.log("isToday = ", isToday);
 
   return (
     <div>

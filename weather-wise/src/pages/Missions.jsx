@@ -76,6 +76,8 @@ const Missions = () => {
     }
   };
 
+  console.log("isToday = ", isToday);
+
   const addMissionToList = (newMission) => {
     setMissionList((prevList) => [...prevList, newMission]);
   };

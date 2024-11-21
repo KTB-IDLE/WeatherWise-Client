@@ -11,7 +11,7 @@ const MissionAuth = ({ completed, id, imageFile, resetImage, isToday }) => {
   const navigate = useNavigate();
 
   const handleAuthClick = async () => {
-    if (!completed && imageFile) {
+    if (!completed && isToday && imageFile) {
       setLoading(true);
 
       const formData = new FormData();
@@ -83,7 +83,7 @@ const MissionAuth = ({ completed, id, imageFile, resetImage, isToday }) => {
               completed || !isToday ? "disabled" : "active"
             }`}
             onClick={handleAuthClick}
-            disabled={completed || !isToday} // Disable if not completed or not today
+            disabled={completed || !isToday} // 버튼 비활성화 조건 추가
           >
             인증하기
           </button>

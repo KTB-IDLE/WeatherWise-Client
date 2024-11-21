@@ -1,34 +1,37 @@
-import React, { useEffect, useState } from 'react';
-import './KakaoMap.css';
+import React, { useEffect, useState } from "react";
+import "./KakaoMap.css";
 
 function KakaoMap({ onSelectLocation, defaultLocation, className }) {
   const [map, setMap] = useState(null);
-  const [searchKeyword, setSearchKeyword] = useState(''); // 검색어 상태 추가
+  const [searchKeyword, setSearchKeyword] = useState(""); // 검색어 상태 추가
   const [searchResults, setSearchResults] = useState([]); // 검색 결과 상태 추가
   const [placesService, setPlacesService] = useState(null); // 장소 검색 서비스 상태 추가
-  const [locationName, setLocationName] = useState(''); // 현재 위치명 상태 추가
+  const [locationName, setLocationName] = useState(""); // 현재 위치명 상태 추가
 
   // 기본 위치를 사용하지 않았을 때를 대비한 fallback (서울 강남구 좌표)
   const defaultCoords = defaultLocation || {
-    latitude: 37.499920,
-    longitude: 127.037840,
+    latitude: 37.49992,
+    longitude: 127.03784,
   };
 
   // .env 파일에서 API 키 가져오기
   const KAKAO_API_KEY = import.meta.env.VITE_KAKAO_MAP_API_KEY;
 
   useEffect(() => {
-    const script = document.createElement('script');
+    const script = document.createElement("script");
     script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_API_KEY}&autoload=false&libraries=services`;
     script.async = true;
 
     script.onload = () => {
       if (window.kakao && window.kakao.maps) {
         window.kakao.maps.load(() => {
-          const container = document.getElementById('kakao-map');
+          const container = document.getElementById("kakao-map");
           if (container) {
             const options = {
-              center: new window.kakao.maps.LatLng(defaultCoords.latitude, defaultCoords.longitude), // 초기값은 전달받은 defaultLocation
+              center: new window.kakao.maps.LatLng(
+                defaultCoords.latitude,
+                defaultCoords.longitude
+              ), // 초기값은 전달받은 defaultLocation
               level: 3,
             };
 
@@ -40,27 +43,38 @@ function KakaoMap({ onSelectLocation, defaultLocation, className }) {
             setPlacesService(ps);
 
             const marker = new window.kakao.maps.Marker({
-              position: new window.kakao.maps.LatLng(defaultCoords.latitude, defaultCoords.longitude),
+              position: new window.kakao.maps.LatLng(
+                defaultCoords.latitude,
+                defaultCoords.longitude
+              ),
             });
             marker.setMap(mapInstance);
 
             // 지도 클릭 시 마커 이동 및 좌표 정보 받아오기
-            window.kakao.maps.event.addListener(mapInstance, 'click', (mouseEvent) => {
-              const latlng = mouseEvent.latLng;
-              marker.setPosition(latlng);
+            window.kakao.maps.event.addListener(
+              mapInstance,
+              "click",
+              (mouseEvent) => {
+                const latlng = mouseEvent.latLng;
+                marker.setPosition(latlng);
 
-              const geocoder = new window.kakao.maps.services.Geocoder();
-              geocoder.coord2RegionCode(latlng.getLng(), latlng.getLat(), (result, status) => {
-                if (status === window.kakao.maps.services.Status.OK) {
-                  const locationName = result[0].address_name;
-                  onSelectLocation({
-                    name: locationName,
-                    latitude: latlng.getLat(),
-                    longitude: latlng.getLng(),
-                  });
-                }
-              });
-            });
+                const geocoder = new window.kakao.maps.services.Geocoder();
+                geocoder.coord2RegionCode(
+                  latlng.getLng(),
+                  latlng.getLat(),
+                  (result, status) => {
+                    if (status === window.kakao.maps.services.Status.OK) {
+                      const locationName = result[0].address_name;
+                      onSelectLocation({
+                        name: locationName,
+                        latitude: latlng.getLat(),
+                        longitude: latlng.getLng(),
+                      });
+                    }
+                  }
+                );
+              }
+            );
           }
         });
       } else {
@@ -69,7 +83,9 @@ function KakaoMap({ onSelectLocation, defaultLocation, className }) {
     };
 
     script.onerror = () => {
-      console.error("Kakao Map script failed to load. Please check the API key.");
+      console.error(
+        "Kakao Map script failed to load. Please check the API key."
+      );
     };
 
     document.head.appendChild(script);
@@ -79,9 +95,8 @@ function KakaoMap({ onSelectLocation, defaultLocation, className }) {
     };
   }, [KAKAO_API_KEY, defaultLocation, onSelectLocation]);
 
-
-   // 장소 검색 핸들러
-   const handleSearch = () => {
+  // 장소 검색 핸들러
+  const handleSearch = () => {
     if (!placesService || !searchKeyword) return;
 
     placesService.keywordSearch(searchKeyword, (data, status) => {
@@ -121,19 +136,22 @@ function KakaoMap({ onSelectLocation, defaultLocation, className }) {
     marker.setMap(map); // 마커를 맵에 설정
 
     const geocoder = new window.kakao.maps.services.Geocoder();
-    geocoder.coord2RegionCode(latLng.getLng(), latLng.getLat(), (result, status) => {
-      if (status === window.kakao.maps.services.Status.OK) {
-        const locationName = result[0].address_name; // 행정 구역명 가져오기
-        setLocationName(locationName); // 위치명 업데이트
-        onSelectLocation({
-          name: locationName,
-          latitude: parseFloat(place.y),
-          longitude: parseFloat(place.x),
-        });
+    geocoder.coord2RegionCode(
+      latLng.getLng(),
+      latLng.getLat(),
+      (result, status) => {
+        if (status === window.kakao.maps.services.Status.OK) {
+          const locationName = result[0].address_name; // 행정 구역명 가져오기
+          setLocationName(locationName); // 위치명 업데이트
+          onSelectLocation({
+            name: locationName,
+            latitude: parseFloat(place.y),
+            longitude: parseFloat(place.x),
+          });
+        }
       }
-    });
+    );
   };
-
 
   return (
     <div className={className}>
