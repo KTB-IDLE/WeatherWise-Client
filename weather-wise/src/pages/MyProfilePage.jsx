@@ -70,13 +70,17 @@ const MyProfilePage = () => {
         headers: { "Content-Type": "text/plain" },
       });
       setPopupContent("닉네임 변경이 완료되었습니다.");
+      setShowPopup(true);
 
       setUserInfo((prevInfo) => ({
         ...prevInfo,
         nickname: nickname, // 새로 입력한 닉네임으로 상태 업데이트
       }));
     } catch (error) {
-      setPopupContent("닉네임 변경 실패: " + error.message);
+      console.log("닉네임 변경 오류:", error.response.data.error.message);
+      const errorMessage = error.response?.data?.error?.message || "닉네임 변경 실패: 알 수 없는 오류가 발생했습니다.";
+      setShowPopup(true);
+      setPopupContent(errorMessage);
     }
   };
 
@@ -87,7 +91,9 @@ const MyProfilePage = () => {
       await AxiosInstance.post(url);
       window.location.href = "/"; // 로그아웃 후 메인페이지 이동
     } catch (error) {
-      setPopupContent("로그아웃 실패: " + error.message);
+      const errorMessage = error.response?.data?.error?.message || "로그아웃 실패: 알 수 없는 오류가 발생했습니다.";
+      setShowPopup(true);
+      setPopupContent(errorMessage);
     }
   };
 
@@ -98,7 +104,9 @@ const MyProfilePage = () => {
       await AxiosInstance.delete(url);
       window.location.href = "/"; // 탈퇴 후 메인페이지 이동
     } catch (error) {
-      setPopupContent("회원 탈퇴 실패: " + error.message);
+      const errorMessage = error.response?.data?.error?.message || "회원 탈퇴 실패: 알 수 없는 오류가 발생했습니다.";
+      setShowPopup(true);
+      setPopupContent(errorMessage);
     }
   };
 
@@ -213,11 +221,13 @@ const MyProfilePage = () => {
           <button
             onClick={() => {
               if (popupContent.includes("닉네임을 입력하세요")) {
-                handleNicknameChange().then(() => setShowPopup(false)); // 닉네임 변경 후 팝업 닫기
+                handleNicknameChange();
               } else if (popupContent.includes("로그아웃")) {
-                handleLogout().then(() => setShowPopup(false)); // 로그아웃 후 팝업 닫기
+                handleLogout(); // 로그아웃 후 팝업 닫기
               } else if (popupContent.includes("탈퇴")) {
-                handleDeleteUser().then(() => setShowPopup(false)); // 탈퇴 후 팝업 닫기
+                handleDeleteUser(); // 탈퇴 후 팝업 닫기
+              } else{
+                setShowPopup(false);
               }
             }}
           >
