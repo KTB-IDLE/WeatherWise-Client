@@ -20,7 +20,7 @@ const SuccessInfo = ({ missionExp, userLevel, userExp, userLevelMaxExp }) => {
         <img src={expIcon} alt="EXP" className="exp-icon" />
         <div className="exp-text">
           <span className="earned-exp">{earnedExp}</span>
-          <span className="exp-unit"> 획득!</span>
+          <span className="exp-unit"> 획득</span>
         </div>
       </div>
 
