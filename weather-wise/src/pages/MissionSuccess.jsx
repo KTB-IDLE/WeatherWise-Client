@@ -42,7 +42,7 @@ const MissionSuccess = () => {
         missionExp={missionExp}
         userLevel={userLevel}
         userExp={userExp}
-        userLevelMaxExp={userLevelMaxExp}
+        userLevelMaxExp={100 - userExp}
       />
 
       <Footer />

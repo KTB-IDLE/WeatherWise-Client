@@ -1,0 +1,22 @@
+.rank-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.rank-container.highlight {
+  background-color: #68a352; /* 강조 배경 색상 */
+  font-weight: bold;
+  border: 2px solid #80c565; /* 강조 테두리 */
+}
+
+.rank-item {
+  flex: 1;
+  text-align: center;
+}
+
+.rank-item-margin {
+  flex: 1;
+  text-align: center;
+}

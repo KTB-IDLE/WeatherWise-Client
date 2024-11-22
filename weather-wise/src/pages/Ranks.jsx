@@ -12,6 +12,7 @@ import AxiosInstance from "../utils/AxiosInstance";
 import Modal from "../components/Modal"; // Modal 컴포넌트 추가
 import { useNavigate } from "react-router-dom";
 import "./Ranks.css";
+import "../components/Rank.css"; // Rank 스타일
 
 const Ranks = () => {
   const navigate = useNavigate();
@@ -26,6 +27,11 @@ const Ranks = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
   const [modalMessage, setModalMessage] = useState(""); // 모달 메시지 설정
 
+  const [currentUserNickName, setCurrentUserNickName] = useState(""); // 모달 메시지 설정
+  const [existUserInCurrentPage, setExistUserInCurrentPage] = useState(""); // 모달 메시지 설정
+  const [currentUserRanking, setCurrentUserRanking] = useState(""); // 모달 메시지 설정
+  const [currentUserLevel, setCurrentUserLevel] = useState(""); // 모달 메시지 설정
+
   // 순위 리스트 가져오기
   const fetchRankings = async (page) => {
     setLoading(true);
@@ -37,11 +43,24 @@ const Ranks = () => {
       const response = await AxiosInstance.get(url, {
         params: { page }, // 페이지 정보 전달
       });
+      console.log(response);
       if (response.data.code === "success") {
-        const { rankingList, hasNext } = response.data.result;
+        const {
+          rankingList,
+          hasNext,
+          currentUserNickName,
+          existUserInCurrentPage,
+          currentUserRanking,
+          currentUserLevel,
+        } = response.data.result;
+
         setRankData(rankingList);
         setHasNext(hasNext); // 다음 페이지 여부 설정
         setHasPrev(page > 0); // 페이지가 0보다 크면 이전 페이지 존재
+        setCurrentUserNickName(currentUserNickName); // 현재 사용자 닉네임 저장
+        setExistUserInCurrentPage(existUserInCurrentPage); // 현재 사용자 존재 여부 저장
+        setCurrentUserRanking(currentUserRanking); // 현재 사용자 등수 저장
+        setCurrentUserLevel(currentUserLevel); // 현재 사용자 레벨 저장
       } else {
         setError("데이터를 불러오는 데 실패했습니다.");
       }
@@ -64,6 +83,7 @@ const Ranks = () => {
       const response = await AxiosInstance.get(url, {
         params: { nickname: searchNickname.trim() },
       });
+
       if (response.data.code === "success" && response.data.result) {
         setSearchResult(response.data.result); // 검색 결과 저장
       } else {
@@ -130,7 +150,14 @@ const Ranks = () => {
       ) : (
         <>
           {/* 기본 순위 리스트 */}
-          <RankList rankData={rankData} page={page} />
+          <RankList
+            rankData={rankData}
+            page={page}
+            currentUserNickName={currentUserNickName}
+            existUserInCurrentPage={existUserInCurrentPage}
+            currentUserLevel={currentUserLevel}
+            currentUserRanking={currentUserRanking}
+          />
 
           <div className="pagination-container">
             <button

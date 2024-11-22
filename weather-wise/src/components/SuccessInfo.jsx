@@ -6,7 +6,7 @@ import expIcon from "../assets/exp.png";
 const SuccessInfo = ({ missionExp, userLevel, userExp, userLevelMaxExp }) => {
   const navigate = useNavigate();
   const currentExp = userExp;
-  const totalExp = userLevelMaxExp;
+  const totalExp = 100;
   const earnedExp = missionExp;
   const remainingExp = totalExp - currentExp;
 
