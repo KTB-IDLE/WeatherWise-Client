@@ -13,6 +13,7 @@ import Modal from "../components/Modal"; // Modal 컴포넌트 추가
 import { useNavigate } from "react-router-dom";
 import "./Ranks.css";
 import "../components/Rank.css"; // Rank 스타일
+import Loading from "./Loading";
 
 const Ranks = () => {
   const navigate = useNavigate();
@@ -102,7 +103,7 @@ const Ranks = () => {
   }, [page]);
 
   if (loading) {
-    return <div>로딩 중...</div>;
+    return <Loading />;
   }
 
   if (error) {

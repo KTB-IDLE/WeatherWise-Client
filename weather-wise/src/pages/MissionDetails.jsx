@@ -13,6 +13,7 @@ import MissionName from "../components/MissionName";
 import AxiosInstance from "../utils/AxiosInstance";
 import "./MissionDetails.css";
 import { useNavigate, useLocation } from "react-router-dom";
+import Loading from "./Loading";
 
 const MissionDetails = () => {
   const location = useLocation();
@@ -54,7 +55,9 @@ const MissionDetails = () => {
     fetchMissionDetails();
   }, [id]);
 
-  if (loading) return <div>로딩 중...</div>;
+  if (loading) {
+    return <Loading />;
+  }
   if (error) return <div>{error}</div>;
 
   const { missionName, completed, storeFileName, nickName, missionDate } =
