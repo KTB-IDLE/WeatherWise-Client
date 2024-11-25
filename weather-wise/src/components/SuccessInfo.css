@@ -9,7 +9,7 @@
   flex-direction: column;
   align-items: center; /* 가로축 중앙 정렬 */
   justify-content: center; /* 세로축 중앙 정렬 */
-  margin-top: 20px;
+  margin-top: 90px;
   margin-left: 28px;
 }
 
@@ -48,6 +48,7 @@
   justify-content: space-between;
   width: 100%; /* 가로 폭을 채우도록 설정 */
   margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .exp-bar {
@@ -68,6 +69,7 @@
 .exp-bar-text {
   font-size: 0.8rem;
   color: #555;
+  white-space: nowrap; /* 줄바꿈 방지 */
 }
 
 .confirm-button {
@@ -80,7 +82,7 @@
   font-weight: bold;
   cursor: pointer;
   width: 60%;
-  margin-top: 0 !important; /* margin-top을 명시적으로 제거 */
+  margin-top: 0 !important;
 }
 
 .confirm-button:hover {

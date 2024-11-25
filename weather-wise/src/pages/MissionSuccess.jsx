@@ -9,6 +9,7 @@ import mainLogo from "../assets/mainLogo.png";
 import info from "../assets/info.png";
 import SuccessInfo from "../components/SuccessInfo";
 import { useNavigate } from "react-router-dom";
+import SuccessComment from "../components/SuccessComment";
 
 const MissionSuccess = () => {
   const navigate = useNavigate();
@@ -45,8 +46,7 @@ const MissionSuccess = () => {
         />
       )}
 
-      {/* 여기부터 시작
-      <SuccessComment></SuccessComment> */}
+      <SuccessComment></SuccessComment>
 
       {/* SuccessInfo에 필요한 데이터를 전달 */}
       <SuccessInfo
