@@ -1,0 +1,9 @@
+.mission-title {
+  text-align: center; /* 텍스트를 가로로 중앙 정렬 */
+  font-size: 2rem; /* 제목 크기 */
+  font-weight: bold; /* 강조 */
+  color: #333; /* 텍스트 색상 */
+
+  font-family: "Arial", sans-serif; /* 폰트 스타일 */
+  transform: translateY(100px); /* 아래로 이동 */
+}
