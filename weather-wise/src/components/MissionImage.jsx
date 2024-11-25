@@ -23,7 +23,9 @@ const MissionImage = ({
 
   return (
     <div className="mission-image-container">
-      <h2>미션을 수행한 사진을 아래에 첨부해주세요</h2>
+      <h3 className="mission-image-title">
+        미션을 수행한 사진을 아래에 첨부해주세요
+      </h3>
       <div
         className="image-upload-box"
         onClick={() =>

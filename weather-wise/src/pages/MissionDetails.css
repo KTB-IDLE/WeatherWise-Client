@@ -1,0 +1,7 @@
+.mission-details-container {
+  padding-top: 120px; /* 헤더 높이만큼 공간 확보 */
+  margin: 0 auto; /* 가운데 정렬 */
+  max-width: 800px; /* 적절한 최대 너비 설정 */
+  width: 100%; /* 반응형 지원 */
+  box-sizing: border-box; /* 패딩 포함 박스 크기 */
+}
