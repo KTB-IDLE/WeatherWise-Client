@@ -55,14 +55,13 @@ const CreateMission = ({ text, onMissionCreate, isToday, missionCount }) => {
 
   return (
     <div className="create-mission-container">
-      <p className="mission-create-comment">{text}</p>
       <button
         className="mission-button"
         onClick={handleCreateMission}
         disabled={!isToday || missionCount >= 3}
       >
         {missionCount >= 3
-          ? "오늘의 미션 완료!"
+          ? "모든 미션 생성 완료"
           : !isToday
           ? "미션 생성 불가"
           : "미션 생성하기"}

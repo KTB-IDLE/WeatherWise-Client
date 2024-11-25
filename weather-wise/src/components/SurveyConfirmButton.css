@@ -19,6 +19,7 @@
   transition: background-color 0.3s ease; /* 호버 시 부드러운 배경 변화 */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
   margin-top: 50px;
+  transform: translateY(30px); /* 아래로 이동 */
 }
 
 .confirm-button:hover {

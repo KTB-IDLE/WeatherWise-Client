@@ -12,8 +12,16 @@ import { useNavigate } from "react-router-dom";
 
 const MyProfilePage = () => {
   const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useState({ nickname: "", serialId: "", level: null, point: null });
-  const [rankingInfo, setRankingInfo] = useState({ currentUserRanking: null, currentUserLevel: null});
+  const [userInfo, setUserInfo] = useState({
+    nickname: "",
+    serialId: "",
+    level: null,
+    point: null,
+  });
+  const [rankingInfo, setRankingInfo] = useState({
+    currentUserRanking: null,
+    currentUserLevel: null,
+  });
   const [missionCount, setMissionCount] = useState(0);
   const [expRange, setExpRange] = useState({ minExp: 0, maxExp: 100 }); // 초기 경험치 범위
   const [showPopup, setShowPopup] = useState(false);
@@ -30,27 +38,40 @@ const MyProfilePage = () => {
         console.log("사용자 정보:", userInfoResponse.data); // 사용자 정보 로그 확인
 
         // 랭킹 정보 API 호출
-        const rankingResponse = await AxiosInstance.get(`/ranking`);
+        const rankingResponse = await AxiosInstance.get(`/rankings`);
         setRankingInfo(rankingResponse.data.result);
         console.log("랭킹 정보:", rankingResponse.data.result); // 랭킹 정보 로그 확인
 
         // 완료한 미션 개수 API 호출
-        const missionResponse = await AxiosInstance.get(`/mission-histories/success`);
+        const missionResponse = await AxiosInstance.get(
+          `/mission-histories/success`
+        );
         setMissionCount(missionResponse.data.result.missionList.length);
         console.log("미션 완료 응답:", missionResponse.data.result); // 미션 완료 응답 데이터 확인
 
         // 미션 개수 설정
-        if (missionResponse.data && missionResponse.data.result && missionResponse.data.result.missionList) {
+        if (
+          missionResponse.data &&
+          missionResponse.data.result &&
+          missionResponse.data.result.missionList
+        ) {
           setMissionCount(missionResponse.data.result.missionList.length);
-          console.log("완료한 미션 수:", missionResponse.data.result.missionList.length); // 완료한 미션 수 확인
+          console.log(
+            "완료한 미션 수:",
+            missionResponse.data.result.missionList.length
+          ); // 완료한 미션 수 확인
         } else {
-          console.warn("미션 데이터가 예상과 다릅니다:", missionResponse.data.result);
+          console.warn(
+            "미션 데이터가 예상과 다릅니다:",
+            missionResponse.data.result
+          );
         }
-
 
         // 경험치 범위 가져오기
         if (userInfoResponse.data.level) {
-          const expResponse = await AxiosInstance.get(`/exp`, { params: { level: userInfoResponse.data.level } });
+          const expResponse = await AxiosInstance.get(`/exp`, {
+            params: { level: userInfoResponse.data.level },
+          });
           setExpRange(expResponse.data.result);
         }
 
@@ -143,14 +164,24 @@ const MyProfilePage = () => {
             </span>{" "}
             {/* 1. 닉네임 표시 */}
             <span className="level">
-              LEVEL {userInfo.level || "없음"} <span className="rank">({rankingInfo.currentUserRanking || "알 수 없음"}위)</span>
+              LEVEL {userInfo.level || "없음"}{" "}
+              <span className="rank">
+                ({rankingInfo.currentUserRanking || "알 수 없음"}위)
+              </span>
             </span>
           </div>
           <div className="progress-bar">
-            <div className="progress" style={{ width: `${calculateProgress()}%` }}></div>
+            <div
+              className="progress"
+              style={{ width: `${calculateProgress()}%` }}
+            ></div>
           </div>
           <div className="exp-info">
-            완료한 미션 수: {missionCount}개 <span className="points">{userInfo.point !== undefined ? userInfo.point : "없음"} / {expRange.maxExp}</span>
+            완료한 미션 수: {missionCount}개{" "}
+            <span className="points">
+              {userInfo.point !== undefined ? userInfo.point : "없음"} /{" "}
+              {expRange.maxExp}
+            </span>
           </div>
         </div>
       </div>
@@ -201,9 +232,20 @@ const MyProfilePage = () => {
         </ul>
       </div>
       <div className="copy-right">
-        <a href="https://www.flaticon.com/kr/free-icons/" title="동전 아이콘">동전 아이콘 제작자: Freepik - Flaticon</a> <br></br>
-        <a href="https://www.flaticon.com/kr/free-icons/" title="로봇 아이콘">로봇 아이콘 제작자: Freepik - Flaticon</a><br></br>
-        <a href="https://www.flaticon.com/kr/free-icons/-" title="일기 예보 아이콘">일기 예보 아이콘 제작자: Freepik - Flaticon</a>
+        <a href="https://www.flaticon.com/kr/free-icons/" title="동전 아이콘">
+          동전 아이콘 제작자: Freepik - Flaticon
+        </a>{" "}
+        <br></br>
+        <a href="https://www.flaticon.com/kr/free-icons/" title="로봇 아이콘">
+          로봇 아이콘 제작자: Freepik - Flaticon
+        </a>
+        <br></br>
+        <a
+          href="https://www.flaticon.com/kr/free-icons/-"
+          title="일기 예보 아이콘"
+        >
+          일기 예보 아이콘 제작자: Freepik - Flaticon
+        </a>
       </div>
       <Footer />
 

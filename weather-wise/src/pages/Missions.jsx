@@ -9,7 +9,9 @@ import CreateMission from "../components/CreateMission";
 import CurrentMission from "../components/CurrentMission";
 import MissionList from "../components/MissionList";
 import AxiosInstance from "../utils/AxiosInstance";
+import "./Missions.css";
 import { useNavigate } from "react-router-dom";
+import Loading from "./Loading";
 
 const Missions = () => {
   const navigate = useNavigate();
@@ -76,14 +78,33 @@ const Missions = () => {
     }
   };
 
-  console.log("isToday = ", isToday);
-
   const addMissionToList = (newMission) => {
     setMissionList((prevList) => [...prevList, newMission]);
   };
 
+  // 🔑 동적으로 h1 문구 설정
+  const getMissionTitle = () => {
+    if (missionList.length === 0) {
+      return "새로운 미션을 만들어보세요!";
+    }
+
+    const allMissionsCompleted = missionList.every(
+      (mission) => mission.completed === true
+    );
+
+    console.log(missionList);
+
+    console.log(allMissionsCompleted);
+
+    if (allMissionsCompleted) {
+      return "오늘의 미션 성공!";
+    }
+
+    return "미션 진행중!";
+  };
+
   if (loading) {
-    return <div>로딩 중...</div>;
+    return <Loading />;
   }
 
   if (error) {
@@ -107,13 +128,9 @@ const Missions = () => {
         }
       />
 
-      <CreateMission
-        nickName={nickName}
-        text="새로운 미션을 만들어보세요!"
-        onMissionCreate={addMissionToList}
-        isToday={isToday}
-        missionCount={missionList.length}
-      />
+      {/* 동적으로 문구를 변경하는 h1 */}
+      <h1 className="mission-title">{getMissionTitle()}</h1>
+
       <CurrentMission
         nickName={nickName}
         currentDate={currentDate}
@@ -122,6 +139,12 @@ const Missions = () => {
         isToday={isToday}
       />
       <MissionList missionList={missionList} isToday={isToday} />
+      <CreateMission
+        nickName={nickName}
+        onMissionCreate={addMissionToList}
+        isToday={isToday}
+        missionCount={missionList.length}
+      />
 
       <Footer />
     </div>

@@ -1,10 +1,10 @@
 .create-mission-container {
   text-align: center;
-  margin-top: 96px;
+  margin-top: 20px;
 }
 
 h1 {
-  font-size: 30px; /* 제목 글씨 크기 약간 키움 */
+  font-size: 20px; /* 제목 글씨 크기 약간 키움 */
   margin-bottom: 10px;
 }
 
@@ -16,17 +16,21 @@ h1 {
 }
 
 .mission-button {
-  background-color: #a4d07b;
-  color: white;
+  background-color: #8bc34a; /* 부드러운 라이트 그린 */
+  color: white; /* 텍스트를 흰색으로 대비 */
   border: none;
-  padding: 15px 40px; /* 버튼 패딩을 늘려서 너비를 넓게 */
-  font-size: 30px; /* 버튼 글씨 크기 키움 */
+  padding: 15px 40px; /* 버튼 패딩 */
+  font-size: 25px; /* 글씨 크기 */
   cursor: pointer;
-  border-radius: 5px;
-  width: 300px; /* 버튼의 너비를 고정 */
-  max-width: 100%;
+  border-radius: 8px; /* 모서리를 더 부드럽게 둥글림 */
+  margin-top: 15px;
+  width: 300px; /* 고정된 너비 */
+  max-width: 100%; /* 작은 화면에서 반응형 유지 */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 가벼운 그림자 효과 */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* 호버 애니메이션 */
 }
 
 .mission-button:hover {
-  background-color: #8bbf68;
+  background-color: #7cb342; /* 약간 더 짙은 녹색으로 변경 */
+  transform: scale(1.05); /* 살짝 커지는 효과 */
 }

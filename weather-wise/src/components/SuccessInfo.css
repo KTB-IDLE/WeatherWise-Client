@@ -9,7 +9,7 @@
   flex-direction: column;
   align-items: center; /* 가로축 중앙 정렬 */
   justify-content: center; /* 세로축 중앙 정렬 */
-  margin-top: 20px;
+  margin-top: 90px;
   margin-left: 28px;
 }
 
@@ -27,7 +27,7 @@
 }
 
 .exp-text {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: bold;
 }
 
@@ -36,8 +36,8 @@
   color: #333;
 }
 
-.remaining-exp {
-  font-size: 1.5rem;
+.₩ {
+  font-size: 1rem;
   margin-bottom: 15px;
   color: #555;
 }
@@ -48,6 +48,7 @@
   justify-content: space-between;
   width: 100%; /* 가로 폭을 채우도록 설정 */
   margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .exp-bar {
@@ -68,20 +69,26 @@
 .exp-bar-text {
   font-size: 0.8rem;
   color: #555;
+  white-space: nowrap; /* 줄바꿈 방지 */
 }
 
-.confirm-button {
+.success-page-confirm-button {
   background-color: #a3d35c;
   border: none;
   border-radius: 10px;
-  padding: 10px 20px;
   color: white;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
   width: 60%;
+  padding: 10px 20px;
+  margin-top: 20px;
 }
 
 .confirm-button:hover {
   background-color: #8ec14a;
+}
+
+.current-level {
+  font-size: 20px;
 }

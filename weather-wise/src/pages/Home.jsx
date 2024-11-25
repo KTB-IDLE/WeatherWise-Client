@@ -9,6 +9,7 @@ import Weather from "../components/Weather";
 import Summary from "../components/Summary";
 import AxiosInstance from "../utils/AxiosInstance";
 import Modal from "../components/Modal";
+import Loading from "./Loading";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -52,9 +53,8 @@ const Home = () => {
     setIsModalOpen(false);
     navigate("/survey");
   };
-
   if (loading) {
-    return <div>로딩 중...</div>;
+    return <Loading />;
   }
 
   return (

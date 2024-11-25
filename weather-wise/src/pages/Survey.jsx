@@ -10,7 +10,7 @@ import sun from "../assets/sun-survey.png";
 import cold from "../assets/cold-survey.png";
 import sweating from "../assets/sweating-survey.png";
 import AxiosInstance from "../utils/AxiosInstance";
-
+import "./Survey.css";
 const Survey = () => {
   const navigate = useNavigate();
   const [surveyAnswers, setSurveyAnswers] = useState({
@@ -43,12 +43,14 @@ const Survey = () => {
 
   return (
     <div>
-      <Question
-        imageSrc={sun}
-        questionText="더위를 잘 타는 편이신가요?"
-        onYes={() => handleSurveyAnswer("sunAnswer", "yes")}
-        onNo={() => handleSurveyAnswer("sunAnswer", "no")}
-      />
+      <div className="first-question">
+        <Question
+          imageSrc={sun}
+          questionText="더위를 잘 타는 편이신가요?"
+          onYes={() => handleSurveyAnswer("sunAnswer", "yes")}
+          onNo={() => handleSurveyAnswer("sunAnswer", "no")}
+        />
+      </div>
       <Question
         imageSrc={cold}
         questionText="추위를 잘 타는 편이신가요?"

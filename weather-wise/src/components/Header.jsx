@@ -9,12 +9,18 @@ const Header = ({ title, leftChild, rightChild }) => {
     navigate(-1); // 뒤로가기 기능
   };
 
+  const handleHome = () => {
+    navigate("/"); // 홈으로 이동
+  };
+
   return (
     <header className="Header">
       <div className="header_left" onClick={handleBack}>
         {leftChild}
       </div>
-      <div className="header_center">{title}</div>
+      <div className="header_center" onClick={handleHome}>
+        {title}
+      </div>
       <div className="header_right">{rightChild}</div>
     </header>
   );

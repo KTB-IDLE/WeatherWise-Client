@@ -11,7 +11,9 @@ import MissionImage from "../components/MissionImage";
 import MissionDetailsHedaer from "../components/MissionDetailsHedaer";
 import MissionName from "../components/MissionName";
 import AxiosInstance from "../utils/AxiosInstance";
+import "./MissionDetails.css";
 import { useNavigate, useLocation } from "react-router-dom";
+import Loading from "./Loading";
 
 const MissionDetails = () => {
   const location = useLocation();
@@ -53,7 +55,9 @@ const MissionDetails = () => {
     fetchMissionDetails();
   }, [id]);
 
-  if (loading) return <div>로딩 중...</div>;
+  if (loading) {
+    return <Loading />;
+  }
   if (error) return <div>{error}</div>;
 
   const { missionName, completed, storeFileName, nickName, missionDate } =
@@ -86,17 +90,16 @@ const MissionDetails = () => {
       />
 
       {/* 단일 미션 데이터를 렌더링 */}
-      <div>
-        {/* MissionDetailsHedaer에 nickName 전달 */}
-        <MissionDetailsHedaer nickName={nickName} />
+      {/* 본문 컨테이너 */}
+      <div className="mission-details-container">
         <MissionName missionName={missionName} />
         <MissionImage
-          completed={completed} // 미션의 completed 값 전달
-          storeFileName={storeFileName} // 서버에서 받은 파일 링크 전달
+          completed={completed}
+          storeFileName={storeFileName}
           setImageFile={setImageFile}
           selectedImage={selectedImage}
           resetImage={resetImage}
-          setSelectedImage={setSelectedImage} // 이미지 초기화 및 상태 관리
+          setSelectedImage={setSelectedImage}
         />
         <MissionAuth
           completed={completed}
@@ -106,7 +109,6 @@ const MissionDetails = () => {
           isToday={isToday}
         />
       </div>
-
       <Footer />
     </div>
   );

@@ -61,9 +61,8 @@ const JoinForm = () => {
       <form className="signup-form" onSubmit={handleSignup}>
         <div className="input-group">
           <input
-            type="email"
             className="signup-input"
-            placeholder="이메일"
+            placeholder="아이디"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required

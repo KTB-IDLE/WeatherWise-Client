@@ -1,20 +1,49 @@
-.mission-success-container {
+.success-comment {
   display: flex;
   flex-direction: column;
-  align-items: center; /* 가로축 가운데 정렬 */
-  justify-content: center; /* 세로축 가운데 정렬 */
-  text-align: center; /* 텍스트 중앙 정렬 */
-  width: 100%;
-  margin-top: 110px;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  padding: 20px;
+  margin-left: 20px;
+
+  border-radius: 12px;
+  font-size: xx-large;
+
+  text-align: center;
+  z-index: 10;
+  position: relative;
+  margin-top: 90px;
+  transform: translateY(50px); /* 아래로 이동 */
 }
 
-.mission-success-container img {
-  width: 100px; /* 이미지 크기 조정 */
-  margin-top: 30px;
+.success-text strong {
+  font-size: 3rem; /* 크기를 크게 설정 */
+  font-weight: bold; /* 굵게 강조 */
+  background: linear-gradient(
+    90deg,
+    #ff9a9e,
+    #fad0c4,
+    #fbc2eb
+  ); /* 그라데이션 색상 */
+  -webkit-background-clip: text; /* 배경색을 텍스트로 클리핑 */
+  -webkit-text-fill-color: transparent; /* 투명한 텍스트 색상 */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* 텍스트 그림자 추가 */
+  display: inline-block; /* 블록화하여 스타일 적용 */
 }
 
-.mission-success-text {
-  font-size: 3rem; /* 텍스트 크기 */
-  font-weight: bold; /* 텍스트 굵게 */
-  color: #333; /* 텍스트 색상 */
+.success-subtext {
+  font-size: 1rem;
+  color: #ffffff;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

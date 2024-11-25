@@ -1,0 +1,14 @@
+.mission-title {
+  text-align: center; /* 텍스트 중앙 정렬 */
+  font-size: 2rem; /* 텍스트 크기 */
+  font-weight: bold; /* 굵게 강조 */
+  color: transparent; /* 텍스트 색상 투명화 */
+  background: linear-gradient(90deg, #a8e063, #56ab2f);
+  -webkit-background-clip: text; /* 텍스트에 배경 그라데이션 적용 */
+  -webkit-text-fill-color: transparent; /* 그라데이션 적용을 위해 텍스트 투명화 */
+  font-family: "Poppins", sans-serif; /* 모던한 폰트 */
+  margin: 20px 0; /* 상하 여백 */
+  letter-spacing: 1px; /* 텍스트 간격을 약간 늘림 */
+  line-height: 1.2; /* 텍스트 줄 높이 */
+  transform: translateY(100px); /* 아래로 이동 */
+}
