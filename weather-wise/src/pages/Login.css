@@ -1,5 +1,13 @@
-/* Login.css */
 .login-title {
-  margin-top: 70px; /* 원하는 margin 값을 설정 */
-  text-align: center; /* 중앙 정렬 (선택 사항) */
+  margin-top: 70px; /* 여백 유지 */
+  text-align: center; /* 중앙 정렬 */
+  transform: translateY(30px); /* 아래로 이동 */
+  font-size: 40px; /* 텍스트 크기 */
+  font-weight: bold; /* 텍스트 강조 */
+  color: transparent; /* 텍스트 색상 투명화 */
+  background: linear-gradient(90deg, #56ab2f, #a8e063); /* 그린 그라데이션 */
+  -webkit-background-clip: text; /* 배경을 텍스트로 클리핑 */
+  -webkit-text-fill-color: transparent; /* 텍스트에 그라데이션 적용 */
+  font-family: "Poppins", sans-serif; /* 세련된 폰트 */
+  letter-spacing: 1px; /* 글자 간격 추가 */
 }

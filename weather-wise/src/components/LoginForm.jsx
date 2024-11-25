@@ -67,7 +67,7 @@ const LoginForm = () => {
           <input
             type="text"
             className="login-input"
-            placeholder="이메일"
+            placeholder="아이디"
             value={serialId}
             onChange={(e) => setSerialId(e.target.value)}
             required

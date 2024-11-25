@@ -21,7 +21,7 @@ const Join = () => {
         title={<img src={mainLogo} alt="mainLogo" />}
       />
 
-      <h1> Welcome to WeatherWise !! </h1>
+      <h1 className="join-title">Welcome to WeatherWise</h1>
       <JoinForm />
     </div>
   );
