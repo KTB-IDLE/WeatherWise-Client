@@ -11,6 +11,7 @@ import MissionList from "../components/MissionList";
 import AxiosInstance from "../utils/AxiosInstance";
 import "./Missions.css";
 import { useNavigate } from "react-router-dom";
+import Loading from "./Loading";
 
 const Missions = () => {
   const navigate = useNavigate();
@@ -103,7 +104,7 @@ const Missions = () => {
   };
 
   if (loading) {
-    return <div>로딩 중...</div>;
+    return <Loading />;
   }
 
   if (error) {

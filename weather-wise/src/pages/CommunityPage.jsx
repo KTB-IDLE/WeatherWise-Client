@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import "./CommunityPage.css";
 import { convertArrayToDate } from "../utils/timeUtils";
+import Loading from "./Loading";
 
 function CommunityPage() {
   const [posts, setPosts] = useState([]); // 게시글 리스트
