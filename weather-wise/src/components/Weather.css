@@ -11,10 +11,6 @@
   margin-top: 96px; /* 92.67px 만큼 아래로 이동 */
 }
 
-.temperature {
-  margin-left: 10px;
-}
-
 .weather-info {
   text-align: center; /* 텍스트를 중앙에 정렬 */
   color: white;
@@ -43,6 +39,14 @@
   margin-top: 10px;
   margin-bottom: 10px;
   margin-left: 60px;
+}
+
+.temperature.loading {
+  font-size: 50px; /* 기온 글씨 크기 */
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 0;
 }
 
 .description {
