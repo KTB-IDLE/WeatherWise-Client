@@ -134,7 +134,10 @@ const MainWeather = ({ initialWeatherData }) => {
             <img src={locationIcon} alt="location icon" />
           </button>
         </h3>
-        <h1 className="temperature">{temperature || "로딩중"}</h1>
+        <h1 className={`temperature ${!temperature && "loading"}`}
+        >
+          {temperature || "로딩중"}
+        </h1>
 
         {/* description이 있을 때만 표시 */}
         {description && <h3 className="description">{description}</h3>}
