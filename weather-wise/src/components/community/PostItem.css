@@ -18,15 +18,15 @@
 }
 
 .post-item p {
-  font-size: 13px;
-  color: #a9a9a9;
+  font-size: 16px;
+  color: #1e1e1e;
   margin-bottom: 15px;
 }
 
 .post-item .location-time {
   display: flex;
   font-size: 13px;
-  color: #a9a9a9;
+  color: #7a7575;
 }
 
 .post-item .location-time .location {

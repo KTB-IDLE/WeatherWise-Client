@@ -58,6 +58,10 @@
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* 옅은 구분선 추가 */
     outline: none; /* 포커스 시 외곽선 제거 */
   }
+
+  .char-count {
+    color: #7a7575;
+  }
   
   .content-input {
     margin-top: 10px;
