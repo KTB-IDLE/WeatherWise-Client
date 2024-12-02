@@ -51,25 +51,15 @@ const Home = () => {
       // 캐싱된 데이터가 없으면 API 호출
       console.log("API 호출 중...");
       try {
-        const response = await AxiosInstance.get("/home", {
-          params: { latitude, longitude },
-        });
+        const response = await AxiosInstance.get("/survey");
+
+        console.log(response);
 
         if (response.status === 200) {
-          const { didSurvey, weatherResponse, size } = response.data.result;
-
+          const didSurvey = response.data;
           if (!didSurvey) {
             setIsModalOpen(true);
-          } else {
-            setWeatherData(weatherResponse);
-            setSize(size);
-            setAiMessage(weatherResponse.AI_message);
-
-            // 데이터를 로컬 스토리지에 저장
-            setCachedWeather(key, { weatherResponse, size });
           }
-        } else {
-          console.error("데이터 가져오기 실패:", response.statusText);
         }
       } catch (error) {
         console.error("API 호출 오류:", error);
@@ -108,7 +98,7 @@ const Home = () => {
         onClose={handleSurveyStart}
         message="설문조사를 시작할게요!"
       />
-      <Weather weatherData={weatherData} />
+      <Weather />
       <Summary size={size} aiMessage={aiMessage} />
       <Footer />
     </div>

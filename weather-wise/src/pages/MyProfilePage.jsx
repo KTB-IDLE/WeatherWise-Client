@@ -67,14 +67,6 @@ const MyProfilePage = () => {
           );
         }
 
-        // 경험치 범위 가져오기
-        if (userInfoResponse.data.level) {
-          const expResponse = await AxiosInstance.get(`/exp`, {
-            params: { level: userInfoResponse.data.level },
-          });
-          setExpRange(expResponse.data.result);
-        }
-
         console.log("사용자 정보!!! :", userInfoResponse.data); // 전체 UserInfo 데이터 콘솔에 출력
       } catch (error) {
         console.error("사용자 정보를 가져오는 중 오류 발생:", error);
@@ -99,7 +91,9 @@ const MyProfilePage = () => {
       }));
     } catch (error) {
       console.log("닉네임 변경 오류:", error.response.data.error.message);
-      const errorMessage = error.response?.data?.error?.message || "닉네임 변경 실패: 알 수 없는 오류가 발생했습니다.";
+      const errorMessage =
+        error.response?.data?.error?.message ||
+        "닉네임 변경 실패: 알 수 없는 오류가 발생했습니다.";
       setShowPopup(true);
       setPopupContent(errorMessage);
     }
@@ -112,7 +106,9 @@ const MyProfilePage = () => {
       await AxiosInstance.post(url);
       window.location.href = "/"; // 로그아웃 후 메인페이지 이동
     } catch (error) {
-      const errorMessage = error.response?.data?.error?.message || "로그아웃 실패: 알 수 없는 오류가 발생했습니다.";
+      const errorMessage =
+        error.response?.data?.error?.message ||
+        "로그아웃 실패: 알 수 없는 오류가 발생했습니다.";
       setShowPopup(true);
       setPopupContent(errorMessage);
     }
@@ -125,7 +121,9 @@ const MyProfilePage = () => {
       await AxiosInstance.delete(url);
       window.location.href = "/"; // 탈퇴 후 메인페이지 이동
     } catch (error) {
-      const errorMessage = error.response?.data?.error?.message || "회원 탈퇴 실패: 알 수 없는 오류가 발생했습니다.";
+      const errorMessage =
+        error.response?.data?.error?.message ||
+        "회원 탈퇴 실패: 알 수 없는 오류가 발생했습니다.";
       setShowPopup(true);
       setPopupContent(errorMessage);
     }
@@ -268,7 +266,7 @@ const MyProfilePage = () => {
                 handleLogout(); // 로그아웃 후 팝업 닫기
               } else if (popupContent.includes("탈퇴")) {
                 handleDeleteUser(); // 탈퇴 후 팝업 닫기
-              } else{
+              } else {
                 setShowPopup(false);
               }
             }}

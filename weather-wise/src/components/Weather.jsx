@@ -14,13 +14,13 @@ const roundToFiveDecimals = (num) => {
   return parseFloat(num.toFixed(4));
 };
 
-const MainWeather = ({ initialWeatherData }) => {
+const MainWeather = () => {
   const [location, setLocation] = useState({
     name: "서울특별시 강남구 대치동", // 기본 위치
     latitude: roundToFiveDecimals(37.49992),
     longitude: roundToFiveDecimals(127.03784),
   });
-  const [weatherData, setWeatherData] = useState(initialWeatherData || {});
+  const [weatherData, setWeatherData] = useState("");
   const [temperature, setTemperature] = useState("");
   const [description, setDescription] = useState("");
   const [maxTemp, setMaxTemp] = useState("");
