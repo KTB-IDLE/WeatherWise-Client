@@ -16,6 +16,7 @@ import Join from "./pages/Join";
 import Login from "./pages/Login";
 import Survey from "./pages/Survey";
 import CommunityPageWithCursor from "./pages/CommunityPageWithCursor";
+import Chatting from "./pages/Chatting";
 
 function App() {
   // 쿠키에서 AccessToken 값을 가져오는 함수
@@ -160,6 +161,15 @@ function App() {
         element={
           <PrivateRoute>
             <MyPostPage />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/chatting"
+        element={
+          <PrivateRoute>
+            <Chatting />
           </PrivateRoute>
         }
       />
