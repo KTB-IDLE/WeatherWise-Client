@@ -2,19 +2,25 @@ import React, { useState, useEffect } from "react";
 import KakaoMap from "./community/KakaoMap"; // KakaoMap 컴포넌트 불러오기
 import test from "../assets/test.jpeg";
 import sunny from "../assets/sunny.jpeg";
-import rain from "../assets/rain.jpeg";
-import snow from "../assets/snow.jpeg";
+import rain from "../assets/rain.jpg";
+import snow from "../assets/snow.png";
 import locationIcon from "../assets/location.png"; // 삼각형 아이콘
 import "../components/Weather.css";
 import AxiosInstance from "../utils/AxiosInstance"; // AI 서버 전송용 Axios
+import { getCachedWeather, setCachedWeather } from "../utils/localStorageUtils"; // 캐싱 유틸리티 함수
 
-const MainWeather = ({ initialWeatherData }) => {
+// 소수점 5자리로 반올림하는 함수
+const roundToFiveDecimals = (num) => {
+  return parseFloat(num.toFixed(4));
+};
+
+const MainWeather = () => {
   const [location, setLocation] = useState({
     name: "서울특별시 강남구 대치동", // 기본 위치
-    latitude: 37.49992,
-    longitude: 127.03784,
+    latitude: roundToFiveDecimals(37.49992),
+    longitude: roundToFiveDecimals(127.03784),
   });
-  const [weatherData, setWeatherData] = useState(initialWeatherData || {});
+  const [weatherData, setWeatherData] = useState("");
   const [temperature, setTemperature] = useState("");
   const [description, setDescription] = useState("");
   const [maxTemp, setMaxTemp] = useState("");
@@ -25,18 +31,31 @@ const MainWeather = ({ initialWeatherData }) => {
   const [showMap, setShowMap] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const fetchMissionHistory = async (latitude, longitude) => {
-    const url = `/home`;
+  const fetchWeatherData = async (latitude, longitude) => {
+    const key = `${latitude}_${longitude}`; // 캐싱 키 생성
+    const cachedWeather = getCachedWeather(key); // 캐싱된 데이터 확인
+
+    if (cachedWeather) {
+      console.log("캐싱된 데이터 사용:", cachedWeather);
+      setWeatherData(cachedWeather);
+      setLoading(false);
+      return;
+    }
+
+    console.log("API 호출 중...");
     setLoading(true);
 
     try {
-      const response = await AxiosInstance.get(url, {
+      const response = await AxiosInstance.get("/home", {
         params: { latitude, longitude },
       });
-      const data = response.data.result.weatherResponse;
 
+      const data = response.data.result.weatherResponse;
       console.log("서버 응답 데이터:", data);
-      setWeatherData(data); // 새 weatherData로 업데이트
+
+      // 데이터 업데이트 및 캐싱
+      setWeatherData(data);
+      setCachedWeather(key, data); // 데이터를 캐싱
     } catch (error) {
       console.error("서버에 위치 전송 오류:", error);
     } finally {
@@ -70,7 +89,6 @@ const MainWeather = ({ initialWeatherData }) => {
       setSnowfall(weatherData.Is_Snowed ? weatherData.Snowfall_Amount : null);
     }
   }, [weatherData]);
-
   const getBackgroundImage = () => {
     if (weatherData.Is_Rained) return rain;
     if (weatherData.Is_Snowed) return snow;
@@ -83,14 +101,16 @@ const MainWeather = ({ initialWeatherData }) => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
-            const { latitude, longitude } = position.coords;
+            const latitude = roundToFiveDecimals(position.coords.latitude);
+            const longitude = roundToFiveDecimals(position.coords.longitude);
+
             const geocoder = new window.kakao.maps.services.Geocoder();
             geocoder.coord2RegionCode(longitude, latitude, (result, status) => {
               if (status === window.kakao.maps.services.Status.OK) {
                 const locationName =
                   result[0].region_3depth_name || result[0].address_name;
                 setLocation({ name: locationName, latitude, longitude });
-                fetchMissionHistory(latitude, longitude);
+                fetchWeatherData(latitude, longitude);
               } else {
                 setLocation((prev) => ({ ...prev, ...location }));
               }
@@ -102,7 +122,7 @@ const MainWeather = ({ initialWeatherData }) => {
               ...prev,
               name: "서울특별시 강남구 대치동",
             }));
-            fetchMissionHistory(location.latitude, location.longitude);
+            fetchWeatherData(location.latitude, location.longitude);
             setLoading(false);
           }
         );
@@ -111,7 +131,7 @@ const MainWeather = ({ initialWeatherData }) => {
           ...prev,
           name: "서울특별시 강남구 대치동",
         }));
-        fetchMissionHistory(location.latitude, location.longitude);
+        fetchWeatherData(location.latitude, location.longitude);
         setLoading(false);
       }
     };
@@ -160,14 +180,16 @@ const MainWeather = ({ initialWeatherData }) => {
       {showMap && (
         <KakaoMap
           onSelectLocation={(newLoc) => {
-            const { latitude, longitude } = newLoc;
+            const latitude = roundToFiveDecimals(newLoc.latitude);
+            const longitude = roundToFiveDecimals(newLoc.longitude);
+
             const geocoder = new window.kakao.maps.services.Geocoder();
             geocoder.coord2RegionCode(longitude, latitude, (result, status) => {
               if (status === window.kakao.maps.services.Status.OK) {
                 const locationName =
                   result[0].region_3depth_name || result[0].address_name;
                 setLocation({ name: locationName, latitude, longitude });
-                fetchMissionHistory(latitude, longitude);
+                fetchWeatherData(latitude, longitude);
               }
             });
             setShowMap(false);

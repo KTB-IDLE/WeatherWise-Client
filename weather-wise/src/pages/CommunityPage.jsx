@@ -14,6 +14,8 @@ import "./CommunityPage.css";
 import { convertArrayToDate } from "../utils/timeUtils";
 import Loading from "./Loading";
 
+import { getCachedPost, setCachedPost } from "../utils/localStorageUtils"; // 캐싱 유틸리티
+
 function CommunityPage() {
   const [posts, setPosts] = useState([]); // 게시글 리스트
   const [location, setLocation] = useState(null);
@@ -25,9 +27,26 @@ function CommunityPage() {
   const observer = useRef(); // Intersection Observer를 위한 ref
   const navigate = useNavigate();
 
-  // 게시글 가져오기 함수
+  console.log(latitude, longitude);
+
   const fetchPosts = async (page) => {
     if (!location) return;
+
+    const key = `POST_${location.latitude}_${location.longitude}`; // 로컬 스토리지 키 생성
+
+    console.log(key);
+
+    if (page === 0) {
+      // 첫 페이지일 때만 캐싱된 데이터 확인
+      const cachedPosts = getCachedPost(key);
+      if (cachedPosts) {
+        console.log("캐싱된 게시글 데이터 사용:", cachedPosts);
+        setPosts(cachedPosts);
+        setLoading(false);
+        return;
+      }
+    }
+
     setLoading(true);
     setError(null);
 
@@ -50,6 +69,11 @@ function CommunityPage() {
           : new Date(b.createdAt);
         return dateB - dateA; // 내림차순 정렬
       });
+
+      if (page === 0) {
+        // 첫 페이지 데이터는 캐싱
+        setCachedPost(key, sortedPosts);
+      }
 
       setPosts((prevPosts) => [...prevPosts, ...sortedPosts]); // 이전 데이터에 추가
       setHasMore(response.data.hasMore); // 다음 데이터 여부 설정

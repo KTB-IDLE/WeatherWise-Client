@@ -8,8 +8,6 @@ import downVoteNotActiveIcon from "../../assets/downVote_notActive.png";
 import { formatTime } from "../../utils/timeUtils";
 
 function PostItem({ post }) {
-  console.log("createdAt 데이터:", post); // 데이터 형식을 확인하기 위해 로그 출력
-
   const [upvotes, setUpvotes] = useState(0);
   const [downvotes, setDownvotes] = useState(0);
   const [userVote, setUserVote] = useState(null);
