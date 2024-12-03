@@ -15,7 +15,7 @@
   overflow-y: auto; /* 스크롤 활성화 */
   padding: 10px;
   box-sizing: border-box;
-  margin-top: 60px; /* Header 높이와 동일 */
+  margin-top: 200px; /* chatting-info의 높이와 동일하게 설정 */
   margin-bottom: 120px; /* Footer와 chat-footer 높이 고려 */
   scroll-behavior: smooth; /* 부드러운 스크롤 */
 }
