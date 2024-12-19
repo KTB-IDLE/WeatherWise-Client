@@ -99,17 +99,6 @@
   background-color: #45a049;
 }
 
-/* Header 고정 */
-header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  max-width: 400px;
-  height: 60px; /* Header 높이 */
-  background-color: white;
-  z-index: 10;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-}
 
 /* Footer 고정 */
 footer {

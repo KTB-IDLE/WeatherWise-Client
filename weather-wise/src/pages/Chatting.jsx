@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import Header from "../components/Header";
 import Button from "../components/Button";
 import Footer from "../components/Footer";
+import AxiosInstance from "../utils/AxiosInstance";
 import ChattingInfo from "../components/ChattingInfo";
 import { Client } from "@stomp/stompjs"; // STOMP 클라이언트 라이브러리
 import { useParams, useNavigate } from "react-router-dom"; // 추가: navigate 사용
 import "./Chatting.css";
-import mainLogo from "../assets/mainLogo.png";
-import info from "../assets/info.png";
 
 const Chatting = () => {
   const { chatRoomId } = useParams(); // URL에서 채팅방 ID 가져오기
@@ -15,15 +13,28 @@ const Chatting = () => {
   const [userId] = useState("내가바로에코왕"); // 사용자 ID (하드코딩 예시)
   const [chatContents, setChatContents] = useState([]); // 채팅 메시지 상태
   const [message, setMessage] = useState(""); // 입력 메시지 상태
-  const chatBodyRef = useRef(null); // 채팅 스크롤 참조
+  const chatBodyRef = useRef(null); // 채팅 스크롤 참조c
   const stompClient = useRef(null); // STOMP 클라이언트 참조
 
   // WebSocket 및 STOMP 설정
   const SOCKET_URL = "ws://localhost:8080/ws/chat"; // WebSocket 엔드포인트
   const TOKEN =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1aWQiOiIyIiwicm9sIjoiVVNFUiIsImlhdCI6MTczMzIxNzMwMSwiZXhwIjoxNzM0NjI3MzY2fQ.LUKd9_0XVt8W1lYEHna30nDclgrMyAR5IiwTRF8CKId3_xJJjWwqghNdcwRg0cHAm1dAUTDj8In4UHz3sturXg";
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1aWQiOiIzIiwicm9sIjoiVVNFUiIsImlhdCI6MTczMzU1MTM3NiwiZXhwIjoxNzM0OTYxNDQwfQ.skAdegrMDOKplgDIJ920LiZJxXRrLputzD1D880mDNd9Qu95xTtGVlBR-Ge633kBb54QYEUPdP6ozx8pdfQzeQ";
+  const chatRoomIdNumber = 1; // 테스트용 하드코딩
+
 
   useEffect(() => {
+    const fetchInitialMessages = async () => {
+      try {
+        const response = await AxiosInstance.get(`/chats/${chatRoomIdNumber}/recent`);
+        setChatContents(response.data); // 초기 메시지 설정
+      } catch (error) {
+        console.error("초기 메시지 불러오기 실패: ", error);
+      }
+    };
+
+    fetchInitialMessages(); // 백엔드 API로 초기 메시지 로드
+
     // WebSocket 및 STOMP 클라이언트 초기화
     stompClient.current = new Client({
       brokerURL: SOCKET_URL, // WebSocket URL
@@ -36,10 +47,14 @@ const Chatting = () => {
         console.log("WebSocket 연결 성공");
 
         // STOMP 구독 설정
-        stompClient.current.subscribe(`/topic/chatroom/1`, (message) => {
+        stompClient.current.subscribe(`/topic/chatroom/${chatRoomIdNumber}`, (message) => { 
           const payload = JSON.parse(message.body); // 받은 메시지 JSON 파싱
           setChatContents((prevContents) => [...prevContents, payload]); // 메시지 추가
-        });
+        },
+        {
+          Authorization: `Bearer ${TOKEN}`, // SUBSCRIBE 메시지 헤더
+        }
+      );
       },
       onStompError: (frame) => {
         console.error("STOMP 에러:", frame.headers["message"]);
@@ -66,16 +81,17 @@ const Chatting = () => {
   const sendMessage = () => {
     if (message.trim() && stompClient.current) {
       const chatMessage = {
-        content: message, // 메시지 내용
-        chatRoomId, // 현재 채팅방 ID
-        userId, // 현재 사용자 ID
+        message: message, // 메시지 내용
       };
+
+      console.log("전송할 메시지:", JSON.stringify(chatMessage));
 
       // STOMP를 통해 메시지 전송
       stompClient.current.publish({
-        destination: `/app/chat.sendMessage/${chatRoomId}`, // 메시지 전송 경로
+        destination: `/app/chat.sendMessage/${chatRoomIdNumber}`, // 메시지 전송 경로
         headers: {
-          Authorization: `Bearer ${TOKEN}`, // JWT 포함
+          Authorization: `Bearer ${TOKEN}`, // SEND 메시지 헤더
+          "content-type": "application/json"
         },
         body: JSON.stringify(chatMessage), // 메시지 JSON 포맷으로 전송
       });
@@ -86,20 +102,6 @@ const Chatting = () => {
 
   return (
     <>
-      {/* 상단 헤더 */}
-      <Header
-        title={<img src={mainLogo} alt="mainLogo" />}
-        rightChild={
-          <div>
-            <Button
-              text={<img src={info} alt="info" />}
-              type="icon"
-              onClick={() => navigate("/myprofile")} // 프로필 페이지 이동
-            />
-          </div>
-        }
-      />
-
       {/* 채팅방 정보 */}
       <ChattingInfo />
 
@@ -115,7 +117,7 @@ const Chatting = () => {
             >
               <p className="message-user">{content.userId}</p>
               <div className="message-content">
-                <p>{content.content}</p>
+                <p>{content.message}</p>
                 <span className="message-time">{content.timestamp}</span>
               </div>
             </div>
