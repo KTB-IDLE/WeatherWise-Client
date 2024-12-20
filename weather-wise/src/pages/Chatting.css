@@ -1,0 +1,113 @@
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* 화면 전체 높이를 사용 */
+  max-width: 400px;
+  margin: 0 auto;
+  overflow: hidden; /* 전체 화면에서 스크롤 방지 */
+  background-color: white;
+}
+
+.chat-body {
+  flex: 1; /* 남은 공간을 채팅창에 할당 */
+  display: flex;
+  flex-direction: column; /* 위에서 아래로 메시지 정렬 */
+  overflow-y: auto; /* 스크롤 활성화 */
+  padding: 10px;
+  box-sizing: border-box;
+  margin-top: 200px; /* chatting-info의 높이와 동일하게 설정 */
+  margin-bottom: 120px; /* Footer와 chat-footer 높이 고려 */
+  scroll-behavior: smooth; /* 부드러운 스크롤 */
+}
+
+.message {
+  margin-bottom: 8px; /* 메시지 간격 */
+  display: flex;
+  flex-direction: column;
+}
+
+.own-message {
+  align-items: flex-end;
+}
+
+.other-message {
+  align-items: flex-start;
+}
+
+.message-user {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 3px;
+}
+
+.message-content {
+  max-width: 70%;
+  word-wrap: break-word;
+  background: #f0f0f0;
+  padding: 6px 25px;
+  border-radius: 6px;
+}
+
+.own-message .message-content {
+  background: #d4f8c6;
+  text-align: right;
+}
+
+.message-time {
+  font-size: 0.7rem;
+  color: #888;
+  margin-top: 3px;
+  display: block;
+}
+
+.chat-footer {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #fff;
+  position: fixed; /* 화면 하단에 고정 */
+  bottom: 120px; /* Footer 바로 위에 배치 */
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+  gap: 5px; /* 입력창과 버튼 간격 */
+  z-index: 11; /* Footer 위로 표시 */
+}
+
+.chat-footer input {
+  flex: 1;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.chat-footer button {
+  background-color: #4caf50;
+  color: white;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+.chat-footer button:hover {
+  background-color: #45a049;
+}
+
+
+/* Footer 고정 */
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  max-width: 400px;
+  height: 60px; /* Footer 높이 */
+  background-color: white;
+  z-index: 10;
+  border-top: 1px solid #ddd;
+}

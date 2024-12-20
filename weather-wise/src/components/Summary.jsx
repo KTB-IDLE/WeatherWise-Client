@@ -5,12 +5,12 @@ import sun from "../assets/main-weather.png";
 import robot from "../assets/robott.png";
 import exp from "../assets/exp.png";
 
-const Summary = ({ size, aiMessage }) => {
+const Summary = ({ aiMessage }) => {
   const navigate = useNavigate();
 
   // 클릭 시 /missions 경로로 이동
   const handleMissionClick = () => {
-    navigate("/missions");
+    navigate("/events");
   };
   return (
     <div className="summary-container">
@@ -35,12 +35,7 @@ const Summary = ({ size, aiMessage }) => {
         <div className="mission-summary">
           <img src={sun} alt="Mission Icon" className="summary-icon" />
           <div className="summary-content">
-            <h3 className="main-card-title">오늘의 미션</h3>
-            <p className="mission-text">
-              {size === 0
-                ? "오늘의 첫 번째 미션을 생성해보세요!"
-                : "생성한 미션을 확인해보세요!"}
-            </p>
+            <h3 className="main-card-title">오늘의 이벤트</h3>
           </div>
         </div>
       </div>
