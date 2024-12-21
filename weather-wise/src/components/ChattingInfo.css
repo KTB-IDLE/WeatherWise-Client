@@ -1,0 +1,24 @@
+.chatting-info {
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  padding: 10px 0;
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+  position: relative; /* fixed 대신 relative 사용 */
+  z-index: 1; /* Header 아래로 설정 */
+  transform: translateY(80%); /* 요소를 아래로 50px 이동 */
+}
+
+.chatting-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.chatting-participants {
+  font-size: 0.9rem;
+  color: #555;
+}

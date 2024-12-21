@@ -9,7 +9,7 @@ const JoinForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [nickName, setNickName] = useState("");
+  const [nickname, setNickName] = useState("");
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -24,15 +24,19 @@ const JoinForm = () => {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/users/signup`,
+        `${import.meta.env.VITE_API_BASE_URL}/v1/users/signup`,
         {
           method: "POST",
           headers: {
+<<<<<<< HEAD
             "Content-Type": "application/json",
+=======
+            "Content-Type": "application/json", // JSON 데이터임을 명시
+>>>>>>> 4c5eedbdd400a603912b89da3dfd8a373e7bed28
           },
           body: JSON.stringify({
-            loginId: email,
-            nickName,
+            serialId: email,
+            nickname,
             password,
           }),
         }
@@ -93,7 +97,7 @@ const JoinForm = () => {
             type="text"
             className="signup-input"
             placeholder="닉네임"
-            value={nickName}
+            value={nickname}
             onChange={(e) => setNickName(e.target.value)}
             required
           />

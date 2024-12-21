@@ -16,6 +16,10 @@ import Join from "./pages/Join";
 import Login from "./pages/Login";
 import Survey from "./pages/Survey";
 import CommunityPageWithCursor from "./pages/CommunityPageWithCursor";
+import Chatting from "./pages/Chatting";
+import Events from "./pages/Events";
+import SurveyEx from "./pages/survey/SurveyEx";
+import ChatList from "./pages/ChatList";
 
 function App() {
   // 쿠키에서 AccessToken 값을 가져오는 함수
@@ -100,6 +104,7 @@ function App() {
           </PrivateRoute>
         }
       />
+
       <Route
         path="/success"
         element={
@@ -110,10 +115,28 @@ function App() {
       />
 
       <Route
+        path="/chat/:chatRoomId"
+        element={
+          <PrivateRoute>
+            <Chatting />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
         path="/survey"
         element={
           <PrivateRoute>
             <Survey />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/surveyex"
+        element={
+          <PrivateRoute>
+            <SurveyEx />
           </PrivateRoute>
         }
       />
@@ -172,6 +195,25 @@ function App() {
           </PrivateRoute>
         }
       />
+
+      <Route
+        path="/events"
+        element={
+          <PrivateRoute>
+            <Events />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/chat-list"
+        element={
+          <PrivateRoute>
+            <ChatList />
+          </PrivateRoute>
+        }
+      />
+
       {/* Not found */}
       <Route path="*" element={<Notfound />} />
     </Routes>

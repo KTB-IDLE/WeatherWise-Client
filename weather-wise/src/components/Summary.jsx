@@ -1,16 +1,21 @@
 import React from "react";
 import "./Summary.css";
 import { useNavigate } from "react-router-dom";
-import sun from "../assets/main-weather.png";
+import sun from "../assets/chat.png";
 import robot from "../assets/robott.png";
 import exp from "../assets/exp.png";
 
-const Summary = ({ size, aiMessage }) => {
+const Summary = ({ aiMessage, locationData }) => {
   const navigate = useNavigate();
+  console.log("Summary - locationData:", locationData);
 
   // 클릭 시 /missions 경로로 이동
   const handleMissionClick = () => {
-    navigate("/missions");
+    navigate("/chat-list", {
+      state: {
+        locationData, // 여기에 원하는 데이터(위도·경도)를 넣으면 됨
+      },
+    });
   };
   return (
     <div className="summary-container">
@@ -35,12 +40,7 @@ const Summary = ({ size, aiMessage }) => {
         <div className="mission-summary">
           <img src={sun} alt="Mission Icon" className="summary-icon" />
           <div className="summary-content">
-            <h3 className="main-card-title">오늘의 미션</h3>
-            <p className="mission-text">
-              {size === 0
-                ? "오늘의 첫 번째 미션을 생성해보세요!"
-                : "생성한 미션을 확인해보세요!"}
-            </p>
+            <h3 className="main-card-title">기상특보 오픈채팅방</h3>
           </div>
         </div>
       </div>

@@ -13,14 +13,14 @@ import { getCachedWeather, setCachedWeather } from "../utils/localStorageUtils";
 const roundToFiveDecimals = (num) => {
   return parseFloat(num.toFixed(4));
 };
-
-const MainWeather = () => {
+const MainWeather = ({ onLocationdataUpdate }) => {
   const [location, setLocation] = useState({
     name: "서울특별시 강남구 대치동", // 기본 위치
     latitude: roundToFiveDecimals(37.49992),
     longitude: roundToFiveDecimals(127.03784),
   });
   const [weatherData, setWeatherData] = useState("");
+  const [locationData, setLocationData] = useState("");
   const [temperature, setTemperature] = useState("");
   const [description, setDescription] = useState("");
   const [maxTemp, setMaxTemp] = useState("");
@@ -53,9 +53,20 @@ const MainWeather = () => {
       const data = response.data.result.weatherResponse;
       console.log("서버 응답 데이터:", data);
 
-      // 데이터 업데이트 및 캐싱
+      // Weather 컴포넌트 내부 state에 날씨 데이터 저장
       setWeatherData(data);
-      setCachedWeather(key, data); // 데이터를 캐싱
+
+      // 위/경도를 객체로 묶어서 state에도 저장
+      const newLocation = { latitude, longitude };
+      setLocationData(newLocation);
+
+      // 부모에 콜백이 있다면, 위/경도만 전달
+      if (onLocationdataUpdate) {
+        onLocationdataUpdate(newLocation);
+      }
+
+      // 날씨 데이터 캐싱
+      setCachedWeather(key, data);
     } catch (error) {
       console.error("서버에 위치 전송 오류:", error);
     } finally {
@@ -101,8 +112,8 @@ const MainWeather = () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
-            const latitude = roundToFiveDecimals(position.coords.latitude);
-            const longitude = roundToFiveDecimals(position.coords.longitude);
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
 
             const geocoder = new window.kakao.maps.services.Geocoder();
             geocoder.coord2RegionCode(longitude, latitude, (result, status) => {
@@ -154,8 +165,7 @@ const MainWeather = () => {
             <img src={locationIcon} alt="location icon" />
           </button>
         </h3>
-        <h1 className={`temperature ${!temperature && "loading"}`}
-        >
+        <h1 className={`temperature ${!temperature && "loading"}`}>
           {temperature || "로딩중"}
         </h1>
 
@@ -180,8 +190,8 @@ const MainWeather = () => {
       {showMap && (
         <KakaoMap
           onSelectLocation={(newLoc) => {
-            const latitude = roundToFiveDecimals(newLoc.latitude);
-            const longitude = roundToFiveDecimals(newLoc.longitude);
+            const latitude = newLoc.latitude;
+            const longitude = newLoc.longitude;
 
             const geocoder = new window.kakao.maps.services.Geocoder();
             geocoder.coord2RegionCode(longitude, latitude, (result, status) => {
