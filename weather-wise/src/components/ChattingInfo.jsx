@@ -1,9 +1,8 @@
 import "./ChattingInfo.css";
-const ChattingInfo = () => {
+const ChattingInfo = ({ chatRoomName }) => {
   return (
-    <div className="chatting-info">
-      <h3 className="chatting-title">판교역 태풍 주의보</h3>
-      <p className="chatting-participants">현재 참여자: 3명</p>
+    <div style={{ padding: "10px", textAlign: "center" }}>
+      <h2>{chatRoomName}</h2>
     </div>
   );
 };

@@ -19,11 +19,18 @@ const roundToFiveDecimals = (num) => {
 
 const Home = () => {
   const navigate = useNavigate();
+
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [weatherData, setWeatherData] = useState(null);
+  const [locationData, setLocationData] = useState(null);
   const [size, setSize] = useState(0);
   const [aiMessage, setAiMessage] = useState("");
+  // Weather 컴포넌트에서 날씨 데이터를 받아서 state에 저장
+  const handleLocationDataUpdate = (loc) => {
+    console.log("Home에서 받은 위치:", loc);
+    setLocationData(loc);
+  };
 
   useEffect(() => {
     const latitude = roundToFiveDecimals(37.49992);
@@ -73,7 +80,7 @@ const Home = () => {
 
   const handleSurveyStart = () => {
     setIsModalOpen(false);
-    navigate("/survey");
+    navigate("/surveyex");
   };
   if (loading) {
     return <Loading />;
@@ -98,8 +105,9 @@ const Home = () => {
         onClose={handleSurveyStart}
         message="설문조사를 시작할게요!"
       />
-      <Weather />
-      <Summary size={size} aiMessage={aiMessage} />
+      <Weather onLocationdataUpdate={handleLocationDataUpdate} />
+      <Summary size={size} aiMessage={aiMessage} locationData={locationData} />
+
       <Footer />
     </div>
   );
