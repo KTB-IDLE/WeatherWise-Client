@@ -28,11 +28,7 @@ const JoinForm = () => {
         {
           method: "POST",
           headers: {
-<<<<<<< HEAD
-            "Content-Type": "application/json",
-=======
             "Content-Type": "application/json", // JSON 데이터임을 명시
->>>>>>> 4c5eedbdd400a603912b89da3dfd8a373e7bed28
           },
           body: JSON.stringify({
             serialId: email,
