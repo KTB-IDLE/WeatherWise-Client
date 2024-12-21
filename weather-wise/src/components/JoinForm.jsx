@@ -27,6 +27,9 @@ const JoinForm = () => {
         `${import.meta.env.VITE_API_BASE_URL}/users/signup`,
         {
           method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
           body: JSON.stringify({
             loginId: email,
             nickName,
