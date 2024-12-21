@@ -1,0 +1,85 @@
+/* 페이지 기본 스타일 */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+
+  /* 가운데 정렬을 위해 flex 적용 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* 설문 컨테이너 */
+.container {
+  width: 80%;
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 8px;
+}
+
+.question {
+  font-size: 20px;
+  margin-bottom: 20px;
+  word-break: keep-all; /* 한국어 줄바꿈 유지 */
+  white-space: normal; /* 텍스트 줄바꿈 허용 */
+}
+
+/* 보기 목록 */
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+  word-break: keep-all; /* 한국어 줄바꿈 유지 */
+  white-space: normal; /* 텍스트 줄바꿈 허용 */
+}
+
+/* 보기 버튼 */
+.option-button {
+  padding: 15px;
+  font-size: 20px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.option-button:hover {
+  background-color: #444;
+}
+
+/* 선택된 버튼 스타일 */
+.option-button.selected {
+  background-color: #45a049;
+  color: #fff;
+}
+
+/* 다음/이전 버튼 */
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.navigation button {
+  padding: 10px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: #888;
+  color: #fff;
+}
+
+.navigation button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.navigation button:hover:not(:disabled) {
+  background-color: #666;
+}

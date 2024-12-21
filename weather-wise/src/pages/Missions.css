@@ -10,5 +10,5 @@
   margin: 20px 0; /* 상하 여백 */
   letter-spacing: 1px; /* 텍스트 간격을 약간 늘림 */
   line-height: 1.2; /* 텍스트 줄 높이 */
-  transform: translateY(100px); /* 아래로 이동 */
+  transform: translateY(120px); /* 아래로 이동 */
 }

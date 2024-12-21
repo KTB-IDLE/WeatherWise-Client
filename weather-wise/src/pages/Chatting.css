@@ -8,6 +8,14 @@
   background-color: white;
 }
 
+.main-content {
+  margin-top: 80px; /* 헤더 높이 + 여유 */
+  padding: 10px;
+  text-align: center;
+  transform: translateY(130px); /* 원하는 위치까지 아래로 이동 */
+}
+
+/* 채팅 영역 */
 .chat-body {
   flex: 1; /* 남은 공간을 채팅창에 할당 */
   display: flex;
@@ -15,11 +23,12 @@
   overflow-y: auto; /* 스크롤 활성화 */
   padding: 10px;
   box-sizing: border-box;
-  margin-top: 200px; /* chatting-info의 높이와 동일하게 설정 */
+  margin-top: 200px; /* chatting-info 높이에 맞춰 조정 (없다면 지워도 됨) */
   margin-bottom: 120px; /* Footer와 chat-footer 높이 고려 */
   scroll-behavior: smooth; /* 부드러운 스크롤 */
 }
 
+/* 메시지 공통 스타일 */
 .message {
   margin-bottom: 8px; /* 메시지 간격 */
   display: flex;
@@ -27,13 +36,14 @@
 }
 
 .own-message {
-  align-items: flex-end;
+  align-items: flex-end; /* 오른쪽 정렬 */
 }
 
 .other-message {
-  align-items: flex-start;
+  align-items: flex-start; /* 왼쪽 정렬 */
 }
 
+/* 유저명 */
 .message-user {
   font-size: 0.9rem;
   font-weight: bold;
@@ -41,6 +51,7 @@
   margin-bottom: 3px;
 }
 
+/* 메시지 내용 상자 */
 .message-content {
   max-width: 70%;
   word-wrap: break-word;
@@ -50,10 +61,11 @@
 }
 
 .own-message .message-content {
-  background: #d4f8c6;
+  background: #d4f8c6; /* 보낸 메시지는 연두색 */
   text-align: right;
 }
 
+/* 타임스탬프 */
 .message-time {
   font-size: 0.7rem;
   color: #888;
@@ -61,6 +73,7 @@
   display: block;
 }
 
+/* 입력 영역 (화면 하단 고정) */
 .chat-footer {
   display: flex;
   align-items: center;
@@ -98,7 +111,6 @@
 .chat-footer button:hover {
   background-color: #45a049;
 }
-
 
 /* Footer 고정 */
 footer {

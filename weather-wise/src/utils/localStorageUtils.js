@@ -43,10 +43,18 @@ export const getCachedPost = (key) => {
 };
 
 export const setCachedPost = (key, postData) => {
+  // 기존 캐시 데이터 가져오기
+  const existingData = JSON.parse(localStorage.getItem(key)) || {};
+
+  // 기존 데이터에서 latitude와 longitude 제거
+  const { latitude, longitude, ...rest } = existingData.postData || {};
+
+  // 새로 저장할 데이터 준비
   const dataToCache = {
     postData,
     timestamp: Date.now(),
   };
 
+  // 데이터 저장
   localStorage.setItem(key, JSON.stringify(dataToCache));
 };
