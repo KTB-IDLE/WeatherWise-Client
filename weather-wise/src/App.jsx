@@ -20,6 +20,7 @@ import Chatting from "./pages/Chatting";
 import Events from "./pages/Events";
 import SurveyEx from "./pages/survey/SurveyEx";
 import ChatList from "./pages/ChatList";
+import MyCoupons from "./pages/MyCoupons";
 
 function App() {
   // 쿠키에서 AccessToken 값을 가져오는 함수
@@ -137,6 +138,15 @@ function App() {
         element={
           <PrivateRoute>
             <SurveyEx />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/my-coupon"
+        element={
+          <PrivateRoute>
+            <MyCoupons />
           </PrivateRoute>
         }
       />

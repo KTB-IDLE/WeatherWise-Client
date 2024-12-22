@@ -228,8 +228,7 @@ const MyProfilePage = () => {
 
           <li
             onClick={() => {
-              setShowPopup(true);
-              setPopupContent("정말 탈퇴하시겠습니까?");
+              navigate("/my-coupon"); // /my-coupon으로 이동
             }}
           >
             내 쿠폰 확인하기

@@ -1,0 +1,93 @@
+/* Container for all events */
+
+/* Individual event card */
+.event-card {
+  width: 90%;
+  max-width: 400px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  overflow: hidden;
+}
+
+/* Event header styles */
+.event-header {
+  color: #fff;
+  padding: 10px 15px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* App-specific header */
+.app-header {
+  background-color: #7d45fa;
+}
+
+/* Offline-specific header */
+.offline-header {
+  background-color: #ff7f50;
+}
+
+/* Content inside each event card */
+.event-content {
+  padding: 20px;
+  text-align: center;
+}
+
+/* Discount text */
+.event-discount {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+/* Subtext for additional details */
+.event-subtext {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Buttons shared styles */
+.event-button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+/* App-specific button */
+.app-button {
+  background-color: #7d45fa;
+  color: #fff;
+}
+
+.app-button:hover {
+  background-color: #6b3ed1;
+}
+
+/* Offline-specific button */
+.offline-button {
+  background-color: #ff7f50;
+  color: #fff;
+}
+
+.offline-button:hover {
+  background-color: #e36e42;
+}
+
+/* Offline use button */
+.offline-use-button {
+  background-color: #fff;
+  color: #ff7f50;
+  border: 2px solid #ff7f50;
+}
+
+.offline-use-button:hover {
+  background-color: #ff7f50;
+  color: #fff;
+}
