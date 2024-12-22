@@ -1,13 +1,4 @@
 /* Container for all events */
-.events-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  font-family: "Arial", sans-serif;
-  background-color: #f8f8f8;
-  margin-top: 150px;
-}
 
 /* Individual event card */
 .event-card {

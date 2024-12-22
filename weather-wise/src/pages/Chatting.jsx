@@ -3,7 +3,9 @@ import Button from "../components/Button";
 import Footer from "../components/Footer";
 import AxiosInstance from "../utils/AxiosInstance";
 import Header from "../components/Header";
+import Loading from "./Loading";
 import info from "../assets/info.png";
+import leftIcon from "../assets/left.png"; // left.png 이미지 가져오기
 import mainLogo from "../assets/mainLogo.png";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Client } from "@stomp/stompjs";
@@ -43,6 +45,7 @@ const Chatting = () => {
   const [message, setMessage] = useState("");
   const [isComposing, setIsComposing] = useState(false);
   const [participants, setParticipants] = useState(0); // 참여자 수 state
+  const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
 
   const chatBodyRef = useRef(null);
   const stompClientRef = useRef(null);
@@ -86,6 +89,7 @@ const Chatting = () => {
       reconnectDelay: 5000,
       onConnect: () => {
         console.log("STOMP 연결 성공");
+        setIsLoading(false); // 로딩 상태 해제
 
         // 채팅 메시지 구독
         stompClientRef.current.subscribe(
@@ -156,10 +160,14 @@ const Chatting = () => {
 
   // 4) 채팅창 스크롤 유지
   useEffect(() => {
-    if (chatBodyRef.current) {
-      chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
-    }
-  }, [chatContents]);
+    const scrollToBottom = () => {
+      if (chatBodyRef.current) {
+        chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight; // 항상 맨 아래로 스크롤
+      }
+    };
+
+    scrollToBottom(); // 메시지 추가 시 호출
+  }, [chatContents]); // chatContents가 변경될 때마다 실행
 
   // 5) 메시지 전송
   const sendMessage = () => {
@@ -205,27 +213,27 @@ const Chatting = () => {
     }
   };
 
+  if (isLoading) {
+    return <Loading />; // 로딩 상태일 때 로딩 화면 표시
+  }
+
   return (
     <>
-      <Header
-        title={<img src={mainLogo} alt="mainLogo" />}
-        rightChild={
-          <div>
-            <Button
-              text={<img src={info} alt="info" />}
-              type="icon"
-              onClick={() => navigate("/myprofile")}
-            />
-          </div>
-        }
-      />
-
-      {/* 참여자 수 표시 */}
       <div className="main-content">
-        <h1>{chatRoomName || `채팅방 #${chatRoomId}`}</h1>
+        <div className="header-row">
+          {/* 뒤로가기 버튼 */}
+          <button
+            className="back-button"
+            onClick={() => navigate(-1)} // 뒤로가기 동작 구현
+          >
+            <img src={leftIcon} alt="뒤로가기" className="back-icon" />
+          </button>
+          <h1 className="chat-title">
+            {chatRoomName || `채팅방 #${chatRoomId}`}
+          </h1>
+        </div>
         <p>현재 참여자: {participants}명</p>
       </div>
-
       <div className="chat-container">
         <div className="chat-body" ref={chatBodyRef}>
           {chatContents.map((content, idx) => {
@@ -271,7 +279,6 @@ const Chatting = () => {
           </button>
         </div>
       </div>
-
       <Footer />
     </>
   );

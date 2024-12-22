@@ -8,25 +8,71 @@
   background-color: white;
 }
 
+.back-button {
+  background: none; /* 버튼 배경 제거 */
+  border: none; /* 테두리 제거 */
+  cursor: pointer; /* 마우스 포인터 변경 */
+  padding: 0; /* 불필요한 여백 제거 */
+}
+
+.back-icon {
+  width: 20px; /* 이미지 너비 */
+  height: 20px; /* 이미지 높이 */
+  object-fit: contain; /* 비율 유지하며 표시 */
+  display: block;
+}
+
 .main-content {
-  margin-top: 80px; /* 헤더 높이 + 여유 */
-  padding: 10px;
+  position: fixed; /* 화면 상단에 고정 */
+  top: 0; /* 화면 위쪽에 위치 */
+  left: 50%; /* 화면의 가운데 정렬 */
+  transform: translateX(-50%); /* 가운데 정렬 보정 */
+  width: 100%; /* 전체 너비 */
+  max-width: 400px; /* 화면 너비 제한 */
+
   text-align: center;
-  transform: translateY(130px); /* 원하는 위치까지 아래로 이동 */
+  background-color: white; /* 배경색 */
+  z-index: 100; /* 다른 요소 위에 위치 */
+}
+
+.header-row {
+  display: flex;
+  align-items: center; /* 세로 중앙 정렬 */
+  justify-content: space-between; /* 버튼과 제목 간 균형 배치 */
+  padding: 0 10px; /* 좌우 여백 추가 */
+}
+
+.chat-body {
+  flex: 1;
+  overflow-y: auto; /* 스크롤 가능 */
+  height: calc(100vh - 180px); /* 헤더(120px)와 Footer(60px)를 제외한 높이 */
+  margin-top: 120px; /* main-content 높이만큼 여백 추가 */
+  padding: 10px;
+  padding-bottom: 70px; /* chat-footer 높이 + 여유 공간 */
+  box-sizing: border-box;
+  scroll-behavior: smooth; /* 부드러운 스크롤 */
+}
+
+.back-button {
+  background: none; /* 버튼 배경 제거 */
+  border: none; /* 테두리 제거 */
+  color: #007bff; /* 텍스트 색상 */
+  font-size: 16px; /* 글씨 크기 */
+  cursor: pointer; /* 마우스 포인터 변경 */
+}
+
+.back-button:hover {
+  text-decoration: underline; /* 호버 시 밑줄 표시 */
+}
+
+.chat-title {
+  font-size: 18px; /* 제목 크기 */
+  font-weight: bold;
+  text-align: center; /* 제목을 중앙 정렬 */
+  flex: 1; /* 제목이 가능한 공간을 차지하도록 설정 */
 }
 
 /* 채팅 영역 */
-.chat-body {
-  flex: 1; /* 남은 공간을 채팅창에 할당 */
-  display: flex;
-  flex-direction: column; /* 위에서 아래로 메시지 정렬 */
-  overflow-y: auto; /* 스크롤 활성화 */
-  padding: 10px;
-  box-sizing: border-box;
-  margin-top: 200px; /* chatting-info 높이에 맞춰 조정 (없다면 지워도 됨) */
-  margin-bottom: 120px; /* Footer와 chat-footer 높이 고려 */
-  scroll-behavior: smooth; /* 부드러운 스크롤 */
-}
 
 /* 메시지 공통 스타일 */
 .message {
@@ -85,6 +131,7 @@
   max-width: 400px;
   box-sizing: border-box;
   gap: 5px; /* 입력창과 버튼 간격 */
+  transform: translateY(39px);
   z-index: 11; /* Footer 위로 표시 */
 }
 

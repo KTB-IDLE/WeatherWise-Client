@@ -218,6 +218,21 @@ const MyProfilePage = () => {
           >
             회원 탈퇴
           </li>
+          <li
+            onClick={() => {
+              navigate("/events"); // /events로 이동
+            }}
+          >
+            현재 진행중인 이벤트 확인하기
+          </li>
+
+          <li
+            onClick={() => {
+              navigate("/my-coupon"); // /my-coupon으로 이동
+            }}
+          >
+            내 쿠폰 확인하기
+          </li>
         </ul>
       </div>
 
