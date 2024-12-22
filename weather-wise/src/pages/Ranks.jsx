@@ -115,15 +115,6 @@ const Ranks = () => {
       <Header
         leftChild={<Button text={<img src={left} alt="Back" />} type="icon" />}
         title={<img src={mainLogo} alt="mainLogo" />}
-        rightChild={
-          <div>
-            <Button
-              text={<img src={info} alt="info" />}
-              type="icon"
-              onClick={() => navigate("/myprofile")}
-            />
-          </div>
-        }
       />
 
       <div>

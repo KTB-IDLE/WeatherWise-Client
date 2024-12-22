@@ -4,6 +4,10 @@ import test from "../assets/test.jpeg";
 import sunny from "../assets/sunny.jpeg";
 import rain from "../assets/rain.jpg";
 import snow from "../assets/snow.png";
+import sunnyIcon from "../assets/sunnyIcon.png";
+import rainIcon from "../assets/rainIcon.png";
+import snowIcon from "../assets/snowIcon.png";
+import cloudyIcon from "../assets/cloudyIcon.png";
 import locationIcon from "../assets/location.png"; // 삼각형 아이콘
 import "../components/Weather.css";
 import AxiosInstance from "../utils/AxiosInstance"; // AI 서버 전송용 Axios
@@ -100,12 +104,6 @@ const MainWeather = ({ onLocationdataUpdate }) => {
       setSnowfall(weatherData.Is_Snowed ? weatherData.Snowfall_Amount : null);
     }
   }, [weatherData]);
-  const getBackgroundImage = () => {
-    if (weatherData.Is_Rained) return rain;
-    if (weatherData.Is_Snowed) return snow;
-    if (weatherData.Sky_Condition === "맑음") return sunny;
-    return test;
-  };
 
   useEffect(() => {
     const fetchLocation = async () => {
@@ -150,21 +148,47 @@ const MainWeather = ({ onLocationdataUpdate }) => {
     fetchLocation();
   }, []);
 
+  const getBackgroundStyle = () => {
+    if (weatherData.Is_Rained)
+      return { background: "linear-gradient(to bottom, #a1c4fd, #c2e9fb)" }; // 비 (연한 블루 그라데이션)
+    if (weatherData.Is_Snowed)
+      return { background: "linear-gradient(to bottom, #d4fcff, #eaf9ff)" }; // 눈 (연한 화이트-블루 그라데이션)
+    if (weatherData.Sky_Condition === "맑음")
+      return { background: "linear-gradient(to bottom, #fff9c4, #ffe29f)" }; // 맑음 (연한 옐로우-오렌지 그라데이션)
+    return { background: "linear-gradient(to bottom, #ececec, #f5f5f5)" }; // 흐림 (연한 그레이-화이트 그라데이션)
+  };
+  
+  // 날씨에 따른 아이콘 선택 함수
+  const getWeatherIcon = () => {
+    if (weatherData.Is_Rained) return rainIcon;
+    if (weatherData.Is_Snowed) return snowIcon;
+    if (weatherData.Sky_Condition === "맑음") return sunnyIcon;
+    return cloudyIcon;
+  };
+
+  
+
   return (
-    <div
-      className="weather-container"
-      style={{ backgroundImage: `url(${getBackgroundImage()})` }}
-    >
+      <div
+        className="weather-container"
+        style={getBackgroundStyle()} // 동적 스타일
+      >
+      <h3 className="city">
+        {loading ? "위치 가져오는 중..." : location.name}
+        <button
+          className="location-button"
+          onClick={() => setShowMap((prev) => !prev)}
+        >
+          <img src={locationIcon} alt="location icon" />
+        </button>
+      </h3>
+      {/* 날씨 아이콘 */}
+      <div className="weather-icon">
+        <img src={getWeatherIcon()} alt="Weather Icon" />
+      </div>
+      
       <div className="weather-info">
-        <h3 className="city">
-          {loading ? "위치 가져오는 중..." : location.name}
-          <button
-            className="location-button"
-            onClick={() => setShowMap((prev) => !prev)}
-          >
-            <img src={locationIcon} alt="location icon" />
-          </button>
-        </h3>
+
         <h1 className={`temperature ${!temperature && "loading"}`}>
           {temperature || "로딩중"}
         </h1>

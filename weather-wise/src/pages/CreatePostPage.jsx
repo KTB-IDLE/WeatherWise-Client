@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState, useContext } from "react";
+import { useNavigate  } from "react-router-dom";
 import AxiosInstance from "../utils/AxiosInstance";
 import LocationSelectPost from "../components/community/LocationSelectPost"; // 위치 선택 컴포넌트
 import "./CreatePostPage.css";
+import { getCachedPost, setCachedPost } from "../utils/localStorageUtils"; // 캐싱 유틸리티
+import { PostContext } from "../contexts/PostContext"; // PostContext import
 
 function CreatePostPage() {
   const navigate = useNavigate();
+  const { addPost } = useContext(PostContext); // Context 사용
+  
   const [location, setLocation] = useState({
     name: "",
     latitude: null,
@@ -60,7 +64,25 @@ function CreatePostPage() {
         },
       });
       console.log("글 작성 성공:", response.data);
-      navigate("/community");
+
+      // 새 게시글을 Context에 추가
+      if (addPost) {
+        addPost(response.data); 
+        console.log("새 게시글을 추가했습니다:", response.data);
+      }
+
+    // 캐싱된 게시글에 새 게시글 추가
+    const key = `POST_${location.latitude}_${location.longitude}`;
+    const cachedPosts = getCachedPost(key);
+    if (cachedPosts) {
+      setCachedPost(key, {
+        posts: [response.data, ...cachedPosts.posts],
+        nextCursor: cachedPosts.nextCursor,
+        hasMore: cachedPosts.hasMore,
+      });
+    }
+
+    navigate("/community", { state: { newPost: true } }); // 새 게시글 생성 플래그 전달
     } catch (error) {
       console.error("글 작성 오류:", error);
       setPopupContent("글 작성 중 오류가 발생했습니다. 다시 시도해주세요.");

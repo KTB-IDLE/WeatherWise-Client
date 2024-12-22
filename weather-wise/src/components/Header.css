@@ -11,11 +11,13 @@
   width: 100%; /* 부모 요소에 맞게 너비 설정 */
   background-color: white; /* 배경색 */
   z-index: 1000; /* 다른 요소 위에 배치 */
-  position: fixed; /* 헤더를 고정 */
+  /*position: fixed;  헤더를 고정 */
 }
 
 .Header > div {
   display: flex;
+  align-items: center; /* 자식 요소도 수직 중앙 정렬 */
+  height: 100%; /* Flexbox에서 높이 유지 */
 }
 
 .Header .header_center {
@@ -23,7 +25,44 @@
   width: 50%;
   font-size: 25px;
   justify-content: center;
+  display: flex;
+  align-items: center; /* 텍스트/이미지 가운데 정렬 */
 }
+
+.Header .header_right {
+  width: 25%;
+  justify-content: flex-end;
+  display: flex;
+  align-items: center; /* 수직 가운데 정렬 */
+}
+
+.Header .header_center img {
+  width: 42px; /* 원하는 가로 크기 */
+  height: 42px; /* 동일한 세로 크기 */
+  object-fit: contain; /* 이미지가 영역을 넘지 않도록 설정 */
+  margin: 0; /* 여백 제거 */
+}
+
+.Header .header_right img {
+  width: 30px; /* 원하는 가로 크기 */
+  height: 30px; /* 동일한 세로 크기 */
+  object-fit: contain; /* 이미지가 영역을 넘지 않도록 설정 */
+  margin-right: 10px; /* 여백 제거 */
+  margin-top: 7px;
+}
+
+.Header .header_left img {
+  width: 20px; /* 원하는 가로 크기 */
+  height: 20px; /* 동일한 세로 크기 */
+  object-fit: contain; /* 이미지가 영역을 넘지 않도록 설정 */
+  margin-left: 10px; /* 여백 제거 */
+  margin-top: 7px;
+}
+
+/* 
+.Header .header_right .Button {
+  padding: 0;
+*/
 
 .Header .header_left {
   /* 뒤로 가기 버튼 왼쪽 배치 */
@@ -31,7 +70,3 @@
   justify-content: flex-start;
 }
 
-.Header .header_right {
-  width: 25%;
-  justify-content: flex-end;
-}

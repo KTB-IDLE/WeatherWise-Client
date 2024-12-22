@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import AxiosInstance from "../utils/AxiosInstance";
-import profileIcon from "../assets/myinfo.png";
 import Button from "../components/Button";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -142,19 +141,12 @@ const MyProfilePage = () => {
       <Header
         leftChild={<Button text={<img src={left} alt="Back" />} type="icon" />}
         title={<img src={mainLogo} alt="mainLogo" />}
-        rightChild={
-          <div>
-            <Button
-              text={<img src={info} alt="info" />}
-              type="icon"
-              onClick={() => navigate("/myprofile")}
-            />
-          </div>
-        }
+
+  
       />
 
       <div className="profile-header">
-        <img src={profileIcon} alt="Profile" className="profile-icon" />
+        <img src={info} alt="info" className="profile-icon" />
         <div className="profile-info">
           <div className="nickname-level">
             <span className="nickname">
@@ -244,22 +236,7 @@ const MyProfilePage = () => {
           </li>
         </ul>
       </div>
-      <div className="copy-right">
-        <a href="https://www.flaticon.com/kr/free-icons/" title="동전 아이콘">
-          동전 아이콘 제작자: Freepik - Flaticon
-        </a>{" "}
-        <br></br>
-        <a href="https://www.flaticon.com/kr/free-icons/" title="로봇 아이콘">
-          로봇 아이콘 제작자: Freepik - Flaticon
-        </a>
-        <br></br>
-        <a
-          href="https://www.flaticon.com/kr/free-icons/-"
-          title="일기 예보 아이콘"
-        >
-          일기 예보 아이콘 제작자: Freepik - Flaticon
-        </a>
-      </div>
+    
       <Footer />
 
       {/* 팝업창 */}

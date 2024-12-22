@@ -5,7 +5,7 @@ import AxiosInstance from "../utils/AxiosInstance";
 import Footer from "../components/Footer";
 import mainLogo from "../assets/mainLogo.png";
 import Button from "../components/Button";
-import info from "../assets/info.png";
+import left from "../assets/left.png";
 import "./ChatList.css";
 
 const ChatList = () => {
@@ -69,16 +69,8 @@ const ChatList = () => {
   return (
     <div className="chatlist-container">
       <Header
+        leftChild={<Button text={<img src={left} alt="Back" />} type="icon" />}
         title={<img src={mainLogo} alt="mainLogo" />}
-        rightChild={
-          <div>
-            <Button
-              text={<img src={info} alt="info" />}
-              type="icon"
-              onClick={() => navigate("/myprofile")}
-            />
-          </div>
-        }
       />
 
       <h2 className="chatlist-title">기상특보 오픈 채팅방</h2>

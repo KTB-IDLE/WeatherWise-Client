@@ -4,7 +4,6 @@ import Button from "../components/Button";
 import Footer from "../components/Footer";
 import left from "../assets/left.png";
 import mainLogo from "../assets/mainLogo.png";
-import info from "../assets/info.png";
 import CreateMission from "../components/CreateMission";
 import CurrentMission from "../components/CurrentMission";
 import MissionList from "../components/MissionList";
@@ -117,15 +116,6 @@ const Missions = () => {
       <Header
         leftChild={<Button text={<img src={left} alt="Back" />} type="icon" />}
         title={<img src={mainLogo} alt="mainLogo" />}
-        rightChild={
-          <div>
-            <Button
-              text={<img src={info} alt="info" />}
-              type="icon"
-              onClick={() => navigate("/myprofile")}
-            />
-          </div>
-        }
       />
 
       {/* 동적으로 문구를 변경하는 h1 */}
