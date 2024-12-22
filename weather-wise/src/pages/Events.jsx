@@ -26,19 +26,15 @@ const Events = () => {
         {/* Reusable Coupon Component for Offline */}
         <Coupon
           headerClass="offline-header"
-          headerText="에버랜드 전용"
+          headerText="선착순 쿠폰"
           discount="에버랜드 자유이용권"
           subText="미션 인증 완료시 100% 지급"
+          quantity="남은 수량 : 1000장"
           buttons={[
             {
               className: "offline-button",
-              text: "오프라인 선착순 쿠폰 받기 ↓",
+              text: "선착순 쿠폰 받기 ↓",
               onClick: () => alert("오프라인 선착순 쿠폰 받기"),
-            },
-            {
-              className: "offline-use-button",
-              text: "오프라인 쿠폰 사용하기 →",
-              onClick: () => alert("오프라인 쿠폰 사용하기"),
             },
           ]}
         />
