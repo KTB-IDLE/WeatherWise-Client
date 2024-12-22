@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import Missions from "./pages/Missions";
 import Notfound from "./pages/Notfound";
 import MissionDetails from "./pages/MissionDetails";
-import CommunityPage from "./pages/CommunityPage";
+import { PostProvider } from "./contexts/PostContext";
 import CreatePostPage from "./pages/CreatePostPage";
 import MyProfilePage from "./pages/MyProfilePage";
 import MyPostPage from "./pages/MyPostPage";
@@ -18,6 +18,7 @@ import Survey from "./pages/Survey";
 import CommunityPageWithCursor from "./pages/CommunityPageWithCursor";
 import Chatting from "./pages/Chatting";
 import Events from "./pages/Events";
+import ChatbotPage from "./pages/ChatbotPage"; // 챗봇 페이지 import
 import SurveyEx from "./pages/survey/SurveyEx";
 import ChatList from "./pages/ChatList";
 import MyCoupons from "./pages/MyCoupons";
@@ -59,6 +60,7 @@ function App() {
   };
 
   return (
+    <PostProvider>
     <Routes>
       {/* /로 접근할 때 AccessToken 유무에 따라 Home 또는 Login으로 리다이렉트 */}
       <Route
@@ -160,6 +162,7 @@ function App() {
         }
       />
 
+   
       <Route
         path="/community"
         element={
@@ -178,7 +181,7 @@ function App() {
           </PrivateRoute>
         }
       />
-
+  
       <Route
         path="/myprofile"
         element={
@@ -206,6 +209,15 @@ function App() {
         }
       />
 
+      <Route 
+        path="/chatbot" 
+        element={
+          <PrivateRoute>
+          <ChatbotPage />
+          </PrivateRoute>
+          } 
+      /> 
+
       <Route
         path="/events"
         element={
@@ -227,6 +239,7 @@ function App() {
       {/* Not found */}
       <Route path="*" element={<Notfound />} />
     </Routes>
+    </PostProvider>
   );
 }
 

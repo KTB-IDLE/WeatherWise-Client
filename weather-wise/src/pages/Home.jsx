@@ -11,6 +11,7 @@ import AxiosInstance from "../utils/AxiosInstance";
 import Modal from "../components/Modal";
 import Loading from "./Loading";
 import { getCachedWeather, setCachedWeather } from "../utils/localStorageUtils";
+import ChatbotButton from "../components/ChatbotButton"; // 챗봇 버튼 컴포넌트 import
 
 // 소수점 5자리까지 반올림하는 함수
 const roundToFiveDecimals = (num) => {
@@ -33,6 +34,8 @@ const Home = () => {
   };
 
   useEffect(() => {
+    // 페이지 이동 시 스크롤을 맨 위로 이동
+    window.scrollTo(0, 0);
     const latitude = roundToFiveDecimals(37.49992);
     const longitude = roundToFiveDecimals(127.03784);
     const key = `${latitude}_${longitude}`; // 로컬 스토리지 키 생성
@@ -87,7 +90,7 @@ const Home = () => {
   }
 
   return (
-    <div>
+    <div className="home-container">
       <Header
         title={<img src={mainLogo} alt="mainLogo" />}
         rightChild={
@@ -105,9 +108,11 @@ const Home = () => {
         onClose={handleSurveyStart}
         message="설문조사를 시작할게요!"
       />
+
+      
       <Weather onLocationdataUpdate={handleLocationDataUpdate} />
       <Summary size={size} aiMessage={aiMessage} locationData={locationData} />
-
+      <ChatbotButton /> {/* 챗봇 버튼 추가 */}
       <Footer />
     </div>
   );
