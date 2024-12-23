@@ -1,3 +1,4 @@
+// MyProfilePage.jsx
 import React, { useState, useEffect } from "react";
 import AxiosInstance from "../utils/AxiosInstance";
 import Button from "../components/Button";
@@ -45,10 +46,6 @@ const MyProfilePage = () => {
         const missionResponse = await AxiosInstance.get(
           `/mission-histories/success`
         );
-        setMissionCount(missionResponse.data.result.missionList.length);
-        console.log("미션 완료 응답:", missionResponse.data.result); // 미션 완료 응답 데이터 확인
-
-        // 미션 개수 설정
         if (
           missionResponse.data &&
           missionResponse.data.result &&
@@ -76,6 +73,13 @@ const MyProfilePage = () => {
 
   // 닉네임 변경 팝업
   const handleNicknameChange = async () => {
+    // 닉네임 유효성 검사: 숫자로만 이루어져 있는지 확인
+    const isNumeric = /^\d+$/.test(nickname);
+    if (isNumeric) {
+      setPopupContent("닉네임은 숫자로만 구성될 수 없습니다.");
+      return;
+    }
+
     try {
       const url = `/v1/users/nickname`;
       await AxiosInstance.put(url, nickname, {
@@ -89,7 +93,7 @@ const MyProfilePage = () => {
         nickname: nickname, // 새로 입력한 닉네임으로 상태 업데이트
       }));
     } catch (error) {
-      console.log("닉네임 변경 오류:", error.response.data.error.message);
+      console.log("닉네임 변경 오류:", error.response?.data?.error?.message);
       const errorMessage =
         error.response?.data?.error?.message ||
         "닉네임 변경 실패: 알 수 없는 오류가 발생했습니다.";
@@ -139,10 +143,14 @@ const MyProfilePage = () => {
     <div className="profile-page">
       {/* 헤더 */}
       <Header
-        leftChild={<Button text={<img src={left} alt="Back" />} type="icon" />}
+        leftChild={
+          <Button
+            text={<img src={left} alt="Back" />}
+            type="icon"
+            onClick={() => navigate(-1)}
+          />
+        }
         title={<img src={mainLogo} alt="mainLogo" />}
-
-  
       />
 
       <div className="profile-header">
@@ -236,7 +244,7 @@ const MyProfilePage = () => {
           </li>
         </ul>
       </div>
-    
+
       <Footer />
 
       {/* 팝업창 */}
@@ -248,6 +256,7 @@ const MyProfilePage = () => {
               type="text"
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
+              placeholder="새 닉네임을 입력하세요"
             />
           )}
           <button
@@ -258,6 +267,9 @@ const MyProfilePage = () => {
                 handleLogout(); // 로그아웃 후 팝업 닫기
               } else if (popupContent.includes("탈퇴")) {
                 handleDeleteUser(); // 탈퇴 후 팝업 닫기
+              } else if (popupContent.includes("닉네임은 숫자로만")) {
+                // 숫자로만 구성된 닉네임일 때
+                setShowPopup(false); // 팝업 닫기
               } else {
                 setShowPopup(false);
               }

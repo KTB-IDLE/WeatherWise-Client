@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom"; // useNavigate 훅을 임포트
 import home from "../assets/home.png";
 import community from "../assets/community.png";
@@ -14,7 +14,7 @@ const Footer = () => {
       <button className="footer-icon" onClick={() => navigate("/")}>
         <img src={home} alt="home" />
       </button>
-      <button className="footer-icon" onClick={() => navigate("/missions")}>
+      <button className="footer-icon" onClick={() => navigate("/new-missions")}>
         <img src={challenge} alt="challenge" />
       </button>
       <button className="footer-icon" onClick={() => navigate("/community")}>
