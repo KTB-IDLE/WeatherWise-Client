@@ -38,7 +38,7 @@ const MissionDetails = () => {
       setLoading(true);
       try {
         const response = await AxiosInstance.get(url);
-
+        console.log(response);
         const data = response.data;
         if (data.code === "success") {
           setMissionDetails(data.result); // missionDetails 상태에 API 데이터 저장
@@ -60,17 +60,16 @@ const MissionDetails = () => {
   }
   if (error) return <div>{error}</div>;
 
-  const { missionName, completed, storeFileName, nickName, missionDate } =
-    missionDetails || {};
+  const {
+    missionName,
+    completed,
+    storeFileName,
+    nickName,
+    missionDate,
+    missionDescription,
+  } = missionDetails || {};
 
   const missionDateObj = new Date(missionDate);
-
-  console.log("missionDetails = ", missionDetails);
-  console.log("missionDate = ", missionDate);
-  console.log("missionName = ", missionName);
-  console.log("completed = ", completed);
-  console.log("missionDateObj = ", missionDateObj);
-  console.log("isToday = ", isToday);
 
   return (
     <div>
@@ -92,7 +91,10 @@ const MissionDetails = () => {
       {/* 단일 미션 데이터를 렌더링 */}
       {/* 본문 컨테이너 */}
       <div className="mission-details-container">
-        <MissionName missionName={missionName} />
+        <MissionName
+          missionName={missionName}
+          missionDescription={missionDescription}
+        />
         <MissionImage
           completed={completed}
           storeFileName={storeFileName}

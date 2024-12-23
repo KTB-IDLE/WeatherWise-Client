@@ -12,6 +12,8 @@ import "./Missions.css";
 import { useNavigate } from "react-router-dom";
 import Loading from "./Loading";
 import NewVerionCreateMission from "../components/NewVersionCreateMission";
+import NewMission from "../components/NewMission";
+import TaskCard from "../components/TaskCard";
 
 const NewMissions = () => {
   const navigate = useNavigate();
@@ -82,27 +84,6 @@ const NewMissions = () => {
     setMissionList((prevList) => [...prevList, newMission]);
   };
 
-  // 🔑 동적으로 h1 문구 설정
-  const getMissionTitle = () => {
-    if (missionList.length === 0) {
-      return "새로운 미션을 만들어보세요!";
-    }
-
-    const allMissionsCompleted = missionList.every(
-      (mission) => mission.completed === true
-    );
-
-    console.log(missionList);
-
-    console.log(allMissionsCompleted);
-
-    if (allMissionsCompleted) {
-      return "오늘의 미션 성공!";
-    }
-
-    return "미션 진행중!";
-  };
-
   if (loading) {
     return <Loading />;
   }
@@ -112,15 +93,12 @@ const NewMissions = () => {
   }
 
   return (
-    <div>
+    <div className="new-missions-container">
       {/* 헤더 */}
       <Header
         leftChild={<Button text={<img src={left} alt="Back" />} type="icon" />}
         title={<img src={mainLogo} alt="mainLogo" />}
       />
-
-      {/* 동적으로 문구를 변경하는 h1 */}
-      <h1 className="mission-title">{getMissionTitle()}</h1>
 
       <CurrentMission
         nickName={nickName}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import SuccessCommentEvent from "../components/SuccessCommentEvent";
 import Header from "../components/Header";
@@ -19,8 +19,18 @@ const MissionSuccess = () => {
   const { missionExp, userLevel, userExp, userLevelMaxExp } =
     location.state || {};
 
-  // SuccessComment 표시 상태 관리
-  const [showSuccessComment, setShowSuccessComment] = useState(true);
+  // 상태 관리: SuccessCommentEvent 표시 여부
+  const [showSuccessCommentEvent, setShowSuccessCommentEvent] = useState(true);
+
+  useEffect(() => {
+    // 3초 후 SuccessCommentEvent를 숨기고 SuccessComment와 SuccessInfo를 표시
+    const timer = setTimeout(() => {
+      setShowSuccessCommentEvent(false);
+    }, 3000);
+
+    // 컴포넌트 언마운트 시 타이머 정리
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="mission-success-page">
@@ -39,22 +49,25 @@ const MissionSuccess = () => {
         }
       />
 
-      {/* 3초 뒤에 SuccessComment를 숨김 */}
-      {showSuccessComment && (
+      {/* SuccessCommentEvent가 표시될 때 */}
+      {showSuccessCommentEvent && (
         <SuccessCommentEvent
-          onAnimationEnd={() => setShowSuccessComment(false)}
+          onAnimationEnd={() => setShowSuccessCommentEvent(false)}
         />
       )}
 
-      <SuccessComment></SuccessComment>
-
-      {/* SuccessInfo에 필요한 데이터를 전달 */}
-      <SuccessInfo
-        missionExp={missionExp}
-        userLevel={userLevel}
-        userExp={userExp}
-        userLevelMaxExp={100 - userExp}
-      />
+      {/* SuccessComment와 SuccessInfo는 SuccessCommentEvent가 끝난 후에만 표시 */}
+      {!showSuccessCommentEvent && (
+        <>
+          <SuccessComment />
+          <SuccessInfo
+            missionExp={missionExp}
+            userLevel={userLevel}
+            userExp={userExp}
+            userLevelMaxExp={100 - userExp}
+          />
+        </>
+      )}
 
       <Footer />
     </div>

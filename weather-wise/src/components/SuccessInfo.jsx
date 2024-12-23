@@ -11,7 +11,7 @@ const SuccessInfo = ({ missionExp, userLevel, userExp, userLevelMaxExp }) => {
   const remainingExp = totalExp - currentExp;
 
   const handleConfirmClick = () => {
-    navigate("/missions");
+    navigate("/new-missions");
   };
 
   return (
