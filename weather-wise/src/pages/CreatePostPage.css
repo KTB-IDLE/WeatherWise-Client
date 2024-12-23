@@ -3,7 +3,8 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    padding-top: 160px; /* 상단 헤더와 위치 선택 바 높이를 더해서 적절한 패딩 추가 */
+    padding-top: 240px; /* 상단 헤더와 위치 선택 바 높이를 더해서 적절한 패딩 추가 */
+    background-color: #E7EBF0 ;
   }
   
   
@@ -51,16 +52,21 @@
   .title-input input {
     width: 100%;
     height: 50px;
-    padding: 10px;
-    font-size: 1rem;
+    padding: 15px;
+    font-size: 18px;
     box-sizing: border-box;
     border: none; /* 테두리 제거 */
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* 옅은 구분선 추가 */
     outline: none; /* 포커스 시 외곽선 제거 */
+    border-radius: 5px;
   }
 
   .char-count {
     color: #7a7575;
+    font-size: 13px;
+    margin-left: 10px;
+    margin-bottom: 0;
+    margin-top: 10px;
   }
   
   .content-input {
@@ -72,13 +78,15 @@
   .content-input textarea {
     width: 100%;
     height: calc(100vh - 300px); /* 동적으로 높이를 조정 */
-    padding: 10px;
+    padding: 15px;
     font-size: 1rem;
     box-sizing: border-box;
     resize: none; /* 사용자가 크기를 조정하지 못하도록 설정 */
     border: none; /* 테두리 제거 */
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* 옅은 구분선 추가 */
     outline: none; /* 포커스 시 외곽선 제거 */
+    margin-top: 0;
+    border-radius: 5px;
   }
   
   .popup {

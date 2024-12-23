@@ -5,7 +5,7 @@ const SuccessComment = () => {
   return (
     <div className="success-comment">
       <div className="success-text">
-        <strong>정말 축하해</strong>
+        <strong>미션 성공!</strong>
       </div>
     </div>
   );

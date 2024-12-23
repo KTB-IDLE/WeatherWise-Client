@@ -6,27 +6,26 @@ import expImage from "../assets/exp.png";
 const Mission = ({ id, name, point, completed, missionTime, isToday }) => {
   const navigate = useNavigate();
 
-  // missionTime에 따른 한글 표시 텍스트
   const missionTimeText = {
     MORNING: "아침",
     AFTERNOON: "점심",
     EVENING: "저녁",
   };
 
-  // 클릭 시 특정 id로 페이지 이동 및 API 호출을 위한 함수
   const handleClick = (e) => {
     e.stopPropagation();
     navigate(`/missions/${id}`, { state: { isToday } });
   };
-  // Determine the mission status text
+
   const missionStatusText = completed
     ? "성공"
     : !isToday
     ? "종료"
-    : `진행중(${missionTimeText[missionTime] || "시간 미정"})`;
+    : `진행중 (${missionTimeText[missionTime] || "시간 미정"})`;
 
   return (
     <button onClick={handleClick} className="mission-container">
+      {/* 왼쪽: 텍스트 및 경험치 */}
       <div className="mission-left">
         <p className="mission-text">{name}</p>
         <div className="mission-exp">
@@ -34,6 +33,7 @@ const Mission = ({ id, name, point, completed, missionTime, isToday }) => {
           <span className="exp-value">{point}</span>
         </div>
       </div>
+      {/* 오른쪽: 상태 표시 */}
       <div
         className={`mission-status ${
           completed ? "success" : !isToday ? "ended" : "progress"

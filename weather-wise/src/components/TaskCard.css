@@ -1,0 +1,111 @@
+.task-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f9f9f9; /* 배경색 */
+  border: 2px solid #e0e0e0; /* 테두리 */
+  border-radius: 12px; /* 둥근 모서리 */
+  padding: 12px 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 그림자 */
+  margin-top: 45px;
+  max-width: 350px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.task-card:hover {
+  transform: translateY(-3px); /* 호버 시 위로 살짝 이동 */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* 호버 시 그림자 강조 */
+}
+
+.task-image img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%; /* 원형 이미지 */
+  object-fit: cover;
+  margin-right: 16px;
+}
+
+.task-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* 텍스트 위아래 배치 조정 */
+}
+
+.task-title {
+  font-size: 14px; /* 제목 크기 */
+  font-weight: bold; /* 제목 강조 */
+  margin: 0 0 4px; /* 아래 간격 */
+  color: #6cb76c;
+  word-wrap: break-word; /* 단어가 너무 길 경우 줄바꿈 */
+  white-space: normal; /* 줄바꿈 허용 */
+  line-height: 1.5; /* 줄 간격 조정 */
+}
+
+.task-mission-time {
+  font-size: 13px; /* 제목 크기 */
+  font-weight: bold; /* 제목 강조 */
+  margin: 0 0 4px; /* 아래 간격 */
+  word-wrap: break-word; /* 단어가 너무 길 경우 줄바꿈 */
+  white-space: normal; /* 줄바꿈 허용 */
+  line-height: 1.5; /* 줄 간격 조정 */
+}
+
+.task-description {
+  font-size: 14px; /* 설명 크기 */
+  color: #8c8c8c; /* 설명 색상 */
+  margin: 4px 0; /* 위아래 간격 */
+  white-space: normal; /* 줄바꿈 허용 */
+  line-height: 1.5; /* 줄 간격 조정 */
+}
+
+.task-points-status {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px; /* 요소 간격 추가 */
+}
+
+.task-points {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: #ff9500;
+}
+
+.coin-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 6px;
+}
+
+.task-status {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 13px; /* 상태 텍스트 크기 */
+  font-weight: bold;
+  text-align: center;
+  color: white; /* 텍스트 색상 */
+  min-width: 30px; /* 상태 표시 최소 너비 */
+  margin-top: 8px;
+}
+
+.task-status.success {
+  background: linear-gradient(145deg, #4cd964, #3ecf57); /* 성공 상태 */
+}
+
+.task-status.progress {
+  background: linear-gradient(145deg, #007aff, #005ecb); /* 진행중 상태 */
+}
+
+.task-status.ended {
+  background: linear-gradient(145deg, #ff3b30, #d32f2f); /* 종료 상태 */
+}
+
+.task-status:hover {
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* 호버 시 그림자 강조 */
+}

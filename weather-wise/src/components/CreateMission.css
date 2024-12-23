@@ -1,36 +1,46 @@
-.create-mission-container {
+/* CreateMission.css */
+
+/* 기존 .create-mission-container 클래스를 .created-mission-container로 변경 */
+.created-mission-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 아이템을 수평 가운데로 정렬 */
+  justify-content: center; /* 아이템을 수직 가운데로 정렬 (필요 시) */
   text-align: center;
   margin-top: 20px;
 }
 
-h1 {
-  font-size: 20px; /* 제목 글씨 크기 약간 키움 */
-  margin-bottom: 10px;
+.created-mission-container p {
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: #333;
 }
 
-.mission-create-comment {
-  font-size: 25px; /* 부제목 글씨 크기 약간 키움 */
-  margin-top: 30px;
-  padding-top: 30px;
-  margin-bottom: 30px;
-}
-
+/* 기존 .mission-button 스타일 유지 또는 수정 */
 .mission-button {
+  position: fixed; /* 화면에서 고정 위치 설정 */
+  bottom: 50px; /* 화면 하단으로부터의 간격 */
+  left: 50%; /* 화면 좌측에서 50% 위치 */
+  transform: translateX(-50%); /* X축 방향으로 가운데 정렬 */
+
   background-color: #8bc34a; /* 부드러운 라이트 그린 */
   color: white; /* 텍스트를 흰색으로 대비 */
   border: none;
   padding: 15px 40px; /* 버튼 패딩 */
-  font-size: 25px; /* 글씨 크기 */
+  font-size: 26px; /* 글씨 크기 */
   cursor: pointer;
   border-radius: 8px; /* 모서리를 더 부드럽게 둥글림 */
-  margin-top: 15px;
   width: 300px; /* 고정된 너비 */
   max-width: 100%; /* 작은 화면에서 반응형 유지 */
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 가벼운 그림자 효과 */
   transition: background-color 0.3s ease, transform 0.2s ease; /* 호버 애니메이션 */
+  margin-bottom: 70px;
 }
 
-.mission-button:hover {
-  background-color: #7cb342; /* 약간 더 짙은 녹색으로 변경 */
-  transform: scale(1.05); /* 살짝 커지는 효과 */
+.mission-button:disabled {
+  background-color: #d3d3d3; /* 비활성화 상태에서의 색상 */
+  color: #a9a9a9; /* 텍스트 색상 */
+  cursor: not-allowed; /* 비활성화 상태에서 커서 변경 */
 }
+
+/* 추가적인 스타일링이 필요한 경우 아래에 작성 */

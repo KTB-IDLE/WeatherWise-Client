@@ -17,8 +17,16 @@ const JoinForm = () => {
     e.preventDefault();
     setError(null);
 
+    // 비밀번호 일치 여부 확인
     if (password !== confirmPassword) {
       setError("비밀번호가 일치하지 않습니다.");
+      return;
+    }
+
+    // 닉네임이 숫자로만 이루어져 있는지 확인
+    const isNumeric = /^\d+$/.test(nickname);
+    if (isNumeric) {
+      setError("닉네임은 숫자로만 구성될 수 없습니다.");
       return;
     }
 

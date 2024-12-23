@@ -15,7 +15,7 @@ const Header = ({ title, leftChild, rightChild }) => {
 
   return (
     <header className="Header">
-      <div className="header_left" onClick={handleBack}>
+      <div className="header_left" onClick={handleHome}>
         {leftChild}
       </div>
       <div className="header_center" onClick={handleHome}>

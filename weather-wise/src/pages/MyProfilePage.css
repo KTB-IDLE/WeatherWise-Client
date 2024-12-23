@@ -7,12 +7,12 @@
 }
 
 .profile-header {
-  background-color: #e0f5c5;
+  background-color: rgba(135, 206, 250, 0.28);
   padding: 20px;
   border-radius: 15px;
   display: flex;
   align-items: center;
-  margin-top: 160px;
+  margin-top: 35px;  
 }
 
 .profile-icon {

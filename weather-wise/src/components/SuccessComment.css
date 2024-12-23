@@ -22,10 +22,10 @@
   font-weight: bold; /* 굵게 강조 */
   background: linear-gradient(
     90deg,
-    #ff9a9e,
-    #fad0c4,
-    #fbc2eb
-  ); /* 그라데이션 색상 */
+    #89f7fe,
+    /* 연한 하늘색 */ #66a6ff,
+    /* 중간 하늘색 */ #3b5998 /* 짙은 파랑색 */
+  ); /* 하늘색 계열 그라데이션 */
   -webkit-background-clip: text; /* 배경색을 텍스트로 클리핑 */
   -webkit-text-fill-color: transparent; /* 투명한 텍스트 색상 */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* 텍스트 그림자 추가 */

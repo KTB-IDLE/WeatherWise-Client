@@ -5,7 +5,6 @@ import Button from "../components/Button";
 import LocationSelect from "../components/community/LocationSelect";
 import CreatePostButton from "../components/community/CreatePostButton";
 import Header from "../components/Header";
-import left from "../assets/left.png";
 import mainLogo from "../assets/mainLogo.png";
 import info from "../assets/info.png";
 import { useNavigate } from "react-router-dom";
@@ -128,7 +127,7 @@ function CommunityPage() {
     <div className="community-page">
       {/* 헤더 */}
       <Header
-        leftChild={<Button text={<img src={left} alt="Back" />} type="icon" />}
+        //leftChild={<Button text={<img src={left} alt="Back" />} type="icon" />}
         title={<img src={mainLogo} alt="mainLogo" />}
         rightChild={
           <div>

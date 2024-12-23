@@ -50,7 +50,7 @@ const MissionAuth = ({ completed, id, imageFile, resetImage, isToday }) => {
             });
           } else {
             setModalMessage(
-              "인증에 실패했습니다! 다른 사진으로 다시 인증해주세요."
+              "인증에 실패했습니다! \n다른 사진으로 다시 인증해주세요."
             );
             setIsModalOpen(true);
             resetImage();

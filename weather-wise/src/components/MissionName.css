@@ -1,9 +1,22 @@
+.mission-name-container {
+  text-align: center; /* 모든 텍스트를 가운데 정렬 */
+  margin: 20px 0; /* 전체 컨테이너 위아래 여백 */
+}
+
 .mission-name {
-  text-align: center; /* 텍스트를 가운데 정렬 */
-  margin: 20px 0; /* 위, 아래 여백 추가 */
-  font-size: 30px; /* 폰트 크기 조정 */
-  font-weight: bold; /* 폰트 굵기 조정 */
-  color: transparent; /* 텍스트 색상 투명화 */
+  font-size: 30px; /* 큰 제목 크기 */
+  font-weight: bold; /* 제목 강조 */
+  color: transparent; /* 텍스트 색상을 투명화 */
   background: linear-gradient(90deg, #56ab2f, #a8e063); /* 그린 그라데이션 */
   -webkit-background-clip: text; /* 배경을 텍스트로 클리핑 */
+  margin-bottom: 10px; /* 제목과 설명 사이의 간격 */
+}
+
+.mission-name-description {
+  font-size: 16px; /* 설명 텍스트 크기 */
+  color: #555; /* 연한 회색 톤 */
+  font-weight: normal; /* 기본 폰트 굵기 */
+  margin: 0; /* 불필요한 여백 제거 */
+  line-height: 1.5; /* 줄 간격 조정 */
+  margin-top: 20px;
 }

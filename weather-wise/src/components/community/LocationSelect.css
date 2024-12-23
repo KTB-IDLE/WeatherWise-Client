@@ -1,11 +1,11 @@
 .location-select {
   position: fixed; /* 화면에 고정 */
-  top: 92.67px; /* Header 높이(88px) + Header 아래 15px */
+  top: 81px; /* Header 높이(88px) + Header 아래 15px */
   left: 50%; /* 핸드폰 레이아웃 중앙에 맞춰서 배치, 왼쪽 여백 17px */
   transform: translateX(-50%); /* 중앙 정렬 보정 */
   width: 400px; /* 좌우 여백을 계산해서 가로 길이 설정 */
   height: 60px; /* 높이를 적당히 설정 */
-  background-color: white; /* 배경색 */
+  background-color: #FFFFFF; /* 배경색 */
   display: flex;
   align-items: center;
   z-index: 1000; /* 다른 요소 위에 표시 */
@@ -15,19 +15,31 @@
 
 
 .location-name {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 600;
   color: #000;
-  margin-right: 6px;
-  margin-left: 12px;
+  margin-left: 10px;
 }
 
 .location-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  transform: rotate(0deg);
-  transition: transform 0.2s;
+  background: none; /* 배경 제거 */
+  border: none; /* 테두리 제거 */
+  cursor: pointer; /* 클릭 가능 표시 */
+  transform: rotate(0deg); /* 기본 회전 상태 */
+  transition: transform 0.2s ease-in-out; /* 클릭 시 부드러운 회전 효과 */
+  width: 24px; /* 버튼 크기 */
+  height: 24px; /* 버튼 크기 */
+  display: flex; /* 이미지 중앙 정렬 */
+  justify-content: center;
+  align-items: center;
+}
+
+.location-button img {
+  width: 22px; /* 아이콘 크기 */
+  height: 22px;
+  margin-top: 1px;
+  margin-right: 4px;
+  object-fit: contain; /* 이미지 비율 유지 */
 }
 
 .location-button.active {

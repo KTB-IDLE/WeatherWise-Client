@@ -1,6 +1,6 @@
+// MyProfilePage.jsx
 import React, { useState, useEffect } from "react";
 import AxiosInstance from "../utils/AxiosInstance";
-import profileIcon from "../assets/myinfo.png";
 import Button from "../components/Button";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -46,10 +46,6 @@ const MyProfilePage = () => {
         const missionResponse = await AxiosInstance.get(
           `/mission-histories/success`
         );
-        setMissionCount(missionResponse.data.result.missionList.length);
-        console.log("미션 완료 응답:", missionResponse.data.result); // 미션 완료 응답 데이터 확인
-
-        // 미션 개수 설정
         if (
           missionResponse.data &&
           missionResponse.data.result &&
@@ -77,6 +73,13 @@ const MyProfilePage = () => {
 
   // 닉네임 변경 팝업
   const handleNicknameChange = async () => {
+    // 닉네임 유효성 검사: 숫자로만 이루어져 있는지 확인
+    const isNumeric = /^\d+$/.test(nickname);
+    if (isNumeric) {
+      setPopupContent("닉네임은 숫자로만 구성될 수 없습니다.");
+      return;
+    }
+
     try {
       const url = `/v1/users/nickname`;
       await AxiosInstance.put(url, nickname, {
@@ -90,7 +93,7 @@ const MyProfilePage = () => {
         nickname: nickname, // 새로 입력한 닉네임으로 상태 업데이트
       }));
     } catch (error) {
-      console.log("닉네임 변경 오류:", error.response.data.error.message);
+      console.log("닉네임 변경 오류:", error.response?.data?.error?.message);
       const errorMessage =
         error.response?.data?.error?.message ||
         "닉네임 변경 실패: 알 수 없는 오류가 발생했습니다.";
@@ -140,21 +143,18 @@ const MyProfilePage = () => {
     <div className="profile-page">
       {/* 헤더 */}
       <Header
-        leftChild={<Button text={<img src={left} alt="Back" />} type="icon" />}
-        title={<img src={mainLogo} alt="mainLogo" />}
-        rightChild={
-          <div>
-            <Button
-              text={<img src={info} alt="info" />}
-              type="icon"
-              onClick={() => navigate("/myprofile")}
-            />
-          </div>
+        leftChild={
+          <Button
+            text={<img src={left} alt="Back" />}
+            type="icon"
+            onClick={() => navigate(-1)}
+          />
         }
+        title={<img src={mainLogo} alt="mainLogo" />}
       />
 
       <div className="profile-header">
-        <img src={profileIcon} alt="Profile" className="profile-icon" />
+        <img src={info} alt="info" className="profile-icon" />
         <div className="profile-info">
           <div className="nickname-level">
             <span className="nickname">
@@ -244,22 +244,7 @@ const MyProfilePage = () => {
           </li>
         </ul>
       </div>
-      <div className="copy-right">
-        <a href="https://www.flaticon.com/kr/free-icons/" title="동전 아이콘">
-          동전 아이콘 제작자: Freepik - Flaticon
-        </a>{" "}
-        <br></br>
-        <a href="https://www.flaticon.com/kr/free-icons/" title="로봇 아이콘">
-          로봇 아이콘 제작자: Freepik - Flaticon
-        </a>
-        <br></br>
-        <a
-          href="https://www.flaticon.com/kr/free-icons/-"
-          title="일기 예보 아이콘"
-        >
-          일기 예보 아이콘 제작자: Freepik - Flaticon
-        </a>
-      </div>
+
       <Footer />
 
       {/* 팝업창 */}
@@ -271,6 +256,7 @@ const MyProfilePage = () => {
               type="text"
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
+              placeholder="새 닉네임을 입력하세요"
             />
           )}
           <button
@@ -281,6 +267,9 @@ const MyProfilePage = () => {
                 handleLogout(); // 로그아웃 후 팝업 닫기
               } else if (popupContent.includes("탈퇴")) {
                 handleDeleteUser(); // 탈퇴 후 팝업 닫기
+              } else if (popupContent.includes("닉네임은 숫자로만")) {
+                // 숫자로만 구성된 닉네임일 때
+                setShowPopup(false); // 팝업 닫기
               } else {
                 setShowPopup(false);
               }

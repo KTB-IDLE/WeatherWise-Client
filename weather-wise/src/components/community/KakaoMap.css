@@ -1,6 +1,5 @@
 /* 공통 스타일 */
 .kakao-map {
-    border-radius: 10px; 
     z-index: 999;
     border: 1px solid #ddd; /* 구분선 추가 */
   }
@@ -48,15 +47,13 @@
   
   .location-select-community .search-results {
     position: absolute;
-    top: 50px; /* 검색 창 아래에 위치 */
+    top: 123px; /* 검색 창 아래에 위치 */
     left: 10px;
     right: 10px;
     max-height: 200px; /* 검색 결과의 최대 높이 */
     overflow-y: auto;
     background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border: 1px solid #ddd; /* 연한 회색 경계선 */
     z-index: 1000;
   }
   
@@ -72,9 +69,9 @@
    /* Weather.jsx용 메인 스타일 */
    .location-select-main .kakao-map {
     width: 377px; 
-    height: 380px; 
+    height: 600px; 
     position: fixed; 
-    top: 235px;
+    top: 200px;
     left: 50%;
     transform: translate(-50%);
   }
@@ -82,7 +79,7 @@
   .location-select-main .search-bar {
     display: flex;
     position: absolute;
-    top: 130px; /* 지도의 상단에 여백을 조금 줍니다 */
+    top: 198px; /* 지도의 상단에 여백을 조금 줍니다 */
     left: 10px; /* 왼쪽에 여백 */
     right: 10px; /* 오른쪽에 여백 */
     z-index: 1000; /* 지도 위에 떠 있도록 설정 */
@@ -94,14 +91,11 @@
 
   .location-select-main .search-results {
     position: absolute;
-    top: 185px; /* 검색 창 아래에 위치 */
+    top: 242px; /* 검색 창 아래에 위치 */
     left: 10px;
     right: 10px;
     max-height: 200px; /* 검색 결과의 최대 높이 */
     overflow-y: auto;
     background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     z-index: 1000;
   }

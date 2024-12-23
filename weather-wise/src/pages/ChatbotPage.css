@@ -1,0 +1,129 @@
+.chatbot-page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* 화면 전체 높이 */
+    padding-top: 92px; /* Header 높이 */
+    padding-bottom: 82px;
+    background-color: #f0f2f5; /* 배경색 */
+    box-sizing: border-box;
+  }
+  
+  .chat-window {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; /* 메시지 영역만 스크롤 가능 */
+    padding: 16px;
+    margin-bottom: 82px; /* 입력창과 Footer 공간 확보 */
+    margin-top: 25px;
+  }
+  
+  .messages {
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* 메시지 간 간격 */
+  }
+  
+  .message {
+    display: flex;
+    align-items: center;
+    max-width: 100%; /* 메시지가 부모 요소를 넘지 않도록 제한 */
+    flex-direction: row;
+  }
+  
+  .message.user {
+    justify-content: flex-end; /* 사용자 메시지 오른쪽 정렬 */
+  }
+  
+  .message.ai {
+    justify-content: flex-start; /* AI 메시지 왼쪽 정렬 */
+  }
+  
+  .message.user .message-text {
+    background-color: #0084ff;
+    color: white;
+    border-radius: 20px;
+    border-top-right-radius: 0; /* 오른쪽 위 둥글지 않게 */
+    padding: 10px 16px;
+    max-width: 70%; /* 너비 제한 */
+    text-align: right; /* 텍스트 오른쪽 정렬 */
+    margin-left: 10px; /* AI 메시지와의 여백 */
+  }
+  
+  .message.ai .message-text {
+    background-color: white;
+    color: #000;
+    border-radius: 20px;
+    border-top-left-radius: 0; /* 왼쪽 위 둥글지 않게 */
+    padding: 10px 16px;
+    max-width: 70%; /* 너비 제한 */
+    text-align: left; /* 텍스트 왼쪽 정렬 */
+    margin-right: 10px; /* 사용자 메시지와의 여백 */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .message.ai .message-icon {
+    width: 24px;
+    height: 24px;
+    background-image: url("/Users/sunny.park/IdeaProjects/WeatherWise-Client/weather-wise/src/assets/robott.png");
+    background-size: cover;
+    margin-right: 8px; /* 아이콘과 텍스트 간격 */
+  }
+  
+  .input-area {
+    position: fixed;
+    bottom: 60px; /* Footer 바로 위에 고정 */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    width: calc(100% - 40px);
+    max-width: 385px; /* #root와 동일한 너비로 설정 */
+    padding: 8px;
+    transform: translateX(-50%); /* 중앙 정렬 보정 */
+    background-color: #ffffff;
+    border-top: 1px solid #ddd;
+    padding-bottom: 45px;
+    padding-top: 20px;
+  }
+  
+  .input-area input {
+    flex: 1;
+    padding: 10px 16px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    font-size: 16px;
+    outline: none;
+  }
+  
+  .input-area button {
+    margin-left: 8px;
+    padding: 0 20px;
+    border: none;
+    border-radius: 20px;
+    background-color: #0084ff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .input-area button:hover {
+    background-color: #006bbd;
+  }
+  
+  @media (max-width: 600px) {
+    .message-text {
+      font-size: 14px;
+      padding: 10px 12px;
+    }
+  
+    .input-area input {
+      font-size: 14px;
+      padding: 8px 16px;
+    }
+  
+    .input-area button {
+      font-size: 14px;
+      padding: 0 16px;
+    }
+  }
+  

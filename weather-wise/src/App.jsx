@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import Missions from "./pages/Missions";
 import Notfound from "./pages/Notfound";
 import MissionDetails from "./pages/MissionDetails";
-import CommunityPage from "./pages/CommunityPage";
+import { PostProvider } from "./contexts/PostContext";
 import CreatePostPage from "./pages/CreatePostPage";
 import MyProfilePage from "./pages/MyProfilePage";
 import MyPostPage from "./pages/MyPostPage";
@@ -18,9 +18,11 @@ import Survey from "./pages/Survey";
 import CommunityPageWithCursor from "./pages/CommunityPageWithCursor";
 import Chatting from "./pages/Chatting";
 import Events from "./pages/Events";
+import ChatbotPage from "./pages/ChatbotPage"; // 챗봇 페이지 import
 import SurveyEx from "./pages/survey/SurveyEx";
 import ChatList from "./pages/ChatList";
 import MyCoupons from "./pages/MyCoupons";
+import NewMissions from "./pages/NewMissions";
 
 function App() {
   // 쿠키에서 AccessToken 값을 가져오는 함수
@@ -59,174 +61,194 @@ function App() {
   };
 
   return (
-    <Routes>
-      {/* /로 접근할 때 AccessToken 유무에 따라 Home 또는 Login으로 리다이렉트 */}
-      <Route
-        path="/"
-        element={
-          <PrivateRoute>
-            <Home />
-          </PrivateRoute>
-        }
-      />
+    <PostProvider>
+      <Routes>
+        {/* /로 접근할 때 AccessToken 유무에 따라 Home 또는 Login으로 리다이렉트 */}
+        <Route
+          path="/"
+          element={
+            <PrivateRoute>
+              <Home />
+            </PrivateRoute>
+          }
+        />
 
-      <Route
-        path="/login"
-        element={
-          <PublicRoute>
-            <Login />
-          </PublicRoute>
-        }
-      />
+        <Route
+          path="/login"
+          element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          }
+        />
 
-      <Route
-        path="/join"
-        element={
-          <PublicRoute>
-            <Join />
-          </PublicRoute>
-        }
-      />
+        <Route
+          path="/join"
+          element={
+            <PublicRoute>
+              <Join />
+            </PublicRoute>
+          }
+        />
 
-      {/* 아래는 PrivateRoute 적용하여 AccessToken 없을 시 로그인 페이지로 리다이렉트 */}
-      <Route
-        path="/missions"
-        element={
-          <PrivateRoute>
-            <Missions />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/missions/:id"
-        element={
-          <PrivateRoute>
-            <MissionDetails />
-          </PrivateRoute>
-        }
-      />
+        {/* 아래는 PrivateRoute 적용하여 AccessToken 없을 시 로그인 페이지로 리다이렉트 */}
+        <Route
+          path="/missions"
+          element={
+            <PrivateRoute>
+              <Missions />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/missions/:id"
+          element={
+            <PrivateRoute>
+              <MissionDetails />
+            </PrivateRoute>
+          }
+        />
 
-      <Route
-        path="/success"
-        element={
-          <PrivateRoute>
-            <MissionSuccess />
-          </PrivateRoute>
-        }
-      />
+        <Route
+          path="/success"
+          element={
+            <PrivateRoute>
+              <MissionSuccess />
+            </PrivateRoute>
+          }
+        />
 
-      <Route
-        path="/chat/:chatRoomId"
-        element={
-          <PrivateRoute>
-            <Chatting />
-          </PrivateRoute>
-        }
-      />
+        <Route
+          path="/chat/:chatRoomId"
+          element={
+            <PrivateRoute>
+              <Chatting />
+            </PrivateRoute>
+          }
+        />
 
-      <Route
-        path="/survey"
-        element={
-          <PrivateRoute>
-            <Survey />
-          </PrivateRoute>
-        }
-      />
+        <Route
+          path="/survey"
+          element={
+            <PrivateRoute>
+              <Survey />
+            </PrivateRoute>
+          }
+        />
 
-      <Route
-        path="/surveyex"
-        element={
-          <PrivateRoute>
-            <SurveyEx />
-          </PrivateRoute>
-        }
-      />
+        <Route
+          path="/surveyex"
+          element={
+            <PrivateRoute>
+              <SurveyEx />
+            </PrivateRoute>
+          }
+        />
 
-      <Route
-        path="/my-coupon"
-        element={
-          <PrivateRoute>
-            <MyCoupons />
-          </PrivateRoute>
-        }
-      />
+        <Route
+          path="/my-coupon"
+          element={
+            <PrivateRoute>
+              <MyCoupons />
+            </PrivateRoute>
+          }
+        />
 
-      <Route
-        path="/fail"
-        element={
-          <PrivateRoute>
-            <MissionFail />
-          </PrivateRoute>
-        }
-      />
+        <Route
+          path="/fail"
+          element={
+            <PrivateRoute>
+              <MissionFail />
+            </PrivateRoute>
+          }
+        />
 
-      <Route
-        path="/community"
-        element={
-          <PrivateRoute>
-            {/* <CommunityPage /> */}
-            <CommunityPageWithCursor />
-          </PrivateRoute>
-        }
-      />
+        <Route
+          path="/community"
+          element={
+            <PrivateRoute>
+              {/* <CommunityPage /> */}
+              <CommunityPageWithCursor />
+            </PrivateRoute>
+          }
+        />
 
-      <Route
-        path="/create-post"
-        element={
-          <PrivateRoute>
-            <CreatePostPage />
-          </PrivateRoute>
-        }
-      />
+        <Route
+          path="/create-post"
+          element={
+            <PrivateRoute>
+              <CreatePostPage />
+            </PrivateRoute>
+          }
+        />
 
-      <Route
-        path="/myprofile"
-        element={
-          <PrivateRoute>
-            <MyProfilePage />
-          </PrivateRoute>
-        }
-      />
+        <Route
+          path="/myprofile"
+          element={
+            <PrivateRoute>
+              <MyProfilePage />
+            </PrivateRoute>
+          }
+        />
 
-      <Route
-        path="/myposts"
-        element={
-          <PrivateRoute>
-            <MyPostPage />
-          </PrivateRoute>
-        }
-      />
+        <Route
+          path="/myposts"
+          element={
+            <PrivateRoute>
+              <MyPostPage />
+            </PrivateRoute>
+          }
+        />
 
-      <Route
-        path="/rank"
-        element={
-          <PrivateRoute>
-            <Ranks />
-          </PrivateRoute>
-        }
-      />
+        <Route
+          path="/rank"
+          element={
+            <PrivateRoute>
+              <Ranks />
+            </PrivateRoute>
+          }
+        />
 
-      <Route
-        path="/events"
-        element={
-          <PrivateRoute>
-            <Events />
-          </PrivateRoute>
-        }
-      />
+        <Route
+          path="/chatbot"
+          element={
+            <PrivateRoute>
+              <ChatbotPage />
+            </PrivateRoute>
+          }
+        />
 
-      <Route
-        path="/chat-list"
-        element={
-          <PrivateRoute>
-            <ChatList />
-          </PrivateRoute>
-        }
-      />
+        <Route
+          path="/events"
+          element={
+            <PrivateRoute>
+              <Events />
+            </PrivateRoute>
+          }
+        />
 
-      {/* Not found */}
-      <Route path="*" element={<Notfound />} />
-    </Routes>
+        <Route
+          path="/new-missions"
+          element={
+            <PrivateRoute>
+              <NewMissions />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/chat-list"
+          element={
+            <PrivateRoute>
+              <ChatList />
+            </PrivateRoute>
+          }
+        />
+
+        {/* Not found */}
+        <Route path="*" element={<Notfound />} />
+      </Routes>
+    </PostProvider>
   );
 }
 

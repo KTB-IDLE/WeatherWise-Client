@@ -1,0 +1,18 @@
+/* src/components/ChatbotButton.css */
+.chatbot-button {
+    position: fixed;
+    bottom: 97px; /* 기존 create-post-button의 bottom 값과 동일하게 설정 */
+    right: calc((100vw - 400px) / 2 + 7px); /* create-post-button과의 간격 조정 (적절히 조절 가능) */
+    width: 68px;
+    height: 68px;
+    cursor: pointer;
+    z-index: 1000;
+    border-radius: 50%;
+    object-fit: contain;
+    transition: transform 0.2s;
+  }
+  
+  .chatbot-button:hover {
+    transform: scale(1.1);
+  }
+  
