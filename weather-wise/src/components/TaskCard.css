@@ -7,7 +7,7 @@
   border-radius: 12px; /* 둥근 모서리 */
   padding: 12px 16px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 그림자 */
-  margin-top: 45px;
+  margin-top: 30px;
   max-width: 350px;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -74,6 +74,7 @@
   font-size: 16px;
   font-weight: bold;
   color: #ff9500;
+  margin-right: 8px;
 }
 
 .coin-icon {
@@ -92,20 +93,22 @@
   color: white; /* 텍스트 색상 */
   min-width: 30px; /* 상태 표시 최소 너비 */
   margin-top: 8px;
+  transition: box-shadow 0.2s ease, transform 0.2s ease; /* 부드러운 애니메이션 */
 }
 
 .task-status.success {
-  background: linear-gradient(145deg, #4cd964, #3ecf57); /* 성공 상태 */
+  background: linear-gradient(145deg, #a8e6a3, #85cf8b); /* 부드러운 그린 그라데이션 */
 }
 
 .task-status.progress {
-  background: linear-gradient(145deg, #007aff, #005ecb); /* 진행중 상태 */
+  background: linear-gradient(145deg, #a3d8f4, #84b7e3); /* 연한 블루 그라데이션 */
 }
 
 .task-status.ended {
-  background: linear-gradient(145deg, #ff3b30, #d32f2f); /* 종료 상태 */
+  background: linear-gradient(145deg, #f7a9a9, #f26b6b); /* 부드러운 레드-핑크 그라데이션 */
 }
 
 .task-status:hover {
-  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* 호버 시 그림자 강조 */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); /* 호버 시 그림자 강조 */
+  transform: scale(1.05); /* 호버 시 살짝 확대 */
 }

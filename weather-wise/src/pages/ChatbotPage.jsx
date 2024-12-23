@@ -30,7 +30,7 @@ const ChatbotPage = () => {
   // 가짜 AI API 호출
   const sendMessageToAI = async (userMessage) => {
     try {
-        const response = await fetch(`${API_BASE_URL}/chat`, {
+        const response = await fetch(`${API_BASE_URL}/ai/chat`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

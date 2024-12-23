@@ -25,6 +25,10 @@ const MissionDetails = () => {
   const [error, setError] = useState(null);
   const [imageFile, setImageFile] = useState(null); // 이미지 파일 상태 추가
   const [selectedImage, setSelectedImage] = useState(null); // 선택된 이미지 URL 상태 추가
+  const goToBack = () => {
+    navigate("/new-missions"); // 원하는 페이지로 이동
+  };
+
 
   // 이미지 초기화 함수 정의
   const resetImage = () => {
@@ -76,16 +80,8 @@ const MissionDetails = () => {
       {/* 헤더 */}
       <Header
         leftChild={<Button text={<img src={left} alt="Back" />} type="icon" />}
+        onLeftClick={goToBack}
         title={<img src={mainLogo} alt="mainLogo" />}
-        rightChild={
-          <div>
-            <Button
-              text={<img src={info} alt="info" />}
-              type="icon"
-              onClick={() => navigate("/myprofile")}
-            />
-          </div>
-        }
       />
 
       {/* 단일 미션 데이터를 렌더링 */}

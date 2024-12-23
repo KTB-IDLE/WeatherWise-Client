@@ -147,7 +147,6 @@ const MyProfilePage = () => {
           <Button
             text={<img src={left} alt="Back" />}
             type="icon"
-            onClick={() => navigate(-1)}
           />
         }
         title={<img src={mainLogo} alt="mainLogo" />}

@@ -5,7 +5,7 @@ import Button from "../components/Button";
 import Footer from "../components/Footer";
 import MyCoupon from "../components/MyCoupon"; // MyCoupon 컴포넌트 추가
 import mainLogo from "../assets/mainLogo.png";
-import info from "../assets/info.png";
+import left from "../assets/left.png";
 import "./Events.css";
 import AxiosInstance from "../utils/AxiosInstance"; // AxiosInstance 가져오기
 import { useNavigate } from "react-router-dom"; // useNavigate 가져오기
@@ -14,6 +14,9 @@ const MyCoupons = () => {
   const navigate = useNavigate(); // navigate 함수 사용
   const [coupons, setCoupons] = useState([]); // 쿠폰 데이터 상태
   const [loading, setLoading] = useState(true); // 로딩 상태 관리
+  const goToBack = () => {
+    navigate("/myprofile"); // 원하는 페이지로 이동
+  };
 
   // API 요청: 쿠폰 데이터 가져오기
   useEffect(() => {
@@ -74,21 +77,24 @@ const MyCoupons = () => {
   return (
     <div>
       <Header
-        title={<img src={mainLogo} alt="mainLogo" />}
-        rightChild={
-          <div>
+        leftChild={
             <Button
-              text={<img src={info} alt="info" />}
+              text={<img src={left} alt="Back" />}
               type="icon"
-              onClick={() => navigate("/myprofile")} // navigate 사용
+              onClick={() => navigate("/myprofile")}
             />
-          </div>
-        }
+          }
+        onLeftClick={goToBack}
+        title={<img src={mainLogo} alt="mainLogo" />}
       />
 
       <div className="events-container">
-        {/* MyCoupon 컴포넌트를 이용해 쿠폰 렌더링 */}
-        {coupons.map((coupon) => (
+      {coupons.length === 0 ? ( // Check if coupons array is empty
+        <div className="no-coupons">
+          <p className="no-coupons-text">현재 사용 가능한 쿠폰이 없습니다.</p>
+        </div>
+      ) : (
+        coupons.map((coupon) => (
           <MyCoupon
             key={coupon.userCouponId} // userCouponId를 key로 사용
             headerClass="offline-header"
@@ -102,8 +108,9 @@ const MyCoupons = () => {
               }
             }}
           />
-        ))}
-      </div>
+        ))
+      )}
+    </div>
 
       <Footer />
     </div>

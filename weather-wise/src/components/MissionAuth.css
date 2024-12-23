@@ -3,7 +3,7 @@
   padding: 15px;
   font-size: 18px;
   font-weight: bold;
-  color: white;
+  color: #6D6D6D;
   font-size: 25px;
   border: none;
   border-radius: 50px; /* 둥근 모서리 */
@@ -13,7 +13,7 @@
 }
 
 .auth-button.active {
-  background-color: #a4d86e; /* 활성화된 버튼의 색상 */
+  background: linear-gradient(to bottom, #e3f9e5, #c8ebd0)
 }
 
 .auth-button.disabled {

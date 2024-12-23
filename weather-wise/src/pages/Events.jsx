@@ -6,15 +6,19 @@ import Footer from "../components/Footer";
 import Coupon from "../components/Coupon";
 import Modal from "../components/Modal"; // Modal 컴포넌트 추가
 import mainLogo from "../assets/mainLogo.png";
-import info from "../assets/info.png";
 import AxiosInstance from "../utils/AxiosInstance";
 import { useNavigate } from "react-router-dom"; // useNavigate 가져오기
+import left from "../assets/left.png";
 
 const Events = () => {
   const [coupons, setCoupons] = useState([]); // 쿠폰 데이터를 저장할 상태
   const [loading, setLoading] = useState(true); // 로딩 상태 관리
   const [modalOpen, setModalOpen] = useState(false); // 모달 상태
   const [modalMessage, setModalMessage] = useState(""); // 모달에 표시할 메시지
+  const goToBack = () => {
+    navigate("/myprofile"); // 원하는 페이지로 이동
+  };
+
   const navigate = useNavigate(); // navigate 선언
   // API 호출
   useEffect(() => {
@@ -61,16 +65,15 @@ const Events = () => {
   return (
     <div>
       <Header
+        leftChild={
+                <Button
+                  text={<img src={left} alt="Back" />}
+                  type="icon"
+                  onClick={() => navigate("/myprofile")}
+                />
+              }
+        onLeftClick={goToBack}
         title={<img src={mainLogo} alt="mainLogo" />}
-        rightChild={
-          <div>
-            <Button
-              text={<img src={info} alt="info" />}
-              type="icon"
-              onClick={() => navigate("/myprofile")}
-            />
-          </div>
-        }
       />
       <div className="events-container">
         {/* 동적으로 Coupon 컴포넌트를 렌더링 */}

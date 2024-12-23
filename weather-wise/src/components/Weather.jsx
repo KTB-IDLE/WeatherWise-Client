@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
 import KakaoMap from "./community/KakaoMap"; // KakaoMap 컴포넌트 불러오기
-import test from "../assets/test.jpeg";
-import sunny from "../assets/sunny.jpeg";
-import rain from "../assets/rain.jpg";
-import snow from "../assets/snow.png";
 import sunnyIcon from "../assets/sunnyIcon.png";
 import rainIcon from "../assets/rainIcon.png";
 import snowIcon from "../assets/snowIcon.png";
 import cloudyIcon from "../assets/cloudyIcon.png";
 import locationIcon from "../assets/location.png"; // 삼각형 아이콘
+import defaultWeatherIcon from "../assets/mainLogo_2.png"; 
 import "../components/Weather.css";
 import AxiosInstance from "../utils/AxiosInstance"; // AI 서버 전송용 Axios
 import { getCachedWeather, setCachedWeather } from "../utils/localStorageUtils"; // 캐싱 유틸리티 함수
@@ -146,7 +143,7 @@ const MainWeather = ({ onLocationdataUpdate }) => {
 
   const getBackgroundStyle = () => {
     if (!weatherData) {
-      return { background: "linear-gradient(to bottom, #ececec, #f5f5f5)" }; // 기본 배경
+      return { background: "linear-gradient(to bottom, #faf3e0, #f5e8d9)" }; // 기본 배경
     }
     if (weatherData.Is_Rained)
       return { background: "linear-gradient(to bottom, #a1c4fd, #c2e9fb)" }; // 비 (연한 블루 그라데이션)
@@ -159,7 +156,7 @@ const MainWeather = ({ onLocationdataUpdate }) => {
 
   // 날씨에 따른 아이콘 선택 함수
   const getWeatherIcon = () => {
-    if (!weatherData) return cloudyIcon; // 기본 아이콘
+    if (!weatherData) return defaultWeatherIcon; // 기본 아이콘
     if (weatherData.Is_Rained) return rainIcon;
     if (weatherData.Is_Snowed) return snowIcon;
     if (weatherData.Sky_Condition === "맑음") return sunnyIcon;

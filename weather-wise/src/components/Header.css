@@ -23,7 +23,7 @@
 .Header .header_center {
   /* 로고 가운데 배치 */
   width: 50%;
-  font-size: 25px;
+  font-size: 20px;
   justify-content: center;
   display: flex;
   align-items: center; /* 텍스트/이미지 가운데 정렬 */

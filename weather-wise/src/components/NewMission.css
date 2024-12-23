@@ -83,7 +83,7 @@
 .task-status.progress {
   background: linear-gradient(
     145deg,
-    #007aff,
+    #212932,
     #005ecb
   ); /* 진행중 상태 그라디언트 */
 }

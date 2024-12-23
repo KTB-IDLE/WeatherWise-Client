@@ -104,7 +104,7 @@ const Chatting = () => {
   // 3) STOMP connection
   useEffect(() => {
     stompClientRef.current = new Client({
-      brokerURL: "ws://localhost:8080/ws/chat",
+      brokerURL: import.meta.env.VITE_API_CHAT_URL,
       connectHeaders: {
         Authorization: `Bearer ${token}`,
       },
@@ -214,6 +214,7 @@ const Chatting = () => {
           />
         }
         title={`${chatRoomName || "채팅방"} (${participants}명)`} // 방 이름과 참여자 수를 함께 표시
+        disableTitleClick={true}
       />
       <div className="chat-window">
         <div className="messages">

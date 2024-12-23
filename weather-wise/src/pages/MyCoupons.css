@@ -1,0 +1,19 @@
+.no-coupons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px; /* Adjust height as needed */
+    background-color: #f9f9f9; /* Light gray background */
+    border: 1px solid #e0e0e0; /* Subtle border */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    margin: 20px auto; /* Center within parent container */
+    text-align: center;
+  }
+  
+  .no-coupons-text {
+    font-size: 18px; /* Text size */
+    font-weight: bold; /* Bold text */
+    color: #7a7a7a; /* Neutral gray text color */
+    line-height: 1.5; /* Spacing between lines */
+  }

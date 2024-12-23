@@ -17,12 +17,20 @@
   text-align: center; /* 텍스트를 중앙에 정렬 */
   color: #333333;
   padding: 10px;
+  margin-top: 20px;
 }
 
 .location {
   font-size: 60px; /* 위치 글씨 크기 */
   font-weight: 600;
   margin-bottom: 10px;
+}
+
+.weather-icon {
+  font-size: 50px;
+  margin-top: 15px;
+  margin-left: 5px;
+  animation: bounce 1.5s infinite;
 }
 
 .city {

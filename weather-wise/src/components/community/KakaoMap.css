@@ -69,9 +69,9 @@
    /* Weather.jsx용 메인 스타일 */
    .location-select-main .kakao-map {
     width: 377px; 
-    height: 600px; 
+    height: 550px; 
     position: fixed; 
-    top: 200px;
+    top: 192px;
     left: 50%;
     transform: translate(-50%);
   }
