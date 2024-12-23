@@ -87,7 +87,7 @@
 
 .message-time {
   font-size: 0.75rem;
-  color: white;
+  color: black;
   margin-top: 10px;
 }
 
@@ -150,4 +150,20 @@
   padding: 4px 8px; /* 내부 여백 축소 */
   font-size: 14px; /* 텍스트 크기 조정 */
   border-radius: 8px; /* 둥근 모서리 크기 조정 */
+}
+
+/* 다른 사람의 메시지 텍스트 스타일 */
+.message.other .message-text {
+  background-color: white; /* 흰색 배경 */
+  color: #000; /* 검은색 텍스트 */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+  padding-right: 15px;
+}
+
+/* 자신의 메시지 텍스트 스타일 */
+.message.own .message-text {
+  background-color: #0084ff; /* 파란색 배경 */
+  color: white; /* 흰색 텍스트 */
+  text-align: right; /* 텍스트 오른쪽 정렬 */
+  padding-left: 15px;
 }
