@@ -1,3 +1,4 @@
+// Summary.jsx
 import React from "react";
 import "./Summary.css";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +11,7 @@ const Summary = ({ aiMessage, locationData }) => {
   console.log("Summary - locationData:", locationData);
   console.log("aiMessage : ", aiMessage);
 
-  // 클릭 시 /missions 경로로 이동
+  // 클릭 시 /chat-list 경로로 이동
   const handleMissionClick = () => {
     navigate("/chat-list", {
       state: {
@@ -18,6 +19,20 @@ const Summary = ({ aiMessage, locationData }) => {
       },
     });
   };
+
+  // aiMessage가 비어있을 경우 처리
+  const renderAiMessage = () => {
+    if (!aiMessage) {
+      return <p className="summary-text">AI 메시지가 없습니다.</p>;
+    }
+    return aiMessage.split("\n").map((line, index) => (
+      <span key={index}>
+        {line}
+        <br />
+      </span>
+    ));
+  };
+
   return (
     <div className="summary-container">
       {/* AI 요약 날씨 카드 */}
@@ -26,20 +41,12 @@ const Summary = ({ aiMessage, locationData }) => {
           <img src={robot} alt="AI Icon" className="summary-icon-robot" />
           <div className="summary-content">
             <h3 className="main-card-title">AI 요약 날씨</h3>
-            <p className="summary-text">
-              {aiMessage.split("\n").map((line, index) => (
-                <span key={index}>
-                  {line}
-                  <br />
-                </span>
-              ))}
-            </p>
+            <p className="summary-text">{renderAiMessage()}</p>
           </div>
         </div>
       </div>
 
       {/* 오늘의 미션 카드 */}
-      {/* 오늘의 미션 카드 (클릭 시 /missions 이동) */}
       <div
         className="summary-card"
         onClick={handleMissionClick}

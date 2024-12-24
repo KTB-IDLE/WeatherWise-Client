@@ -1,3 +1,4 @@
+// Home.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
@@ -25,12 +26,18 @@ const Home = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [weatherData, setWeatherData] = useState(null);
   const [locationData, setLocationData] = useState(null);
-  const [size, setSize] = useState(0);
   const [aiMessage, setAiMessage] = useState("");
+
   // Weather 컴포넌트에서 날씨 데이터를 받아서 state에 저장
   const handleLocationDataUpdate = (loc) => {
     console.log("Home에서 받은 위치:", loc);
     setLocationData(loc);
+  };
+
+  // MainWeather 컴포넌트에서 aiMessage를 받아서 state에 저장하는 함수
+  const handleAiMessageUpdate = (message) => {
+    console.log("Home에서 받은 AI 메시지:", message);
+    setAiMessage(message);
   };
 
   useEffect(() => {
@@ -46,13 +53,9 @@ const Home = () => {
       if (cachedWeather) {
         console.log("캐싱된 데이터 사용:", cachedWeather);
 
-        if (cachedWeather.weatherResponse) {
-          setWeatherData(cachedWeather.weatherResponse);
-          setSize(cachedWeather.size || 0);
-          setAiMessage(cachedWeather.weatherResponse.AI_message || ""); // AI_message가 없는 경우 대비
-        } else {
-          console.error("캐싱된 weatherResponse가 존재하지 않습니다.");
-        }
+        // cachedWeather는 weatherResponse 자체임
+        setWeatherData(cachedWeather); // 직접 설정
+        setAiMessage(cachedWeather.AI_message || ""); // AI_message 설정
 
         setLoading(false);
         return;
@@ -85,6 +88,7 @@ const Home = () => {
     setIsModalOpen(false);
     navigate("/surveyex");
   };
+
   if (loading) {
     return <Loading />;
   }
@@ -108,10 +112,13 @@ const Home = () => {
         onClose={handleSurveyStart}
         message="설문조사를 시작할게요!"
       />
-
-      
-      <Weather onLocationdataUpdate={handleLocationDataUpdate} />
-      <Summary size={size} aiMessage={aiMessage} locationData={locationData} />
+      {/* MainWeather 컴포넌트에 aiMessage 업데이트 콜백 전달 */}
+      <Weather
+        onLocationdataUpdate={handleLocationDataUpdate}
+        onAiMessageUpdate={handleAiMessageUpdate}
+      />
+      {/* Summary 컴포넌트에 aiMessage 전달 */}
+      <Summary aiMessage={aiMessage} locationData={locationData} />
       <ChatbotButton /> {/* 챗봇 버튼 추가 */}
       <Footer />
     </div>
