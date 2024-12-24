@@ -14,7 +14,7 @@ import { getCachedWeather, setCachedWeather } from "../utils/localStorageUtils";
 const roundToFiveDecimals = (num) => {
   return parseFloat(num.toFixed(4));
 };
-const MainWeather = ({ onLocationdataUpdate }) => {
+const MainWeather = ({ onLocationdataUpdate , onAiMessageUpdate }) => {
   const [location, setLocation] = useState({
     name: "서울특별시 강남구 대치동", // 기본 위치
     latitude: 37.49992,
@@ -39,6 +39,10 @@ const MainWeather = ({ onLocationdataUpdate }) => {
     if (cachedWeather) {
       console.log("캐싱된 데이터 사용:", cachedWeather);
       setWeatherData(cachedWeather);
+            // aiMessage를 업데이트하는 콜백 호출
+      if (onAiMessageUpdate && cachedWeather.AI_message) {
+        onAiMessageUpdate(cachedWeather.AI_message);
+      }
       setLoading(false);
       return;
     }
@@ -60,6 +64,11 @@ const MainWeather = ({ onLocationdataUpdate }) => {
 
       if (onLocationdataUpdate) {
         onLocationdataUpdate(newLocation);
+      }
+
+            // aiMessage를 업데이트하는 콜백 호출
+      if (onAiMessageUpdate && data.AI_message) {
+        onAiMessageUpdate(data.AI_message);
       }
 
       setCachedWeather(key, data); // 캐싱 저장
@@ -152,7 +161,7 @@ const MainWeather = ({ onLocationdataUpdate }) => {
     if (weatherData.Sky_Condition === "맑음")
       return { background: "linear-gradient(to bottom, #fff9c4, #ffe29f)" }; // 맑음 (연한 옐로우-오렌지 그라데이션)
     return { background: "linear-gradient(to bottom, #ececec, #f5f5f5)" }; // 흐림 (연한 그레이-화이트 그라데이션)
-  };
+  };ㅋ
 
   // 날씨에 따른 아이콘 선택 함수
   const getWeatherIcon = () => {
