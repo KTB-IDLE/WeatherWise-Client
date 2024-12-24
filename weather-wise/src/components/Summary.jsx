@@ -8,6 +8,7 @@ import exp from "../assets/exp.png";
 const Summary = ({ aiMessage, locationData }) => {
   const navigate = useNavigate();
   console.log("Summary - locationData:", locationData);
+  console.log("aiMessage : ", aiMessage);
 
   // 클릭 시 /missions 경로로 이동
   const handleMissionClick = () => {
@@ -25,7 +26,14 @@ const Summary = ({ aiMessage, locationData }) => {
           <img src={robot} alt="AI Icon" className="summary-icon-robot" />
           <div className="summary-content">
             <h3 className="main-card-title">AI 요약 날씨</h3>
-            <p className="summary-text">{aiMessage}</p>
+            <p className="summary-text">
+              {aiMessage.split("\n").map((line, index) => (
+                <span key={index}>
+                  {line}
+                  <br />
+                </span>
+              ))}
+            </p>
           </div>
         </div>
       </div>
