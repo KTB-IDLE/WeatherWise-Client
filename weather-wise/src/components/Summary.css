@@ -8,7 +8,7 @@
 
 .summary-card {
   display: flex;
-  align-items: center;
+  align-items: flex-start; /* 아이콘과 텍스트 상단 정렬 */
   background-color: white;
   border-radius: 15px;
   padding: 20px; /* 패딩 수정 */
@@ -18,7 +18,7 @@
 .ai-summary,
 .mission-summary {
   display: flex;
-  align-items: center;
+  align-items: flex-start; /* 텍스트가 아이콘에 맞게 상단 정렬 */
   width: 100%; /* 카드 전체를 차지하도록 설정 */
 }
 
@@ -27,25 +27,33 @@
   width: 50px;
   height: 50px;
   margin-right: 15px;
+  flex-shrink: 0; /* 아이콘 크기 고정 */
 }
 
 .summary-content {
   flex: 1;
   display: flex;
   flex-direction: column;
+  gap: 10px; /* 텍스트 간 간격 */
 }
 
 .summary-content h3 {
-  font-size: 18px;
-  margin: 0;
+  font-size: 20px; /* 제목 크기 조정 */
+  margin: 0 0 10px 0; /* 아래 여백 추가 */
   color: black;
   font-weight: 800;
 }
 
 .summary-content p {
-  font-size: 14px;
-  margin: 8px 0 0 0; /* 위쪽 여백만 설정 */
-  color: #555;
+  font-size: 16px; /* 텍스트 크기 조정 */
+  color: #555; /* 텍스트 색상 */
+  line-height: 1.6; /* 줄 간격 조정 */
+  margin: 0; /* 기본 여백 제거 */
+}
+
+.summary-text span {
+  display: block;
+  margin-bottom: 5px; /* 줄바꿈 간 간격 조정 */
 }
 
 .mission-summary .mission-reward {
