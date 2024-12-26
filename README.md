@@ -32,8 +32,8 @@ WeatherWise-Client
   - 카카오맵 API를 활용한 위치 변경 기능 제공.
 <img width="1512" alt="스크린샷 2024-12-26 오후 11 43 24" src="https://github.com/user-attachments/assets/10ef6fe8-6769-4802-8d04-06ea0840bb5f" />
 <img width="1512" alt="스크린샷 2024-12-26 오후 11 44 35" src="https://github.com/user-attachments/assets/c4561e3e-7e13-4a5b-8b4e-7f7f57bc96e7" />
-
 <img width="1512" alt="스크린샷 2024-12-26 오후 11 50 12" src="https://github.com/user-attachments/assets/f98218a9-8cad-4882-9b32-392be5ad92aa" />
+
 ### 4. 기상특보 채팅방
 - **특징**:
   - 현재 위치에 내려진 기상특보에 따라 채팅방 자동 생성.
