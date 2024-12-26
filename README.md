@@ -22,4 +22,6 @@ WeatherWise-Client
 <img width="1512" alt="스크린샷 2024-12-26 오후 11 50 20" src="https://github.com/user-attachments/assets/8fd97fc6-a421-4cd1-b4a5-450ea509e1e6" />
 <img width="1512" alt="스크린샷 2024-12-26 오후 11 50 34" src="https://github.com/user-attachments/assets/9ebbd64a-25db-43aa-a9cf-207f899ccaf6" />
 <img width="1512" alt="스크린샷 2024-12-26 오후 11 50 49" src="https://github.com/user-attachments/assets/30252e61-c6a0-4870-b68f-69826b1a4bfb" />
+<img width="1352" alt="스크린샷 2024-12-26 오후 11 58 00" src="https://github.com/user-attachments/assets/0b6ae3a6-2153-493b-9d1c-e5a77effe7b0" />
+
 ](url)
