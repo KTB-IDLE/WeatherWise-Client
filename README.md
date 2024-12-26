@@ -2,8 +2,6 @@
 WeatherWise-Client
 [
 <img width="1512" alt="스크린샷 2024-12-26 오후 11 42 21" src="https://github.com/user-attachments/assets/cad4c574-1216-42b9-beb3-48cbc28a97e7" />
-<img width="1512" alt="스크린샷 2024-12-26 오후 11 42 41" src="https://github.com/user-attachments/assets/6a7c2d4a-3d70-4c29-8431-99d4f14d754e" />
-<img width="1512" alt="스크린샷 2024-12-26 오후 11 42 46" src="https://github.com/user-attachments/assets/a917bc17-0aa6-4135-88df-9dc93789fd67" />
 <img width="1512" alt="스크린샷 2024-12-26 오후 11 42 53" src="https://github.com/user-attachments/assets/74c222df-4d43-4494-9772-5d65185ffbdf" />
 <img width="1512" alt="스크린샷 2024-12-26 오후 11 42 56" src="https://github.com/user-attachments/assets/9da023e3-0835-471e-912d-ac2ef1e10107" />
 <img width="1512" alt="스크린샷 2024-12-26 오후 11 43 00" src="https://github.com/user-attachments/assets/0b207728-22e1-4cd5-9417-3fba5d7de218" />
